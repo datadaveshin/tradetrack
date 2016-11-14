@@ -1,0 +1,16 @@
+{
+  "name": "tradetrack",
+  "version": "1.0.0",
+  "description": "A stock market portfolio dashboard/manager with performance analytics: An equity tracker that will provide quick view dashboard of the current market conditions along with current portfolio holdings.",
+  "main": "app.js",
+  "scripts": {
+    "knex": "knex",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Rob Conner and David Shin",
+  "license": "ISC",
+  "dependencies": {
+    "knex": "^0.12.6",
+    "pg": "^6.1.0"
+  }
+}
