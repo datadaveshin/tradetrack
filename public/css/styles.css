@@ -1,0 +1,106 @@
+/* =============================================================================
+Site */
+
+#sitename {
+  border-top: solid 3px;
+  border-bottom: solid 3px;
+  border-color: #90A4AE;
+  height: 50px;
+  line-height: 50px;
+  white-space: nowrap;
+}
+
+/* =============================================================================
+Typography */
+
+h3 {
+  color: #795548; /* brown */
+  text-transform: uppercase;
+  text-shadow: 2px 2px 1px #DDD;
+}
+
+h4 {
+  color: #455A64;
+  font-weight: 800;
+  margin: 6px 0;
+  letter-spacing: .1em;
+}
+
+h5, li, p {
+  color: #607d8b; /* blue-grey */
+}
+
+li.li-position {
+    font-size: 1.64rem;
+    line-height: 110%;
+    margin: 0.82rem 0 0.656rem 0;
+}
+
+ul {
+  margin-left: 20px;
+}
+
+.code {
+  font-family: monospace;
+  color: #b71c1c; /* darkish red */
+}
+
+.done {
+  text-decoration: line-through;
+}
+
+/* =============================================================================
+Images */
+
+img:first-of-type {
+  margin-top: 40px;
+}
+
+img.logo {
+  max-height: 150px;
+  max-width: 300px;
+  margin-bottom: 20px;
+}
+
+img.photo {
+  max-height: 350px;
+  max-width: 350px;
+  border: black solid 1px;
+}
+
+img.show-stock {
+  max-height: 100px;
+  max-width: 100px;
+  border: black solid 1px;
+}
+
+/* =============================================================================
+Navigation, links */
+
+.nav a {
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 0 15px;
+  text-transform: uppercase;
+}
+
+a:link {
+  color: #b71c1c;
+}
+
+a:visited {
+  color: maroon;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: #b71c1c;
+}
+
+.nav {
+  background-color: #90A4AE;
+  height: 50px;
+  line-height: 50px;
+  white-space: nowrap;
+}
