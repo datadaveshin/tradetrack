@@ -12,6 +12,8 @@ const { camelizeKeys, decamelizeKeys } = require('humps');
 // eslint-disable-next-line new-cap
 const router = express.Router();
 
+// =============================================================================
+// get all open positions
 
 
 

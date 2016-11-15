@@ -12,7 +12,7 @@ const { camelizeKeys, decamelizeKeys } = require('humps');
 const router = express.Router();
 
 // =============================================================================
-// show input form for new user 
+// show input form for new user
 router.get('/new', function(req, res) {
   res.render('signup');
 });
@@ -30,12 +30,13 @@ router.post('/', (req, res) => {
       let newUser = {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
+        userName: req.body.userName,
         email: req.body.email,
         hashedPassword: hashed
       };
 
       return knex('users')
-        .insert(decamelizeKeys(newUser), ['id', 'first_name', 'last_name', 'email']);
+        .insert(decamelizeKeys(newUser), ['id', 'first_name', 'last_name', 'user_name', 'email']);
     })
     .then((row) => {
       const user = camelizeKeys(row[0]);
@@ -45,8 +46,12 @@ router.post('/', (req, res) => {
       delete user.hashedPassword;
 
       console.log('RESPONDING WITH: ', user);
-
-      res.json(user);
+      res.render('added', {firstName: user.firstName,
+                            lastName: user.lastName,
+                            userName: user.userName,
+                               email: user.email
+                          });
+      //res.json(user);
     }).catch(err => {
       console.log('POST ERROR: ', err);
       res.status(400).send(err);

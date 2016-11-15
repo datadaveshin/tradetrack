@@ -21,6 +21,8 @@ const token = require('./routes/token.js');
 const index = require('./routes/index.js');
 const transactions = require('./routes/transactions.js');
 
+app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use(express.static(__dirname + '/public'));
 app.use('/users', users);
 app.use('/token', token);
