@@ -47,33 +47,35 @@
       <!-- TC2000 Chart END -->
 
       <!-- Open Position Table BEGIN -->
-      <table>
-        <thead>
-          <tr>
-            <th data-field="ticker">Symbol</th>
-            <th data-field="name">Company</th>
-            <th data-field="lastTradePriceOnly">Price</th>
-            <th data-field="change">$Change</th>
-            <th data-field="changeInPercent">%Change</th>
-            <th data-field="dividendYield">div yeild</th>
-            <th data-field="peRatio">PE Ratio</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <% openPositions.forEach(function(position){ %>
+      <div class="container">
+        <table>
+          <thead>
             <tr>
-              <td id="id_ticker"><%=position.ticker%></td>
-              <td id="id_name"><%=position.name%></td>
-              <td id="id_lastTradePriceOnly"><%=position.lastTradePriceOnly%></td>
-              <td id="id_change"><%=position.change%></td>
-              <td id="id_changeInPercent"><%=position.changeInPercent%></td>
-              <td id="id_dividendYield"><%=position.dividendYield%></td>
-              <td id="id_peRatio"><%=position.peRatio%></td>
+              <th data-field="ticker">Symbol</th>
+              <th data-field="name">Company</th>
+              <th data-field="lastTradePriceOnly">Price</th>
+              <th data-field="change">$Change</th>
+              <th data-field="changeInPercent">%Change</th>
+              <th data-field="dividendYield">Div Yeild</th>
+              <th data-field="peRatio">P/E Ratio</th>
             </tr>
-          <% }) %>
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody>
+            <% openPositions.forEach(function(position){ %>
+              <tr>
+                <td class="class_ticker"><%=position.ticker%></td>
+                <td class="class_name"><%=position.name%></td>
+                <td class="class_lastTradePriceOnly"><%=position.lastTradePriceOnly%></td>
+                <td class="class_change"><%=position.change%></td>
+                <td class="class_changeInPercent"><%=position.changeInPercent%></td>
+                <td class="class_dividendYield"><%=position.dividendYield%></td>
+                <td class="class_peRatio"><%=position.peRatio%></td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
       <!-- Open Position Table BEGIN -->
   </main>
 
@@ -82,5 +84,11 @@
       <small>© 2016 RD Devs. All Rights Reserved</small>
     </div>
   </footer>
+
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="../js/materialize.js"></script>
+  <script type="text/javascript" src="../js/showall.js"></script>
+  <script type="text/javascript" src="/js/showall.js"></script>
+
   </body>
 </html>

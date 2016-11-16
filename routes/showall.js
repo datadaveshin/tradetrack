@@ -42,8 +42,6 @@ let openArr = [
 ]
 
 /**
-Constants
-
 FIELD codes
 n: name
 l1: lastTradePriceOnly
@@ -57,9 +55,8 @@ let openPositions = [];
 let symbols = [];
 console.log('HEYQQQQ@QQQQQQQQQ');
 
-/**
-* Constructor
-*/
+// =============================================================================
+// Define Position class
 var Position = function(ticker, buyPrice, buyDate, numShares) {
   this.ticker = ticker,
   this.buyPrice = buyPrice,
@@ -67,12 +64,16 @@ var Position = function(ticker, buyPrice, buyDate, numShares) {
   this.numShares = numShares
 }
 
+// =============================================================================
+// Build symbol (to get quotes) and open position arrays
 _.each(openArr, function(stock) {
     let newPos = new Position(stock.ticker, stock.buyPrice, stock.buyDate, stock.numShares)
     openPositions.push(newPos);
     symbols.push(newPos.ticker);
 })
 
+// =============================================================================
+// Get realtime quotes
 yahooFinance.snapshot({
   fields: FIELDS,
   symbols: symbols

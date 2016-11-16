@@ -15,6 +15,6 @@ CSS for TC2000 charts for resizing*/
 
 /* =============================================================================
 CSS for Open Position Table */
-#id_changeInPercent {
-  color: green;
+.container {
+  width: 95%
 }
