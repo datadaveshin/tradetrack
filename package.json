@@ -23,7 +23,8 @@
     "humps": "^2.0.0",
     "knex": "^0.12.6",
     "morgan": "^1.7.0",
-    "pg": "^6.1.0"
+    "pg": "^6.1.0",
+    "yahoo-finance": "^0.2.14"
   },
   "bugs": {
     "url": "https://github.com/bigrobsf/tradetrack/issues"

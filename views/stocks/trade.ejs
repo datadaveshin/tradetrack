@@ -6,7 +6,7 @@
   <link type='text/css' rel='stylesheet' href='../css/materialize.css'  media='screen,projection'/>
   <link rel='stylesheet' href='../css/style.css'>
   <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
-  <title>TradeTrack Signup</title>
+  <title>Enter Trade</title>
 </head>
 <body>
   <div class='row'>
@@ -24,49 +24,55 @@
   <main class='container'>
     <div class='row'>
       <div class='col s12 m12'>
-        <h3>Sign up</h3>
+        <h3>Enter new transaction</h3>
 
-        <form action='/users' method='POST'
-          oninput="password2.setCustomValidity(password2.value != password1.value ? 'Passwords do not match.' : '')">
+        <form action='/transactions' method='POST'>
           <div class='row'>
             <div class='input-field'>
-              <label for='firstName'>First Name: </label>
-              <input type='text' required name='firstName' id='firstName' class='validate'>
+              <label for='ticker'>Ticker: </label>
+              <input type='text' required name='ticker' id='ticker'>
             </div>
           </div>
 
           <div class='row'>
             <div class='input-field'>
-              <label for='lastName'>Last Name: </label>
-              <input type='text' required name='lastName' id='lastName' class='validate'>
+              <label for='tradeDate'> </label>
+              <input type='date' required name='tradeDate' id='tradeDate'>
             </div>
           </div>
 
           <div class='row'>
             <div class='input-field'>
-              <label for='userName'>User Name: </label>
-              <input type='text' required name='userName' id='userName' class='validate'>
+              <label for='numShares'># Shares: </label>
+              <input type='number' required name='numShares' id='numShares'>
             </div>
           </div>
 
           <div class='row'>
             <div class='input-field'>
-              <label for='email'>Email: </label>
-              <input type='email' required name='email' id='email' class='validate'>
+              <label for='sharePrice'>$ per Share: </label>
+              <input type='number' required min='0' step='0.0001' name='sharePrice' id='sharePrice'>
             </div>
           </div>
 
           <div class='row'>
             <div class='input-field'>
-              <label for='password1'>Password: </label>
-              <input type='password1' required name='password1' id='password1' class='validate'>
+              <label for='commission'>Commission: </label>
+              <input type='number' required min='0' step='0.01' name='commission' id='commission'>
             </div>
           </div>
 
           <div class='row'>
             <div class='input-field'>
-              <label for='password2'>Password Confirm: </label>
-              <input type='password2' required name='password2' id='password2' class='validate'>
+              <label for='fees'>Fees: </label>
+              <input type='number' required min='0' step='0.01' name='fees' id='fees'>
+            </div>
+          </div>
+
+          <div class='row'>
+            <div class='input-field'>
+              <label for='direction'>Long or Short: </label>
+              <input type='text' required name='direction' id='direction'>
             </div>
           </div>
 

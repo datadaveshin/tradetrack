@@ -2,10 +2,10 @@
 exports.up = function(knex, Promise) {
   return knex.schema.createTable('stocks', function (table) {
     table.increments();
-    table.integer('company_id').notNullable().references('id').inTable('companies').onDelete('CASCADE');
     table.string('ticker').notNullable();
+    table.string('company_name').defaultTo('');
     table.string('cusip').defaultTo('').notNullable();
-    table.decimal('last_close_price');
+    table.decimal('last_close_price').defaultTo(0);
     table.timestamps(true, true);
   });
 };

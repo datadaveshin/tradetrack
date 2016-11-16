@@ -21,10 +21,14 @@ router.get('/login', function(req, res) {
 // =============================================================================
 // GET with or without token
 router.get('/', (req, res, next) => {
-  if (req.cookies['/token'] === 'cookie.monster.rawr') {
-    res.status(200).json(true);
+  if (req.cookies) {
+    if (req.cookies['/token'].length > 1) {
+      res.status(200).json(true);
+    } else {
+      res.status(200).json(false);
+    }
   } else {
-    res.status(200).json(false);
+    return next(boom.create(400, 'req.cookies is undefined'));
   }
 });
 
@@ -59,9 +63,8 @@ router.post('/', (req, res, next) => {
       delete user.createdAt;
       delete user.updatedAt;
 
-      res.cookie('/token', 'cookie.monster.rawr', { path: '/', httpOnly: true });
-
-      res.json(user);
+      res.cookie('/token', '1.cookie.monster.rawr', { path: '/', httpOnly: true });
+      res.render('index', { userName: user.userName });
     })
     .catch(bcrypt.MISMATCH_ERROR, () => {
       throw boom.create(400, 'Bad email or password');
