@@ -1,29 +1,97 @@
+// require
+var _ = require('lodash');
+
 /**
 * Call for resizing TC2000 charts
 */
 $(function () {
-  setIFrameSize();
-  $(window).resize(function () {
     setIFrameSize();
-  });
+    $(window).resize(function () {
+        setIFrameSize();
+    });
 });
 
 /**
 Resizes the iframe for TC2000 charts
 */
 function setIFrameSize() {
-  var ogWidth = 700;
-  var ogHeight = 600;
-  var ogRatio = ogWidth / ogHeight;
+    var ogWidth = 700;
+    var ogHeight = 600;
+    var ogRatio = ogWidth / ogHeight;
 
-  var windowWidth = $(window).width();
-  if (windowWidth < 480) {
-    var parentDivWidth = $(".iframe-class").parent().width();
-    var newHeight = (parentDivWidth / ogRatio);
-    $(".iframe-class").addClass("iframe-class-resize");
-    $(".iframe-class-resize").css("width", parentDivWidth);
-    $(".iframe-class-resize").css("height", newHeight);
-  } else {
-    $(".iframe-class").removeClass("iframe-class-resize");
-  }
+    var windowWidth = $(window).width();
+    if (windowWidth < 480) {
+        var parentDivWidth = $(".iframe-class").parent().width();
+        var newHeight = (parentDivWidth / ogRatio);
+        $(".iframe-class").addClass("iframe-class-resize");
+        $(".iframe-class-resize").css("width", parentDivWidth);
+        $(".iframe-class-resize").css("height", newHeight);
+    } else {
+        $(".iframe-class").removeClass("iframe-class-resize");
+    }
+}
+
+
+/**
+* Data for testing
+*/
+let openArr = [
+  {ticker: "AAPL",
+  buyPrice: 10,
+  buyDate: 'Sep 23 2014',
+  numShares, 200},
+
+  {ticker: "GS",
+  buyPrice: 14,
+  buyDate: 'Oct 2 2012',
+  numShares, 200},
+
+  {ticker: "JPM",
+  buyPrice: 10,
+  buyDate: 'May 3 2014',
+  numShares, 200},
+
+  {ticker: "AMZN",
+  buyPrice: 10,
+  buyDate: 'Jun 16 2014',
+  numShares, 200}
+]
+
+/**
+* Constants
+*/
+let openPositions = [];
+let symbols = [];
+let FIELDS =
+
+/**
+* Constructor
+*/
+var Position = function(ticker, buyPrice, buyDate, numShares) {
+  this.ticker = ticker,
+  this.buyPrice = buyPrice,
+  this.buyDate = buyDate,
+  this.numShares = numShares
+}
+
+_.each(openArr, function(stock) {
+    let newPos = new Position(stock.ticker, stock.buyPrice, stock.buyDate, stock.numShares)
+    openPositions.push(newPos);
+    symbols.push(newPos.ticker);
+})
+
+yahooFinance.snapshot({
+  fields: FIELDS,
+  symbols: SYMBOLS
+}).then(function (result) {
+  _.each(result, function (snapshot, symbol) {
+    // console.log(util.format('=== %s ===', symbol).cyan);
+    console.log("\n#########################\n");
+    console.log(JSON.stringify(snapshot, null, 2));
+  });
+});
+
+
+for (let i = 0; i < openTickers.length; i++) {
+  let newPosition = new Position(openTickers[i.])
 }
