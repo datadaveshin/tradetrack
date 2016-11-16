@@ -96,6 +96,6 @@ yahooFinance.snapshot({
 // =============================================================================
 // show showall page
 router.get('/', function(req, res) {
-  res.render('showall');
+  res.render('showall', {openPositions: openPositions});
 });
 module.exports = router;
