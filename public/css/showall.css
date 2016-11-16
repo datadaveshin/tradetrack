@@ -1,6 +1,6 @@
 
 /* =============================================================================
-BEGIN CSS for TC2000 charts for resizing*/
+CSS for TC2000 charts for resizing*/
 .TC2000-container {
   width: 100%;
   height: 310px;
@@ -11,4 +11,10 @@ BEGIN CSS for TC2000 charts for resizing*/
   height: 300px;
   /*border: 1px solid red;*/
   overflow: auto;
+}
+
+/* =============================================================================
+CSS for Open Position Table */
+#id_changeInPercent {
+  color: green;
 }

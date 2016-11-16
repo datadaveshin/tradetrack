@@ -52,16 +52,24 @@
           <tr>
             <th data-field="ticker">Symbol</th>
             <th data-field="name">Company</th>
-            <th data-field="price">Price</th>
+            <th data-field="lastTradePriceOnly">Price</th>
+            <th data-field="change">$Change</th>
+            <th data-field="changeInPercent">%Change</th>
+            <th data-field="dividendYield">div yeild</th>
+            <th data-field="peRatio">PE Ratio</th>
           </tr>
         </thead>
 
         <tbody>
           <% openPositions.forEach(function(position){ %>
             <tr>
-              <td data-field="ticker"><%=position.ticker%></td>
-              <td data-field="name"><%=position.name%></td>
-              <td data-field="lastTradePrice"><%=position.lastTradePriceOnly%></td>
+              <td id="id_ticker"><%=position.ticker%></td>
+              <td id="id_name"><%=position.name%></td>
+              <td id="id_lastTradePriceOnly"><%=position.lastTradePriceOnly%></td>
+              <td id="id_change"><%=position.change%></td>
+              <td id="id_changeInPercent"><%=position.changeInPercent%></td>
+              <td id="id_dividendYield"><%=position.dividendYield%></td>
+              <td id="id_peRatio"><%=position.peRatio%></td>
             </tr>
           <% }) %>
         </tbody>
