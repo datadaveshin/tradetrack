@@ -53,6 +53,7 @@ r: peRatio
 let FIELDS = ['n', 'l1', 'c1', 'p2', 'y', 'r']
 let openPositions = [];
 let symbols = [];
+let quoteGSCP = "";
 console.log('HEYQQQQ@QQQQQQQQQ');
 
 // =============================================================================
@@ -60,7 +61,7 @@ console.log('HEYQQQQ@QQQQQQQQQ');
 var Position = function(ticker, buyPrice, buyDate, numShares) {
   this.ticker = ticker,
   this.buyPrice = buyPrice,
-  this.buyDate = buyDate,
+  this.buyDate = new Date(buyDate),
   this.numShares = numShares
 }
 
@@ -80,23 +81,84 @@ yahooFinance.snapshot({
 }).then(function (result) {
   _.each(result, function (snapshot, symbolIndex) {
     // console.log(util.format('=== %s ===', symbol).cyan);
-    console.log("\nStock#########################\n");
-    console.log(JSON.stringify(snapshot, null, 2));
-    openPositions[symbolIndex].name = snapshot.name;
-    openPositions[symbolIndex].lastTradePriceOnly = snapshot.lastTradePriceOnly;
-    openPositions[symbolIndex].change = snapshot.change;
-    openPositions[symbolIndex].changeInPercent = snapshot.changeInPercent * 100;
-    openPositions[symbolIndex].dividendYield = snapshot.dividendYield;
-    openPositions[symbolIndex].peRatio = snapshot.peRatio;
+    // console.log("\nStock#########################\n");
+    // console.log(JSON.stringify(snapshot, null, 2));
+    let currPos = openPositions[symbolIndex];
+    currPos.name = snapshot.name;
+    currPos.lastTradePriceOnly = snapshot.lastTradePriceOnly;
+    currPos.change = snapshot.change;
+    currPos.changeInPercent = snapshot.changeInPercent * 100;
+    currPos.totalChange = (Number(snapshot.lastTradePriceOnly) - Number(currPos.buyPrice));
+    currPos.totalChangeInPercent = snapshot.changeInPercent * 100;
+    currPos.totalChangeInPercent = (currPos.totalChange/(Number(snapshot.lastTradePriceOnly)) * 100).toFixed(2);
+    currPos.dividendYield = snapshot.dividendYield;
+    currPos.peRatio = snapshot.peRatio;
 
-    console.log("openPositions.name, snapshot.name", openPositions[symbolIndex].name, snapshot.name);
-    console.log("openPositions: ", openPositions)
+    // console.log("openPositions: ", openPositions)
+    // console.log("openPositions.name, snapshot.name", openPositions[symbolIndex].name, snapshot.name);
   });
 });
+
+var testDate = new Date('2016-11-16 11:52:06.230958-08')
+console.log("testDate", testDate)
+var testDate2 = new Date('2014-03-17 05:26:16-07')
+console.log("testDate2", testDate2)
+
+function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [year, month, day].join('-');
+}
+
+console.log("testDate2 formatted", formatDate(testDate2));
+
+// =============================================================================
+// Get historical quote for ^GSPC
+_.each(openPositions, function(position) {
+  console.log("pos sym", position.ticker)
+  yahooFinance.historical({
+    symbol: "^GSPC",
+    from: '2015-01-01',
+    to: '2015-01-03',
+    period: 'd'
+  }).then(function (quotes) {
+    // console.log("\n#$$$$$$$$ DIVIDER #######\n");
+    // console.log(quotes)
+    // console.log("\n#$$$$$$$$ DIVIDER #######\n");
+
+    // position.ticker2 = position.ticker;
+    // position.origBuyPrice = position.close;
+    // console.log("openPositions: ", openPositions)
+  });
+})
+
+yahooFinance.historical({
+  symbol: "^GSPC",
+  from: '2015-01-01',
+  to: '2015-01-03',
+  period: 'd'
+}).then(function (quote) {
+  // console.log("\n#$$$$$$$$ DIVIDER #######\n");
+  // console.log(quotes)
+  // console.log("\n#$$$$$$$$ DIVIDER #######\n");
+  // console.log("yayay", quote)
+  quoteGSCP = quote
+  // position.ticker2 = position.ticker;
+  // position.origBuyPrice = position.close;
+  // console.log("openPositions: ", openPositions)
+});
+
 
 // =============================================================================
 // show showall page
 router.get('/', function(req, res) {
-  res.render('showall', {openPositions: openPositions});
+  console.log('last to go', openPositions, quoteGSCP)
+  res.render('showall', {openPositions: openPositions, quoteGSCP: quoteGSCP});
 });
 module.exports = router;

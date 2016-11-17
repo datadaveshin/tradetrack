@@ -56,27 +56,37 @@
               <th data-field="lastTradePriceOnly">Price</th>
               <th data-field="change">$Change</th>
               <th data-field="changeInPercent">%Change</th>
+              <th data-field="totalChange">$G/L</th>
+              <th data-field="totalChangeInPercent">%G/L</th>
               <th data-field="dividendYield">Div Yeild</th>
               <th data-field="peRatio">P/E Ratio</th>
             </tr>
           </thead>
 
           <tbody>
-            <% openPositions.forEach(function(position){ %>
+            <% openPositions.forEach(function(pos){ %>
               <tr>
-                <td class="class_ticker"><%=position.ticker%></td>
-                <td class="class_name"><%=position.name%></td>
-                <td class="class_lastTradePriceOnly"><%=position.lastTradePriceOnly%></td>
-                <td class="class_change"><%=position.change%></td>
-                <td class="class_changeInPercent"><%=position.changeInPercent%></td>
-                <td class="class_dividendYield"><%=position.dividendYield%></td>
-                <td class="class_peRatio"><%=position.peRatio%></td>
+                <td class="class_ticker"><%=pos.ticker%></td>
+                <td class="class_name"><%=pos.name%></td>
+                <td class="class_lastTradePriceOnly"><%=pos.lastTradePriceOnly%></td>
+                <td class="class_change"><%=pos.change%></td>
+                <td class="class_changeInPercent"><%=pos.changeInPercent%></td>
+                <td class="class_totalChange"><%=pos.totalChange%></td>
+                <td class="class_totalChangeInPercent"><%=pos.totalChangeInPercent%></td>
+                <td class="class_dividendYield"><%=pos.dividendYield%></td>
+                <td class="class_peRatio"><%=pos.peRatio%></td>
               </tr>
             <% }) %>
           </tbody>
         </table>
       </div>
       <!-- Open Position Table BEGIN -->
+
+      <!-- Test passing SP 500 quote -->
+      <p>SP 500 =</p>
+      <%=quoteGSCP[0]['open'] %>
+      <!-- End passing SP 500 quote -->
+
   </main>
 
   <footer class="page-footer green">
