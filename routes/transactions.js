@@ -16,19 +16,25 @@ const yahooFinance = require('yahoo-finance');
 // =============================================================================
 // show input form for new transaction
 router.get('/new', function(req, res) {
-  res.render('trade');
+  console.log('COOKIE: ', req.cookies);
+  if (req.cookies['/token']) {
+    res.render('trade');
+  } else {
+    res.redirect('login');
+  }
+
 });
 
 // =============================================================================
 // POST new transaction
 router.post('/', (req, res, next) => {
-  console.log('COOKIE: ', req.cookies);
-  //let userId = req.cookies['/token']
+  let userId = Number(req.cookies['/token'].split('.')[0]);
+
   let numShares = Number(req.body.numShares);
   let ticker = req.body.ticker.toUpperCase();
 
   let newTrade = {
-    userId: 1,
+    userId: userId,
     ticker: ticker,
     tradeDate: req.body.tradeDate,
     numShares: numShares,

@@ -1,5 +1,5 @@
 /* =============================================================================
-Site */
+Site
 
 #sitename {
   border-top: solid 3px;
@@ -11,10 +11,10 @@ Site */
 }
 
 /* =============================================================================
-Typography */
+Typography
 
 h3 {
-  color: #795548; /* brown */
+  color: #795548; /* brown
   text-transform: uppercase;
   text-shadow: 2px 2px 1px #DDD;
 }
@@ -27,7 +27,7 @@ h4 {
 }
 
 h5, li, p {
-  color: #607d8b; /* blue-grey */
+  color: #607d8b; /* blue-grey
 }
 
 li.li-position {
@@ -42,7 +42,7 @@ ul {
 
 .code {
   font-family: monospace;
-  color: #b71c1c; /* darkish red */
+  color: #b71c1c; /* darkish red
 }
 
 .done {
@@ -50,7 +50,7 @@ ul {
 }
 
 /* =============================================================================
-Images */
+Images *
 
 img:first-of-type {
   margin-top: 40px;
@@ -75,32 +75,17 @@ img.show-stock {
 }
 
 /* =============================================================================
-Navigation, links */
+Navigation, footer */
 
-.nav a {
-  text-decoration: none;
-  font-size: 18px;
-  font-weight: bold;
-  padding: 0 15px;
-  text-transform: uppercase;
+nav {
+  color: #fff;
+  background-color: #37474f; /* blue-grey darken-3 */
 }
 
-a:link {
-  color: #b71c1c;
+footer.page-footer {
+  background-color: #90a4ae; /* blue-grey lighten-2 */
 }
 
-a:visited {
-  color: maroon;
-}
-
-a:hover {
-  text-decoration: underline;
-  color: #b71c1c;
-}
-
-.nav {
-  background-color: #90A4AE;
-  height: 50px;
-  line-height: 50px;
-  white-space: nowrap;
+footer.page-footer .footer-copyright {
+  background-color: #37474f; /* blue-grey darken-3 */ 
 }

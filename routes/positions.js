@@ -10,6 +10,7 @@ const bcrypt = require('bcrypt-as-promised');
 var knex = require('../db/knex');
 var yahooFinance = require('yahoo-finance');
 var _ = require('lodash');
+var Trx = require('../models/trx.js').Trx;
 const { camelizeKeys, decamelizeKeys } = require('humps');
 // eslint-disable-next-line new-cap
 const router = express.Router();
@@ -47,11 +48,17 @@ var Position = function(userName, ticker, sharePrice, tradeDate, numShares) {
 // show all open positions for current user
 router.get('/open', function(req, res) {
   openPositions = [];
-  knex.select('users.id','user_name', 'ticker', 'share_price', 'trade_date', 'num_shares')
+  if (!req.cookies['/token']) {
+    res.redirect('login');
+  }
+  let userId = Number(req.cookies['/token'].split('.')[0]);
+
+  knex.select('transactions.id', 'users.id','user_name', 'ticker', 'share_price', 'trade_date', 'num_shares')
   .from('transactions')
   .join('users', 'transactions.user_id', 'users.id')
   .join('stocks', 'transactions.stock_id', 'stocks.id')
   .where('closed_flag', false)
+  .where('users.id', userId)
   .then((rows) => {
     if (req.cookies['/token']) {
     //   console.log("Robs Rows", rows);
@@ -88,6 +95,80 @@ router.get('/open', function(req, res) {
       res.send('Unauthorized');
     }
   }).catch((err) => {
+    res.status(401).send(err);
+  });
+});
+
+// =============================================================================
+// show all closed positions for current user
+router.get('/closed', function(req, res) {
+  if (!req.cookies['/token']) {
+    res.redirect('login');
+  }
+
+  let userId = Number(req.cookies['/token'].split('.')[0]);
+
+  knex.select('transactions.id', 'users.id','user_name', 'ticker', 'share_price', 'trade_date', 'num_shares')
+  .from('transactions')
+  .join('users', 'transactions.user_id', 'users.id')
+  .join('stocks', 'transactions.stock_id', 'stocks.id')
+  .where('closed_flag', true)
+  .where('users.id', userId)
+  .then((rows) => {
+
+    var closedTrx = [];
+
+    for (var i = 0; i < rows.length; i++) {
+      var newTrx = new Trx(rows[i].id, rows[i].user_name, rows[i].ticker,
+        rows[i].share_price, rows[i].trade_date, rows[i].num_shares);
+
+        closedTrx.push(newTrx);
+    }
+
+    if (req.cookies['/token']) {
+      console.log(closedTrx);
+      res.send(closedTrx);
+    } else {
+      res.status(401);
+      res.set('Content-Type', 'text/plain');
+      res.send('Unauthorized');
+    }
+
+  }).catch((err) => {
+
+    res.status(401).send(err);
+  });
+});
+
+// =============================================================================
+// show specified open position for current user
+router.get('/:id', function(req, res) {
+  var trxId = Number(req.params.id);
+  if (!req.cookies['/token']) {
+    res.redirect('login');
+  }
+
+  let userId = Number(req.cookies['/token'].split('.')[0]);
+
+
+  knex.select('users.id','user_name', 'ticker', 'share_price', 'trade_date', 'num_shares')
+  .from('transactions')
+  .join('users', 'transactions.user_id', 'users.id')
+  .join('stocks', 'transactions.stock_id', 'stocks.id')
+  .where('transactions.id', trxId)
+  .where('users.id', userId)
+  .then((rows) => {
+
+    if (req.cookies['/token']) {
+      console.log('SHOW ROW: ', rows);
+    } else {
+      res.status(401);
+      res.set('Content-Type', 'text/plain');
+      res.send('Unauthorized');
+    }
+
+  }).catch((err) => {
+
     res.status(401).send(err);
   });
 });
