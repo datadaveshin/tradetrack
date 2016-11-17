@@ -101,7 +101,7 @@ router.get('/open', function(req, res) {
           currPos.name = snapshot.name;
           currPos.lastTradePriceOnly = snapshot.lastTradePriceOnly;
           currPos.change = snapshot.change;
-          currPos.changeInPercent = snapshot.changeInPercent * 100;
+          currPos.changeInPercent = (snapshot.changeInPercent * 100).toFixed(2);
           currPos.totalChange = (Number(snapshot.lastTradePriceOnly) - Number(currPos.buyPrice));
           currPos.totalChangeInPercent = snapshot.changeInPercent * 100;
           currPos.totalChangeInPercent = (currPos.totalChange/(Number(snapshot.lastTradePriceOnly)) * 100).toFixed(2);
