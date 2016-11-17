@@ -86,7 +86,7 @@ let closedPositions = [];
 let symbols = [];
 let closedSymbols = [];
 let quoteGSCP = "";
-console.log('HEYQQQQ@QQQQQQQQQ');
+console.log('OPEN POSITIONS!!');
 
 // =============================================================================
 // Define Position class
