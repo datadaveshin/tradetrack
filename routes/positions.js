@@ -34,6 +34,19 @@ let closedSymbols = [];
 let quoteGSCP = "";
 console.log('OPEN POSITIONS!!');
 
+// Datetime to simple date converter
+function simpleDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [year, month, day].join('-');
+}
+
 // =============================================================================
 // Define Position class
 var Position = function(userName, ticker, sharePrice, tradeDate, numShares) {
@@ -101,7 +114,10 @@ router.get('/open', function(req, res) {
 
 // =============================================================================
 // show all closed positions for current user
+
 router.get('/closed', function(req, res) {
+
+
   if (!req.cookies['/token']) {
     res.redirect('login');
   }
@@ -114,6 +130,7 @@ router.get('/closed', function(req, res) {
   .join('stocks', 'transactions.stock_id', 'stocks.id')
   .where('closed_flag', true)
   .where('users.id', userId)
+  .orderBy('ticker') // Added to sort by ticker
   .then((rows) => {
 
     var closedTrx = [];
@@ -126,8 +143,69 @@ router.get('/closed', function(req, res) {
     }
 
     if (req.cookies['/token']) {
-      console.log(closedTrx);
-      res.send(closedTrx);
+    //   console.log(closedTrx);
+      console.log("closedTrx.length", closedTrx.length);
+
+      //<-- BEGIN Code to calc closed table-->
+
+      // Assemble buy vs sell object
+      let buyVsSellObj = {};
+      _.each(closedTrx, function(record, idx) {
+        // console.log(record.ticker)
+        if (!(record.ticker in buyVsSellObj)) {
+            buyVsSellObj[record.ticker] = {buys: [], sells: []};
+        }
+        if (record.numShares > 0) {
+            buyVsSellObj[record.ticker].buys.push({buyDate: record.buyDate,
+                                               buySimpleDate: simpleDate(record.buyDate),
+                                               buyShares: Number(record.numShares),
+                                               buyPrice: Number(record.buyPrice),
+                                               buyAmount: record.buyPrice * record.numShares})
+        } else if (record.numShares < 0) {
+            buyVsSellObj[record.ticker].sells.push({sellDate: record.sellDate,
+                                               sellSimpleDate: simpleDate(record.sellDate),
+                                               sellShares: Number(record.numShares),
+                                               sellPrice: Number(record.sellPrice),
+                                               sellAmount: record.sellPrice * record.numShares})
+        }
+        // console.log("index = ", idx);
+      })
+      //   console.log("buyVsSellObj", buyVsSellObj);
+
+      // Calculate balances
+    //   let calcObj = {};
+      let calcArr = [];
+      _.each(buyVsSellObj, function(item, key) {
+        //   console.log("each item", item);
+          console.log("each item.buys", item.buys);
+        //   console.log("each item.buys.buyAmount", item.buys.buyAmount);
+        //   calcObj.ticker = buyVsSellObj.ticker;
+          let calcObj = {};
+          calcObj.ticker = key;
+          calcObj.buyAmount = item.buys.reduce(function(a, b){
+              return a + b.buyAmount}, 0).toFixed(2)
+          calcObj.sellAmount = item.sells.reduce(function(a, b){
+                  return a + b.sellAmount}, 0).toFixed(2)
+          calcObj.glAmount = (Number(calcObj.sellAmount) + Number(calcObj.buyAmount)).toFixed(2);
+          calcObj.glInPercent = (calcObj.glAmount / calcObj.buyAmount * 100).toFixed(2);
+          if (item.buys.length > 1) {
+              calcObj.buyDate = 'various'
+          } else {
+              calcObj.buyDate = item.buys[0].buySimpleDate;
+          }
+          if (item.sells.length > 1) {
+              calcObj.sellDate = 'various'
+          } else {
+              calcObj.sellDate = item.sells[0].sellSimpleDate;
+          }
+          calcArr.push(calcObj)
+      })
+      //<-- END Code to calc closed table-->
+
+    //   res.send(closedTrx);
+    //   res.send(buyVsSellObj);
+    //   res.send(calcObj);
+      res.send(calcArr);
     } else {
       res.status(401);
       res.set('Content-Type', 'text/plain');
