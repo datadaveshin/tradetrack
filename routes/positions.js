@@ -60,18 +60,30 @@ console.log('OPEN POSITIONS!!');
 
 // =============================================================================
 // Define Position class
-var Position = function(ticker, buyPrice, buyDate, numShares) {
+
+// * This is for test data
+// var Position = function(ticker, buyPrice, buyDate, numShares) {
+//   this.ticker = ticker,
+//   this.buyPrice = buyPrice,
+//   this.buyDate = new Date(buyDate),
+//   this.numShares = numShares
+// }
+
+var Position = function(userName, ticker, sharePrice, tradeDate, numShares) {
+  this.userName = userName,
   this.ticker = ticker,
-  this.buyPrice = buyPrice,
-  this.buyDate = new Date(buyDate),
+  this.sharePrice = sharePrice,
+  this.tradeDate = new Date(tradeDate),
   this.numShares = numShares
 }
+
 
 
 
 // =============================================================================
 // show all open positions for current user
 router.get('/open', function(req, res) {
+  openPositions = [];
   knex.select('users.id','user_name', 'ticker', 'share_price', 'trade_date', 'num_shares')
   .from('transactions')
   .join('users', 'transactions.user_id', 'users.id')
@@ -85,11 +97,26 @@ router.get('/open', function(req, res) {
       //<- BEGIN inserting code from old showall.js here
 
       // Build symbol (to get quotes) and open position arrays
-      _.each(openArr, function(stock) {
-          let newPos = new Position(stock.ticker, stock.buyPrice, stock.buyDate, stock.numShares)
+      // * each for example data
+    //   _.each(openArr, function(stock) {
+    //       let newPos = new Position(stock.ticker, stock.buyPrice, stock.buyDate, stock.numShares)
+    //       openPositions.push(newPos);
+    //       symbols.push(newPos.ticker);
+    //   })
+      console.log("START");
+      console.log("typeof rows", typeof rows);
+      console.log("Array.isArray(rows)", Array.isArray(rows));
+      _.each(rows, function(stock) {
+          console.log("MIDDLE stockObj", stock);
+          console.log("MIDDLE stock.id", stock.id);
+          console.log("MIDDLE stock.user_name", stock.user_name);
+          let newPos = new Position(stock.user_name, stock.ticker, stock.share_price, stock.trade_date, stock.num_shares)
+          console.log("stuck here?")
           openPositions.push(newPos);
           symbols.push(newPos.ticker);
+        //   console.log("openPositions in _.each", openPositions);
       })
+      console.log("END");
 
       // Get realtime quotes
       yahooFinance.snapshot({
