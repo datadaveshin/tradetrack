@@ -21,8 +21,8 @@ router.get('/new', function(req, res) {
 // POST new user
 router.post('/', (req, res) => {
 
-  console.log('NEW USER: ', req.body);
-  const password = req.body.password;
+  //console.log('NEW USER: ', req.body);
+  const password = req.body.password1;
 
   bcrypt.hash(password, 12)
     .then((hashed) => {
@@ -45,7 +45,7 @@ router.post('/', (req, res) => {
       delete user.updatedAt;
       delete user.hashedPassword;
 
-      console.log('RESPONDING WITH: ', user);
+      //console.log('RESPONDING WITH: ', user);
       res.render('added', {firstName: user.firstName,
                             lastName: user.lastName,
                             userName: user.userName,
