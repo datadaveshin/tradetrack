@@ -255,7 +255,7 @@ var stocks = [{
   created_at: new Date('2016-11-13 12:26:16 UTC'),
   updated_at: new Date('2016-11-13 12:26:16 UTC')
 }, {
-  id: 34,
+  id: 33,
   ticker: 'URG',
   company_name: '',
   cusip: '91688R108',
@@ -263,7 +263,7 @@ var stocks = [{
   created_at: new Date('2016-11-13 12:26:16 UTC'),
   updated_at: new Date('2016-11-13 12:26:16 UTC')
 }, {
-  id: 35,
+  id: 34,
   ticker: 'AWK',
   company_name: '',
   cusip: '',
@@ -271,7 +271,7 @@ var stocks = [{
   created_at: new Date('2016-11-16 12:26:16 UTC'),
   updated_at: new Date('2016-11-16 12:26:16 UTC')
 }, {
-  id: 36,
+  id: 35,
   ticker: 'ATVI',
   company_name: '',
   cusip: '',
@@ -279,7 +279,7 @@ var stocks = [{
   created_at: new Date('2016-11-16 12:26:16 UTC'),
   updated_at: new Date('2016-11-16 12:26:16 UTC')
 }, {
-  id: 37,
+  id: 36,
   ticker: 'AAPL',
   company_name: '',
   cusip: '',
@@ -287,7 +287,7 @@ var stocks = [{
   created_at: new Date('2016-11-16 12:26:16 UTC'),
   updated_at: new Date('2016-11-16 12:26:16 UTC')
 }, {
-  id: 38,
+  id: 37,
   ticker: 'UA',
   company_name: '',
   cusip: '',
@@ -295,7 +295,7 @@ var stocks = [{
   created_at: new Date('2016-11-16 12:26:16 UTC'),
   updated_at: new Date('2016-11-16 12:26:16 UTC')
 }, {
-  id: 39,
+  id: 38,
   ticker: 'DAL',
   company_name: '',
   cusip: '',
@@ -303,7 +303,7 @@ var stocks = [{
   created_at: new Date('2016-11-16 12:26:16 UTC'),
   updated_at: new Date('2016-11-16 12:26:16 UTC')
 }, {
-  id: 40,
+  id: 39,
   ticker: 'SIVB',
   company_name: '',
   cusip: '',
@@ -311,7 +311,7 @@ var stocks = [{
   created_at: new Date('2016-11-16 12:26:16 UTC'),
   updated_at: new Date('2016-11-16 12:26:16 UTC')
 }, {
-  id: 41,
+  id: 40,
   ticker: 'SAM',
   company_name: '',
   cusip: '',
@@ -319,7 +319,7 @@ var stocks = [{
   created_at: new Date('2016-11-16 12:26:16 UTC'),
   updated_at: new Date('2016-11-16 12:26:16 UTC')
 }, {
-  id: 42,
+  id: 41,
   ticker: 'BRK-B',
   company_name: '',
   cusip: '',
@@ -327,7 +327,7 @@ var stocks = [{
   created_at: new Date('2016-11-16 12:26:16 UTC'),
   updated_at: new Date('2016-11-16 12:26:16 UTC')
 }, {
-  id: 43,
+  id: 42,
   ticker: 'WAFD',
   company_name: '',
   cusip: '',
@@ -335,7 +335,7 @@ var stocks = [{
   created_at: new Date('2016-11-16 12:26:16 UTC'),
   updated_at: new Date('2016-11-16 12:26:16 UTC')
 }, {
-  id: 44,
+  id: 43,
   ticker: 'DPLO',
   company_name: '',
   cusip: '',
