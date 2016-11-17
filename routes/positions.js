@@ -92,7 +92,7 @@ router.get('/open', function(req, res) {
   .then((rows) => {
     if (req.cookies['/token']) {
     //   const faves = camelizeKeys(rows);
-      console.log("Robs Rows", rows);
+    //   console.log("Robs Rows", rows);
 
       //<- BEGIN inserting code from old showall.js here
 
@@ -104,14 +104,14 @@ router.get('/open', function(req, res) {
     //       symbols.push(newPos.ticker);
     //   })
       console.log("START");
-      console.log("typeof rows", typeof rows);
-      console.log("Array.isArray(rows)", Array.isArray(rows));
+    //   console.log("typeof rows", typeof rows);
+    //   console.log("Array.isArray(rows)", Array.isArray(rows));
       _.each(rows, function(stock) {
-          console.log("MIDDLE stockObj", stock);
-          console.log("MIDDLE stock.id", stock.id);
-          console.log("MIDDLE stock.user_name", stock.user_name);
+        //   console.log("MIDDLE stockObj", stock);
+        //   console.log("MIDDLE stock.id", stock.id);
+        //   console.log("MIDDLE stock.user_name", stock.user_name);
           let newPos = new Position(stock.user_name, stock.ticker, stock.share_price, stock.trade_date, stock.num_shares)
-          console.log("stuck here?")
+        //   console.log("stuck here?")
           openPositions.push(newPos);
           symbols.push(newPos.ticker);
         //   console.log("openPositions in _.each", openPositions);
@@ -129,12 +129,12 @@ router.get('/open', function(req, res) {
           currPos.lastTradePriceOnly = snapshot.lastTradePriceOnly;
           currPos.change = snapshot.change;
           currPos.changeInPercent = (snapshot.changeInPercent * 100).toFixed(2);
-          currPos.totalChange = (Number(snapshot.lastTradePriceOnly) - Number(currPos.buyPrice));
-          currPos.totalChangeInPercent = snapshot.changeInPercent * 100;
-          currPos.totalChangeInPercent = (currPos.totalChange/(Number(snapshot.lastTradePriceOnly)) * 100).toFixed(2);
+          currPos.glDollar = (Number(snapshot.lastTradePriceOnly * currPos.numShares) - Number(currPos.sharePrice * currPos.numShares)).toFixed(2);
+        //   currPos.glChangeInPercent = snapshot.changeInPercent * 100;
+          currPos.glInPercent = (currPos.glDollar/(Number(snapshot.lastTradePriceOnly * currPos.numShares)) * 100).toFixed(2);
           currPos.dividendYield = snapshot.dividendYield;
           currPos.peRatio = snapshot.peRatio;
-        //   console.log("openPositions: ", openPositions)
+          console.log("openPositions: ", openPositions)
         });
         res.render('showall', {openPositions: openPositions})
       });

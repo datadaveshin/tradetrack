@@ -18,11 +18,11 @@
   // Change the color of the $change and $change columns
   var change = document.getElementsByClassName("class_change");
   var changeInPercent = document.getElementsByClassName("class_changeInPercent");
-  var totalChange = document.getElementsByClassName("class_totalChange");
-  var totalChangeInPercent = document.getElementsByClassName("class_totalChangeInPercent");
+  var glDollar = document.getElementsByClassName("class_glDollar");
+  var glInPercent = document.getElementsByClassName("class_glInPercent");
   colorPrices(change);
   colorPrices(changeInPercent);
-  colorPrices(totalChange);
-  colorPrices(totalChangeInPercent);
+  colorPrices(glDollar);
+  colorPrices(glInPercent);
 
 })();
