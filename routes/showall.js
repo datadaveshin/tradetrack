@@ -41,6 +41,36 @@ let openArr = [
   numShares: 100}
 ]
 
+let closedArr = [
+    {ticker: "AAPL",
+    openPrice: 10,
+    openDate: 'Sep 23 2014',
+    closePrice: 10,
+    closeDate: 'Sep 23 2015',
+    numShares: 200},
+
+    {ticker: "GS",
+    openPrice: 14,
+    openDate: 'Sep 23 2014',
+    closePrice: 14,
+    closeDate: 'Sep 23 2015',
+    numShares: 350},
+
+    {ticker: "JPM",
+    openPrice: 10,
+    openDate: 'May 3 2014',
+    closePrice: 10,
+    closeDate: 'May 3 2015',
+    numShares: 400},
+
+    {ticker: "AMZN",
+    openPrice: 10,
+    openDate: 'Jun 16 2014',
+    closePrice: 10,
+    closeDate: 'Jun 16 2015',
+    numShares: 100}
+]
+
 /**
 FIELD codes
 n: name
