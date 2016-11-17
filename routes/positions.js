@@ -199,7 +199,7 @@ router.get('/closed', function(req, res) {
               calcObj.sellDate = item.sells[0].sellSimpleDate;
           }
           calcArr.push(calcObj)
-      })
+      });
       //<-- END Code to calc closed table-->
 
     //   res.send(closedTrx);
