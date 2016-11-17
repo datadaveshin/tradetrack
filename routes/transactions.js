@@ -20,7 +20,7 @@ router.get('/new', function(req, res) {
   if (req.cookies['/token']) {
     res.render('trade');
   } else {
-    res.redirect('login');
+    res.redirect('../token/login');
   }
 
 });
@@ -56,7 +56,6 @@ router.post('/', (req, res, next) => {
 
       console.log('SNAPSHOT : ', snapshot);
 
-
       knex('stocks').insert({ticker: newTrade.ticker,
                             company_name: snapshot.name,
                             last_close_price: snapshot.previousClose})
@@ -75,7 +74,13 @@ router.post('/', (req, res, next) => {
       }).then((row) => {
         const trade = camelizeKeys(row[0]);
         console.log('NEW TRADE: ', trade);
-        res.render('new-trade', {ticker: ticker, trade: JSON.stringify(trade)});
+        res.render('trade-added', {ticker: ticker,
+                                  company: snapshot.name,
+                                  numShares: trade.numShares,
+                                  sharePrice: trade.sharePrice,
+                                  commission: trade.commission,
+                                  direction: trade.direction,
+                                  action: trade.action});
     });
 
     }).catch(err => {
@@ -84,6 +89,11 @@ router.post('/', (req, res, next) => {
     });
 
   } else {
+    yahooFinance.snapshot ({
+      symbol: ticker,
+      fields: ['n']
+    }).then((snapshot) => {
+
     newTrade.stockId = checkStock.id;
     delete newTrade.ticker;
 
@@ -95,8 +105,14 @@ router.post('/', (req, res, next) => {
       .then((row) => {
         const trade = camelizeKeys(row[0]);
         console.log('NEW TRADE EXISTING STOCK: ', trade);
-        res.render('new-trade', {ticker: ticker, trade: JSON.stringify(trade)});
-
+        res.render('trade-added', {ticker: ticker,
+                                  company: snapshot.name,
+                                  numShares: trade.numShares,
+                                  sharePrice: trade.sharePrice,
+                                  commission: trade.commission,
+                                  direction: trade.direction,
+                                  action: trade.action});
+    });
     }).catch(err => {
       console.log('POST ERROR: ', err);
       res.status(400).send(err);

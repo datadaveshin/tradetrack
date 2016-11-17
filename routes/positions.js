@@ -17,7 +17,7 @@ const router = express.Router();
 // show all open positions for current user
 router.get('/open', function(req, res) {
   if (!req.cookies['/token']) {
-    res.redirect('login');
+    res.redirect('../token/login');
   }
 
   let userId = Number(req.cookies['/token'].split('.')[0]);
@@ -49,7 +49,7 @@ router.get('/open', function(req, res) {
 // show all closed positions for current user
 router.get('/closed', function(req, res) {
   if (!req.cookies['/token']) {
-    res.redirect('login');
+    res.redirect('../token/login');
   }
 
   let userId = Number(req.cookies['/token'].split('.')[0]);
@@ -91,7 +91,7 @@ router.get('/closed', function(req, res) {
 router.get('/:id', function(req, res) {
   var trxId = Number(req.params.id);
   if (!req.cookies['/token']) {
-    res.redirect('login');
+    res.redirect('../token/login');
   }
 
   let userId = Number(req.cookies['/token'].split('.')[0]);
