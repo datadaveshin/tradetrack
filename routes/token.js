@@ -21,7 +21,7 @@ router.get('/login', function(req, res) {
 // =============================================================================
 // GET with or without token
 router.get('/', (req, res, next) => {
-  if (req.cookies) {
+  if (req.cookies['/token']) {
     if (req.cookies['/token'].length > 1) {
       res.status(200).json(true);
     } else {
@@ -35,7 +35,6 @@ router.get('/', (req, res, next) => {
 // =============================================================================
 // POST token and check for bad email and bad password
 router.post('/', (req, res, next) => {
-  console.log('REQ BODY: ', req.body);
   const authReq = decamelizeKeys(req.body);
   const { email, password } = req.body;
 
@@ -63,7 +62,7 @@ router.post('/', (req, res, next) => {
       delete user.createdAt;
       delete user.updatedAt;
 
-      res.cookie('/token', '1.cookie.monster.rawr', { path: '/', httpOnly: true });
+      res.cookie('/token', user.id + '.cookie.monster.rawr', { path: '/', httpOnly: true });
       res.render('index', { userName: user.userName });
     })
     .catch(bcrypt.MISMATCH_ERROR, () => {

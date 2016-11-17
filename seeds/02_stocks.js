@@ -255,13 +255,93 @@ var stocks = [{
   created_at: new Date('2016-11-13 12:26:16 UTC'),
   updated_at: new Date('2016-11-13 12:26:16 UTC')
 }, {
-  id: 33,
+  id: 34,
   ticker: 'URG',
   company_name: '',
   cusip: '91688R108',
   last_close_price: 0,
   created_at: new Date('2016-11-13 12:26:16 UTC'),
   updated_at: new Date('2016-11-13 12:26:16 UTC')
+}, {
+  id: 35,
+  ticker: 'AWK',
+  company_name: '',
+  cusip: '',
+  last_close_price: 0,
+  created_at: new Date('2016-11-16 12:26:16 UTC'),
+  updated_at: new Date('2016-11-16 12:26:16 UTC')
+}, {
+  id: 36,
+  ticker: 'ATVI',
+  company_name: '',
+  cusip: '',
+  last_close_price: 0,
+  created_at: new Date('2016-11-16 12:26:16 UTC'),
+  updated_at: new Date('2016-11-16 12:26:16 UTC')
+}, {
+  id: 37,
+  ticker: 'AAPL',
+  company_name: '',
+  cusip: '',
+  last_close_price: 0,
+  created_at: new Date('2016-11-16 12:26:16 UTC'),
+  updated_at: new Date('2016-11-16 12:26:16 UTC')
+}, {
+  id: 38,
+  ticker: 'UA',
+  company_name: '',
+  cusip: '',
+  last_close_price: 0,
+  created_at: new Date('2016-11-16 12:26:16 UTC'),
+  updated_at: new Date('2016-11-16 12:26:16 UTC')
+}, {
+  id: 39,
+  ticker: 'DAL',
+  company_name: '',
+  cusip: '',
+  last_close_price: 0,
+  created_at: new Date('2016-11-16 12:26:16 UTC'),
+  updated_at: new Date('2016-11-16 12:26:16 UTC')
+}, {
+  id: 40,
+  ticker: 'SIVB',
+  company_name: '',
+  cusip: '',
+  last_close_price: 0,
+  created_at: new Date('2016-11-16 12:26:16 UTC'),
+  updated_at: new Date('2016-11-16 12:26:16 UTC')
+}, {
+  id: 41,
+  ticker: 'SAM',
+  company_name: '',
+  cusip: '',
+  last_close_price: 0,
+  created_at: new Date('2016-11-16 12:26:16 UTC'),
+  updated_at: new Date('2016-11-16 12:26:16 UTC')
+}, {
+  id: 42,
+  ticker: 'BRK-B',
+  company_name: '',
+  cusip: '',
+  last_close_price: 0,
+  created_at: new Date('2016-11-16 12:26:16 UTC'),
+  updated_at: new Date('2016-11-16 12:26:16 UTC')
+}, {
+  id: 43,
+  ticker: 'WAFD',
+  company_name: '',
+  cusip: '',
+  last_close_price: 0,
+  created_at: new Date('2016-11-16 12:26:16 UTC'),
+  updated_at: new Date('2016-11-16 12:26:16 UTC')
+}, {
+  id: 44,
+  ticker: 'DPLO',
+  company_name: '',
+  cusip: '',
+  last_close_price: 0,
+  created_at: new Date('2016-11-16 12:26:16 UTC'),
+  updated_at: new Date('2016-11-16 12:26:16 UTC')
 }];
 
 exports.seed = function(knex, Promise) {

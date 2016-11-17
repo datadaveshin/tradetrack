@@ -22,8 +22,8 @@ router.get('/new', function(req, res) {
 // =============================================================================
 // POST new transaction
 router.post('/', (req, res, next) => {
-  console.log('NEW TRANSACTION: ', req.body);
-
+  console.log('COOKIE: ', req.cookies);
+  //let userId = req.cookies['/token']
   let numShares = Number(req.body.numShares);
   let ticker = req.body.ticker.toUpperCase();
 
@@ -40,10 +40,9 @@ router.post('/', (req, res, next) => {
   };
 
   knex('stocks').where('ticker', newTrade.ticker).returning('id').first()
-  .then((stock) => {
-    console.log('STOCK: ', stock);
+  .then((checkStock) => {
 
-  if (!stock) {
+  if (!checkStock) {
     yahooFinance.snapshot ({
       symbol: ticker,
       fields: ['n','p']
@@ -51,12 +50,12 @@ router.post('/', (req, res, next) => {
 
       console.log('SNAPSHOT : ', snapshot);
 
-      knex('stocks').insert({ticker: newTrade.ticker},
-                            {company_name: snapshot.name},
-                            {last_close_price: snapshot.previousClose})
-      .returning('id')
-      .then((stock) => {
 
+      knex('stocks').insert({ticker: newTrade.ticker,
+                            company_name: snapshot.name,
+                            last_close_price: snapshot.previousClose})
+      .returning('*')
+      .then((stock) => {
         newTrade.stockId = stock[0].id;
         delete newTrade.ticker;
         console.log('TRX TO INSERT: ', newTrade);
@@ -64,13 +63,13 @@ router.post('/', (req, res, next) => {
 
         return knex('transactions')
         .insert(decamelizeKeys(newTrade),
-        ['id', 'user_id', 'stock_id', 'tradeDate', 'numShares', 'sharePrice',
+        ['id', 'user_id', 'stock_id', 'trade_date', 'num_shares', 'share_price',
         'commission', 'fees', 'direction', 'action']);
 
       }).then((row) => {
         const trade = camelizeKeys(row[0]);
         console.log('NEW TRADE: ', trade);
-        res.render('new-trade', trade);
+        res.render('new-trade', {ticker: ticker, trade: JSON.stringify(trade)});
     });
 
     }).catch(err => {
@@ -78,12 +77,28 @@ router.post('/', (req, res, next) => {
       res.status(400).send(err);
     });
 
-  } // end if
+  } else {
+    newTrade.stockId = checkStock.id;
+    delete newTrade.ticker;
 
-  });
+    knex('transactions')
+    .insert(decamelizeKeys(newTrade),
+      ['id', 'user_id', 'stock_id', 'trade_date', 'num_shares', 'share_price',
+      'commission', 'fees', 'direction', 'action'])
+      .returning('*')
+      .then((row) => {
+        const trade = camelizeKeys(row[0]);
+        console.log('NEW TRADE EXISTING STOCK: ', trade);
+        res.render('new-trade', {ticker: ticker, trade: JSON.stringify(trade)});
+
+    }).catch(err => {
+      console.log('POST ERROR: ', err);
+      res.status(400).send(err);
+    });
+  } // end if else
 
 });
-
+});
 
 
 

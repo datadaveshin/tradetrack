@@ -20,6 +20,7 @@ const users = require('./routes/users.js');
 const token = require('./routes/token.js');
 const index = require('./routes/index.js');
 const transactions = require('./routes/transactions.js');
+const positions = require('./routes/positions.js');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -29,6 +30,7 @@ app.use('/users', users);
 app.use('/token', token);
 app.use('/', index);
 app.use('/transactions', transactions);
+app.use('/positions', positions);
 
 app.set('view engine', 'ejs');
 app.set('views', [path.join(__dirname, 'views/users/'),
