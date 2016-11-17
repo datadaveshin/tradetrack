@@ -8,6 +8,7 @@ const boom  = require('boom');
 const express = require('express');
 const bcrypt = require('bcrypt-as-promised');
 var knex = require('../db/knex');
+var Trx = require('../models/trx.js').Trx;
 const { camelizeKeys, decamelizeKeys } = require('humps');
 // eslint-disable-next-line new-cap
 const router = express.Router();
@@ -23,9 +24,8 @@ router.get('/open', function(req, res) {
   .then((rows) => {
 
     if (req.cookies['/token']) {
-      const faves = camelizeKeys(rows);
       console.log(rows);
-      res.render('showall', rows);
+      res.send(rows);
     } else {
       res.status(401);
       res.set('Content-Type', 'text/plain');
@@ -38,7 +38,39 @@ router.get('/open', function(req, res) {
   });
 });
 
+// =============================================================================
+// show all closed positions for current user
+router.get('/closed', function(req, res) {
+  knex.select('users.id','user_name', 'ticker', 'share_price', 'trade_date', 'num_shares')
+  .from('transactions')
+  .join('users', 'transactions.user_id', 'users.id')
+  .join('stocks', 'transactions.stock_id', 'stocks.id')
+  .where('closed_flag', true)
+  .then((rows) => {
 
+    var closedTrx = [];
+
+    for (var i = 0; i < rows.length; i++) {
+      var newTrx = new Trx(rows[i].id, rows[i].user_name, rows[i].ticker,
+        rows[i].share_price, rows[i].trade_date, rows[i].num_shares);
+
+        closedTrx.push(newTrx);
+    }
+
+    if (req.cookies['/token']) {
+      console.log(closedTrx);
+      res.send(closedTrx);
+    } else {
+      res.status(401);
+      res.set('Content-Type', 'text/plain');
+      res.send('Unauthorized');
+    }
+
+  }).catch((err) => {
+
+    res.status(401).send(err);
+  });
+});
 
 
 module.exports = router;
