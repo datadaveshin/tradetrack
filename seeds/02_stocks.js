@@ -265,7 +265,7 @@ var stocks = [{
 }, {
   id: 34,
   ticker: 'AWK',
-  company_name: '',
+  company_name: 'American Water Works',
   cusip: '',
   last_close_price: 0,
   created_at: new Date('2016-11-16 12:26:16 UTC'),
@@ -273,7 +273,7 @@ var stocks = [{
 }, {
   id: 35,
   ticker: 'ATVI',
-  company_name: '',
+  company_name: 'Activision Blizzard',
   cusip: '',
   last_close_price: 0,
   created_at: new Date('2016-11-16 12:26:16 UTC'),
@@ -281,7 +281,7 @@ var stocks = [{
 }, {
   id: 36,
   ticker: 'AAPL',
-  company_name: '',
+  company_name: 'Apple',
   cusip: '',
   last_close_price: 0,
   created_at: new Date('2016-11-16 12:26:16 UTC'),
@@ -289,7 +289,7 @@ var stocks = [{
 }, {
   id: 37,
   ticker: 'UA',
-  company_name: '',
+  company_name: 'Under Armor',
   cusip: '',
   last_close_price: 0,
   created_at: new Date('2016-11-16 12:26:16 UTC'),
@@ -297,7 +297,7 @@ var stocks = [{
 }, {
   id: 38,
   ticker: 'DAL',
-  company_name: '',
+  company_name: 'Delta Air Lines',
   cusip: '',
   last_close_price: 0,
   created_at: new Date('2016-11-16 12:26:16 UTC'),
@@ -305,7 +305,7 @@ var stocks = [{
 }, {
   id: 39,
   ticker: 'SIVB',
-  company_name: '',
+  company_name: 'SVB Financial Group',
   cusip: '',
   last_close_price: 0,
   created_at: new Date('2016-11-16 12:26:16 UTC'),
@@ -313,7 +313,7 @@ var stocks = [{
 }, {
   id: 40,
   ticker: 'SAM',
-  company_name: '',
+  company_name: 'Boston Beer',
   cusip: '',
   last_close_price: 0,
   created_at: new Date('2016-11-16 12:26:16 UTC'),
@@ -321,7 +321,7 @@ var stocks = [{
 }, {
   id: 41,
   ticker: 'BRK-B',
-  company_name: '',
+  company_name: 'Berkshire Hathaway',
   cusip: '',
   last_close_price: 0,
   created_at: new Date('2016-11-16 12:26:16 UTC'),
@@ -329,7 +329,7 @@ var stocks = [{
 }, {
   id: 42,
   ticker: 'WAFD',
-  company_name: '',
+  company_name: 'Washington Federal',
   cusip: '',
   last_close_price: 0,
   created_at: new Date('2016-11-16 12:26:16 UTC'),
@@ -337,7 +337,15 @@ var stocks = [{
 }, {
   id: 43,
   ticker: 'DPLO',
-  company_name: '',
+  company_name: 'Diplomat Pharmacy',
+  cusip: '',
+  last_close_price: 0,
+  created_at: new Date('2016-11-16 12:26:16 UTC'),
+  updated_at: new Date('2016-11-16 12:26:16 UTC')
+}, {
+  id: 44,
+  ticker: 'AMZN',
+  company_name: 'Amazon',
   cusip: '',
   last_close_price: 0,
   created_at: new Date('2016-11-16 12:26:16 UTC'),

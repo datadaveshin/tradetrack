@@ -16,11 +16,18 @@ const router = express.Router();
 // =============================================================================
 // show all open positions for current user
 router.get('/open', function(req, res) {
+  if (!req.cookies['/token']) {
+    res.redirect('login');
+  }
+
+  let userId = Number(req.cookies['/token'].split('.')[0]);
+
   knex.select('transactions.id', 'users.id','user_name', 'ticker', 'share_price', 'trade_date', 'num_shares')
   .from('transactions')
   .join('users', 'transactions.user_id', 'users.id')
   .join('stocks', 'transactions.stock_id', 'stocks.id')
   .where('closed_flag', false)
+  .where('users.id', userId)
   .then((rows) => {
 
     if (req.cookies['/token']) {
@@ -41,11 +48,18 @@ router.get('/open', function(req, res) {
 // =============================================================================
 // show all closed positions for current user
 router.get('/closed', function(req, res) {
+  if (!req.cookies['/token']) {
+    res.redirect('login');
+  }
+
+  let userId = Number(req.cookies['/token'].split('.')[0]);
+
   knex.select('transactions.id', 'users.id','user_name', 'ticker', 'share_price', 'trade_date', 'num_shares')
   .from('transactions')
   .join('users', 'transactions.user_id', 'users.id')
   .join('stocks', 'transactions.stock_id', 'stocks.id')
   .where('closed_flag', true)
+  .where('users.id', userId)
   .then((rows) => {
 
     var closedTrx = [];
@@ -76,12 +90,19 @@ router.get('/closed', function(req, res) {
 // show specified open position for current user
 router.get('/:id', function(req, res) {
   var trxId = Number(req.params.id);
+  if (!req.cookies['/token']) {
+    res.redirect('login');
+  }
+
+  let userId = Number(req.cookies['/token'].split('.')[0]);
+
 
   knex.select('users.id','user_name', 'ticker', 'share_price', 'trade_date', 'num_shares')
   .from('transactions')
   .join('users', 'transactions.user_id', 'users.id')
   .join('stocks', 'transactions.stock_id', 'stocks.id')
   .where('transactions.id', trxId)
+  .where('users.id', userId)
   .then((rows) => {
 
     if (req.cookies['/token']) {
