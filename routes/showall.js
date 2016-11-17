@@ -41,35 +41,35 @@ let openArr = [
   numShares: 100}
 ]
 
-let closedArr = [
-    {ticker: "AAPL",
-    openPrice: 10,
-    openDate: 'Sep 23 2014',
-    closePrice: 10,
-    closeDate: 'Sep 23 2015',
-    numShares: 200},
-
-    {ticker: "GS",
-    openPrice: 14,
-    openDate: 'Sep 23 2014',
-    closePrice: 14,
-    closeDate: 'Sep 23 2015',
-    numShares: 350},
-
-    {ticker: "JPM",
-    openPrice: 10,
-    openDate: 'May 3 2014',
-    closePrice: 10,
-    closeDate: 'May 3 2015',
-    numShares: 400},
-
-    {ticker: "AMZN",
-    openPrice: 10,
-    openDate: 'Jun 16 2014',
-    closePrice: 10,
-    closeDate: 'Jun 16 2015',
-    numShares: 100}
-]
+// let closedArr = [
+//     {ticker: "AAPL",
+//     openPrice: 10,
+//     openDate: 'Sep 23 2014',
+//     closePrice: 10,
+//     closeDate: 'Sep 23 2015',
+//     numShares: 200},
+//
+//     {ticker: "GS",
+//     openPrice: 14,
+//     openDate: 'Sep 23 2014',
+//     closePrice: 14,
+//     closeDate: 'Sep 23 2015',
+//     numShares: 350},
+//
+//     {ticker: "JPM",
+//     openPrice: 10,
+//     openDate: 'May 3 2014',
+//     closePrice: 10,
+//     closeDate: 'May 3 2015',
+//     numShares: 400},
+//
+//     {ticker: "AMZN",
+//     openPrice: 10,
+//     openDate: 'Jun 16 2014',
+//     closePrice: 10,
+//     closeDate: 'Jun 16 2015',
+//     numShares: 100}
+// ]
 
 /**
 FIELD codes
@@ -82,7 +82,9 @@ r: peRatio
 */
 let FIELDS = ['n', 'l1', 'c1', 'p2', 'y', 'r']
 let openPositions = [];
+let closedPositions = [];
 let symbols = [];
+let closedSymbols = [];
 let quoteGSCP = "";
 console.log('HEYQQQQ@QQQQQQQQQ');
 
@@ -184,12 +186,14 @@ yahooFinance.historical({
   // console.log("openPositions: ", openPositions)
 });
 
-=============================================================================
+//=============================================================================
 // Build closed positions prices
 /**
 * Data for testing
 */
+// let closedArr = [];
 let closedArr = [
+
     {ticker: "AAPL",
     openPrice: 10,
     openDate: 'Sep 23 2014',
@@ -219,23 +223,23 @@ let closedArr = [
     numShares: 100}
 ]
 
-=============================================================================
+// =============================================================================
 // Define closedPosition class
-var Position = function(ticker, openPrice, openDate, numShares, closePrice, closeDate) {
+var ClosedPosition = function(ticker, openPrice, openDate, numShares, closePrice, closeDate) {
   this.ticker = ticker,
   this.openPrice = openPrice,
   this.openDate = new Date(openDate),
   this.numShares = numShares,
   this.closePrice = closePrice,
-  this.closeDate = closeDate,
+  this.closeDate = new Date(closeDate)
 }
 
-=============================================================================
+//=============================================================================
 // Build symbol (to get quotes) and open position arrays
-_.each(openArr, function(stock) {
-    let newPos = new Position(stock.ticker, stock.buyPrice, stock.buyDate, stock.numShares)
-    openPositions.push(newPos);
-    symbols.push(newPos.ticker);
+_.each(closedArr, function(stock) {
+    let newPos = new ClosedPosition(stock.ticker, stock.buyPrice, stock.buyDate, stock.numShares)
+    closedPositions.push(newPos);
+    closedSymbols.push(newPos.ticker);
 })
 
 
