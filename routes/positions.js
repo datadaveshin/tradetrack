@@ -147,6 +147,8 @@ router.get('/closed', function(req, res) {
       console.log("closedTrx.length", closedTrx.length);
 
       //<-- BEGIN Code to calc closed table-->
+      let theUser = closedTrx[0].userId;
+      console.log('theUser', theUser)
 
       // Assemble buy vs sell object
       let buyVsSellObj = {};
@@ -174,9 +176,20 @@ router.get('/closed', function(req, res) {
 
       // Calculate balances
     //   let calcObj = {};
+      if (theUser === 1) {
+          var hypoFolioAmount = 100000;
+          var origHypoFolioAmount = 100000;
+          var percentAcct = 0.10
+      } else if (theUser === 2) {
+          var hypoFolioAmount = 10000;
+          var origHypoFolioAmount = 10000;
+          var percentAcct = 0.10
+      } else {
+          var hypoFolioAmount = 100000;
+          var origHypoFolioAmount = 100000;
+          var percentAcct = 0.10
+      }
       let calcArr = [];
-      let hypoFolioAmount = 10000;
-      let origHypoFolioAmount = 10000;
       _.each(buyVsSellObj, function(item, key) {
         //   console.log("each item", item);
           console.log("each item.buys", item.buys);
@@ -201,8 +214,11 @@ router.get('/closed', function(req, res) {
               calcObj.sellDate = item.sells[0].sellSimpleDate;
           }
 
-          hypoFolioAmount += Number(calcObj.glAmount)
-          calcObj.hypoFolioAmount = hypoFolioAmount
+        //   hypoFolioAmount = hypoFolioAmount + (Number(calcObj.glInPercent) / 100 * hypoFolioAmount * percentAcct) // Use to calc hypothetical total amount
+
+          hypoFolioAmount += Number(calcObj.glAmount) // Use for real total amount
+
+          calcObj.hypoFolioAmount = hypoFolioAmount.toFixed(2)
           calcObj.hypoFolioAmountPercent = (((hypoFolioAmount - origHypoFolioAmount) / origHypoFolioAmount)*100).toFixed(2);
 
           calcArr.push(calcObj)
