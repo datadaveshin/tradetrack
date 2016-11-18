@@ -37,25 +37,36 @@
     </div>
 
     <main>
-      <!-- TC2000 Chart BEGIN -->
-      <div class="TC2000-container">
-        <div class="row">
 
-          <div class="col s12 m4 l4">
-            <iframe class="iframe-class" scrolling="no" frameborder="0" src="https://widgets.tc2000.com/WidgetServer.ashx?id=29641"></iframe>
-          </div>
+      <!-- TradingView Widget BEGIN -->
+      <script type="text/javascript" src="https://d33t3vvu2t2yu5.cloudfront.net/tv.js"></script>
+      <script type="text/javascript">
+      new TradingView.widget({
+        "width": 800,
+        "height": 498,
+        "symbol": "AAPL",
+        "interval": "D",
+        "timezone": "Etc/UTC",
+        "theme": "White",
+        "style": "1",
+        "locale": "en",
+        "toolbar_bg": "#f1f3f6",
+        "enable_publishing": false,
+        "withdateranges": true,
+        "hide_side_toolbar": false,
+        "allow_symbol_change": true,
+        "hideideas": true,
+        "studies": [
+          "MAExp@tv-basicstudies",
+          "Volume@tv-basicstudies"
+        ]
+      });
+      </script>
+      <!-- TradingView Widget END -->
 
-          <div class="col s12 m4 l4">
-            <iframe class="iframe-class" scrolling="no" frameborder="0" src="https://widgets.tc2000.com/WidgetServer.ashx?id=29646"></iframe>
-          </div>
-
-          <div class="col s12 m4 l4">
-            <iframe class="iframe-class" scrolling="no" frameborder="0" src="https://widgets.tc2000.com/WidgetServer.ashx?id=29737"></iframe>
-          </div>
-
-        </div>
+      <div class="container">
+        <h3>Trading Performance</h3>
       </div>
-      <!-- TC2000 Chart END -->
 
       <!-- Open Position Table BEGIN -->
       <div class="container">
