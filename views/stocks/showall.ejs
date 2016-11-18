@@ -39,13 +39,17 @@
             <tr>
               <th data-field="ticker">Symbol</th>
               <th data-field="name">Company</th>
-              <th data-field="lastTradePriceOnly">Price</th>
+              <th data-field="numShares">Shares</th>
+              <th data-field="sharePrice">Orig</th>
+              <th data-field="previousClose">Prev</th>
+              <th data-field="lastTradePriceOnly">Last</th>
+              <th data-field="val">Value</th>
               <th data-field="change">$Change</th>
               <th data-field="changeInPercent">%Change</th>
               <th data-field="totalChange">$G/L</th>
               <th data-field="totalChangeInPercent">%G/L</th>
+              <th data-field="peRatio">P/E</th>
               <th data-field="dividendYield">Div Yield</th>
-              <th data-field="peRatio">P/E Ratio</th>
             </tr>
           </thead>
 
@@ -54,13 +58,17 @@
               <tr>
                 <td class="class_ticker"><%=pos.ticker%></td>
                 <td class="class_name"><%=pos.name%></td>
+                <td class="class_numShares"><%=pos.numShares%></td>
+                <td class="class_sharePrice"><%=pos.sharePrice%></td>
+                <td class="class_previousClose"><%=pos.previousClose%></td>
                 <td class="class_lastTradePriceOnly"><%=pos.lastTradePriceOnly%></td>
+                <td class="class_val"><%=pos.val%></td>
                 <td class="class_change"><%=pos.change%></td>
                 <td class="class_changeInPercent"><%=pos.changeInPercent%></td>
                 <td class="class_glDollar"><%=pos.glDollar%></td>
                 <td class="class_glInPercent"><%=pos.glInPercent%></td>
-                <td class="class_dividendYield"><%=pos.dividendYield%></td>
                 <td class="class_peRatio"><%=pos.peRatio%></td>
+                <td class="class_dividendYield"><%=pos.dividendYield%></td>
               </tr>
             <% }) %>
           </tbody>

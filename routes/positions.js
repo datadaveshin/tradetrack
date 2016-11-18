@@ -21,12 +21,13 @@ const router = express.Router();
 FIELD codes
 n: name
 l1: lastTradePriceOnly
+p:
 c1: change
 p2: changeInPercent
 y: dividendYield
 r: peRatio
 */
-let FIELDS = ['n', 'l1', 'c1', 'p2', 'y', 'r']
+let FIELDS = ['n', 'l1', 'p', 'c1', 'p2', 'y', 'r']
 let openPositions = [];
 let closedPositions = [];
 let symbols = [];
@@ -93,7 +94,10 @@ router.get('/open', function(req, res) {
         _.each(result, function (snapshot, symbolIndex) {
           let currPos = openPositions[symbolIndex];
           currPos.name = snapshot.name;
+          currPos.numShares = Math.floor(currPos.numShares)
+          currPos.previousClose = snapshot.previousClose;
           currPos.lastTradePriceOnly = snapshot.lastTradePriceOnly;
+          currPos.val = currPos.numShares * Number(snapshot.lastTradePriceOnly);
           currPos.change = snapshot.change;
           currPos.changeInPercent = (snapshot.changeInPercent * 100).toFixed(2);
           currPos.glDollar = (Number(snapshot.lastTradePriceOnly * currPos.numShares) - Number(currPos.sharePrice * currPos.numShares)).toFixed(2);
