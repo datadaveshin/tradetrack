@@ -189,6 +189,8 @@ router.get('/closed', function(req, res) {
           var origFolioAmount = 100000;
           var percentAcct = 0.10
       }
+      let statNumWinners = 0;
+      let statNumLosers = 0;
       let calcArr = [];
       _.each(buyVsSellObj, function(item, key) {
         //   console.log("each item", item);
@@ -225,6 +227,8 @@ router.get('/closed', function(req, res) {
 
           calcArr.push(calcObj)
           console.log("CALC OBJ", calcObj);
+
+          // Calc some summary stats
       });
       //<-- END Code to calc closed table-->
 
