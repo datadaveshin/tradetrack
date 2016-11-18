@@ -9,35 +9,13 @@
     <title>Contact</title>
   </head>
   <body>
-    <div class="row">
-      <nav class='nav-extended'>
-        <div class='nav-wrapper'>
-          <a href='/' class='brand-logo'>TradeTrack</a>
-          <a href='#' data-activates='mobile-demo' class='button-collapse'><i class='material-icons'>menu</i></a>
-          <ul id='nav-mobile' class='right hide-on-med-and-down'>
-            <li><a href='/users/new'>Sign Up</a></li>
-            <li><a href='/token/login'>Log In</a></li>
-            <li><a href=''>Log Out</a></li>
-          </ul>
-          <ul class='side-nav' id='mobile-demo'>
-            <li><a href='/users/new'>Sign Up</a></li>
-            <li><a href='/token/login'>Log In</a></li>
-            <li><a href='#'>Log Out</a></li>
-          </ul>
 
-          <ul class='tabs tabs-transparent'>
-            <li class='tab'><a href='/'>Home</a></li>
-            <li class='tab'><a href='/transactions/new'>Trade</a></li>
-            <li class='tab'><a href='/positions/open'>Open Positions</a></li>
-            <li class='tab'><a href='/positions/closed'>Closed Positions</a></li>
-          </ul>
-        </div>
-      </nav>
-    </div>
+    <%- include("../partials/nav", {home: false, trade: false}) %>
+
     <main class="container">
       <div class="row">
-        <div class="col s12 m6">
-          <h3>The Puppy Whisperer</h3>
+        <div class="col s12 m5">
+          <h4>Big Rob</h4>
           <p>Following the success of his book <em>The Dog Whisperer</em>, Paul Owens turns his
             attention to puppies. In this book, Owens and his protégé Terence
             Cranendonk offer a compassionate step-by-step guide to all things puppy,
@@ -60,14 +38,32 @@
         </div>
         <div class="col m1">
         </div>
-        <div class="col s12 m5 center">
-          <a href="https://www.amazon.com/Puppy-Whisperer-Compassionate-Violent-Training/dp/1593375972" target="_blank">
-            <img class="z-depth-2" src="../images/book-cover.jpg" alt="The Puppy Whisperer Book Cover">
+        <div class="col s12 m5">
+          <h4>Data Dave</h4>
+          <p>Following the success of his book <em>The Dog Whisperer</em>, Paul Owens turns his
+            attention to puppies. In this book, Owens and his protégé Terence
+            Cranendonk offer a compassionate step-by-step guide to all things puppy,
+            including how to:
+          </p>
+          <ul class="browser-default">
+            <li>Evaluate temperament</li>
+            <li>Choose the right pup personality for your family</li>
+            <li>Monitor diet, play, and exercise</li>
+            <li>Train and problem solve</li>
+            <li>Provide early socialization and positive training</li>
+            <li>Potty train, step-by-step</li>
+            <li>Ensure safety and health care, including the latest on vaccinations</li>
+          </ul>
+          <p>Puppies can be a lot of work, but they can also be a furry bundle of
+            joy. If you're thinking of bringing a puppy into your home,
+            <a href="https://www.amazon.com/Puppy-Whisperer-Compassionate-Violent-Training/dp/1593375972" target="_blank">The
+            Puppy Whisperer</a> is your must-have guide.
+          </p>
         </div>
       </div>
     </main>
 
     <%- include("../partials/footer") %>
-    
+
   </body>
 </html>
