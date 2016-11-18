@@ -94,15 +94,27 @@ router.get('/open', function(req, res) {
         _.each(result, function (snapshot, symbolIndex) {
           let currPos = openPositions[symbolIndex];
           currPos.name = snapshot.name;
+
           currPos.numShares = Math.floor(currPos.numShares)
           currPos.previousClose = snapshot.previousClose;
+
           currPos.lastTradePriceOnly = snapshot.lastTradePriceOnly;
+
           currPos.val = (currPos.numShares * Number(snapshot.lastTradePriceOnly)).toFixed(2);
           currPos.change = snapshot.change;
+
           currPos.changeInPercent = (snapshot.changeInPercent * 100).toFixed(2);
+
           currPos.glDollar = (Number(snapshot.lastTradePriceOnly * currPos.numShares) - Number(currPos.sharePrice * currPos.numShares)).toFixed(2);
-          currPos.glInPercent = (currPos.glDollar/(Number(snapshot.lastTradePriceOnly * currPos.numShares)) * 100).toFixed(2);
+          console.log("type lastTrade", typeof snapshot.lastTradePriceOnly);
+          console.log("type currPos.sharePrice", typeof currPos.sharePrice);
+          console.log("type currPos.glDollar", typeof currPos.glDollar);
+          console.log("type currPos.numShares", typeof currPos.numShares);
+
+          currPos.glInPercent = (Number(currPos.glDollar)/(Number(snapshot.lastTradePriceOnly * currPos.numShares)) * 100).toFixed(2);
+
           currPos.dividendYield = snapshot.dividendYield;
+
           currPos.peRatio = snapshot.peRatio;
         });
         console.log("openPositions: ", openPositions)
