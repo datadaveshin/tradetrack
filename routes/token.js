@@ -15,7 +15,13 @@ const router = express.Router();
 // =============================================================================
 // show sign in form for existing user
 router.get('/login', function(req, res) {
-  res.render('login');
+  var errorMsg = '';
+
+  if (req.query.login === 'invalid') {
+    errorMsg = 'Invalid attempt. Please check your credentials and try again.';
+  }
+
+  res.render('login', {msg: errorMsg});
 });
 
 // =============================================================================
@@ -38,20 +44,12 @@ router.post('/', (req, res, next) => {
   const authReq = decamelizeKeys(req.body);
   const { email, password } = req.body;
 
-  // if (!email || !email.trim()) {
-  //   return next(boom.create(400, 'Email must not be blank'));
-  // }
-  //
-  // if (!password || password.length < 8) {
-  //   return next(boom.create(400, 'Password must not be blank'));
-  // }
-
   let user;
 
   knex('users').where('email', authReq.email).first()
     .then((row) => {
       if (!row) {
-        return next(boom.create(400, 'Bad email or password'));
+        res.redirect('/token/login' + '?login=invalid');
       }
 
       user = camelizeKeys(row);
@@ -66,7 +64,7 @@ router.post('/', (req, res, next) => {
       res.render('index', { userName: user.userName });
     })
     .catch(bcrypt.MISMATCH_ERROR, () => {
-      res.redirect("/token/login")
+      res.redirect('/token/login' + '?login=invalid');
     })
     .catch(err => {
       next(err);
