@@ -35,31 +35,69 @@
         </div>
       </nav>
     </div>
-  <!-- TC2000 Chart BEGIN -->
-  <!-- <div class="container"> -->
-    <div class="TC2000-container">
-      <div class="row">
-      <!-- <div class="TC2000-container"> -->
-        <div class="col s12 m4 l4">
-          <iframe class="iframe-class" scrolling="no" frameborder="0" src="https://widgets.tc2000.com/WidgetServer.ashx?id=29641"></iframe>
+
+    <main>
+      <!-- TC2000 Chart BEGIN -->
+      <div class="TC2000-container">
+        <div class="row">
+
+          <div class="col s12 m4 l4">
+            <iframe class="iframe-class" scrolling="no" frameborder="0" src="https://widgets.tc2000.com/WidgetServer.ashx?id=29641"></iframe>
+          </div>
+
+          <div class="col s12 m4 l4">
+            <iframe class="iframe-class" scrolling="no" frameborder="0" src="https://widgets.tc2000.com/WidgetServer.ashx?id=29646"></iframe>
+          </div>
+
+          <div class="col s12 m4 l4">
+            <iframe class="iframe-class" scrolling="no" frameborder="0" src="https://widgets.tc2000.com/WidgetServer.ashx?id=29737"></iframe>
+          </div>
+
         </div>
-          <!-- </div> -->
-          <!-- <div class="TC2000-container"> -->
-        <div class="col s12 m4 l4">
-          <iframe class="iframe-class" scrolling="no" frameborder="0" src="https://widgets.tc2000.com/WidgetServer.ashx?id=29646"></iframe>
-        </div>
-          <!-- </div> -->
-          <!-- <div class="TC2000-container"> -->
-        <div class="col s12 m4 l4">
-          <iframe class="iframe-class" scrolling="no" frameborder="0" src="https://widgets.tc2000.com/WidgetServer.ashx?id=29737"></iframe>
-        </div>
-          <!-- </div> -->
       </div>
-    </div>
-  <!-- </div> -->
-  <!-- TC2000 Chart END -->
+      <!-- TC2000 Chart END -->
+
+      <!-- Open Position Table BEGIN -->
+      <div class="container">
+        <table>
+          <thead>
+            <tr>
+              <th data-field="ticker">Symbol</th>
+              <th data-field="name">Company</th>
+              <th data-field="lastTradePriceOnly">Price</th>
+              <th data-field="change">$Change</th>
+              <th data-field="changeInPercent">%Change</th>
+              <th data-field="totalChange">$G/L</th>
+              <th data-field="totalChangeInPercent">%G/L</th>
+              <th data-field="dividendYield">Div Yeild</th>
+              <th data-field="peRatio">P/E Ratio</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% openPositions.forEach(function(pos){ %>
+              <tr>
+                <td class="class_ticker"><%=pos.ticker%></td>
+                <td class="class_name"><%=pos.name%></td>
+                <td class="class_lastTradePriceOnly"><%=pos.lastTradePriceOnly%></td>
+                <td class="class_change"><%=pos.change%></td>
+                <td class="class_changeInPercent"><%=pos.changeInPercent%></td>
+                <td class="class_glDollar"><%=pos.glDollar%></td>
+                <td class="class_glInPercent"><%=pos.glInPercent%></td>
+                <td class="class_dividendYield"><%=pos.dividendYield%></td>
+                <td class="class_peRatio"><%=pos.peRatio%></td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+      <!-- Open Position Table BEGIN -->
+
+    </main>
 
     <%- include("../partials/footer") %>
     
+    <script type="text/javascript" src="../js/showall.js"></script>
+
   </body>
 </html>

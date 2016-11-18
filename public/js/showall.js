@@ -1,29 +1,28 @@
-/**
-* Call for resizing TC2000 charts
-*/
-$(function () {
-  setIFrameSize();
-  $(window).resize(function () {
-    setIFrameSize();
-  });
-});
 
-/**
-Resizes the iframe for TC2000 charts
-*/
-function setIFrameSize() {
-  var ogWidth = 700;
-  var ogHeight = 600;
-  var ogRatio = ogWidth / ogHeight;
-
-  var windowWidth = $(window).width();
-  if (windowWidth < 480) {
-    var parentDivWidth = $(".iframe-class").parent().width();
-    var newHeight = (parentDivWidth / ogRatio);
-    $(".iframe-class").addClass("iframe-class-resize");
-    $(".iframe-class-resize").css("width", parentDivWidth);
-    $(".iframe-class-resize").css("height", newHeight);
-  } else {
-    $(".iframe-class").removeClass("iframe-class-resize");
+(function() {
+  /**
+  Will change the color of text in element by class to red/green based on price
+  */
+  function colorPrices(elemClass) {
+    for(var i = 0, j = elemClass.length; i < j; ++i) {
+      if (Number(elemClass[i].innerText) > 0) {
+        elemClass[i].style.color = "green";
+      } else if (Number(elemClass[i].innerText) < 0) {
+        elemClass[i].style.color = "red";
+      } else {
+        elemClass[i].style.color = "black";
+      }
+    }
   }
-}
+
+  // Change the color of the $change and $change columns
+  var change = document.getElementsByClassName("class_change");
+  var changeInPercent = document.getElementsByClassName("class_changeInPercent");
+  var glDollar = document.getElementsByClassName("class_glDollar");
+  var glInPercent = document.getElementsByClassName("class_glInPercent");
+  colorPrices(change);
+  colorPrices(changeInPercent);
+  colorPrices(glDollar);
+  colorPrices(glInPercent);
+
+})();
