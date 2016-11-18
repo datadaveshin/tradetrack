@@ -97,7 +97,7 @@ router.get('/open', function(req, res) {
           currPos.numShares = Math.floor(currPos.numShares)
           currPos.previousClose = snapshot.previousClose;
           currPos.lastTradePriceOnly = snapshot.lastTradePriceOnly;
-          currPos.val = currPos.numShares * Number(snapshot.lastTradePriceOnly);
+          currPos.val = (currPos.numShares * Number(snapshot.lastTradePriceOnly)).toFixed(2);
           currPos.change = snapshot.change;
           currPos.changeInPercent = (snapshot.changeInPercent * 100).toFixed(2);
           currPos.glDollar = (Number(snapshot.lastTradePriceOnly * currPos.numShares) - Number(currPos.sharePrice * currPos.numShares)).toFixed(2);
