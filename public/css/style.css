@@ -4,6 +4,7 @@ Site */
 a.brand-logo {
   margin-left: 10px;
   font-weight:800;
+  color: #FFC107;
 }
 
 /* =============================================================================
@@ -13,10 +14,66 @@ CSS for Open Position Table */
 }
 
 /* =============================================================================
+Input form colors */
+
+/* label color */
+ .input-field label {
+   color: #757575
+ }
+
+/* option text color */
+ ul.dropdown-content.select-dropdown li span {
+     color: #757575;
+ }
+
+ /* label focus color */
+ .input-field input[type=text]:focus + label {
+   color: #FFC107;
+ }
+
+ /* label underline focus color */
+ .input-field input[type=text]:focus {
+   border-bottom: 1px solid #FFC107;
+   box-shadow: 0 1px 0 0 #FFC107;
+ }
+
+ .input-field input[type=number]:focus {
+   border-bottom: 1px solid #FFC107;
+   box-shadow: 0 1px 0 0 #FFC107;
+ }
+
+.input-field input[type=date]:focus {
+   border-bottom: 1px solid #FFC107;
+   box-shadow: 0 1px 0 0 #FFC107;
+ }
+
+ .input-field input[type=email]:focus {
+   border-bottom: 1px solid #FFC107;
+   box-shadow: 0 1px 0 0 #FFC107;
+ }
+
+ .input-field input[type=password]:focus {
+   border-bottom: 1px solid #FFC107;
+   box-shadow: 0 1px 0 0 #FFC107;
+ }
+
+
+/* =============================================================================
+Buttons */
+
+button.submit {
+  background-color: #FFC107;
+}
+
+button.submit:hover {
+  background-color: #ffd740;
+}
+
+/* =============================================================================
 Typography */
 
 h3 {
-  color: #37474f; /* blue-grey */
+  color: #455A64; /* blue-grey */
   text-transform: uppercase;
   text-shadow: 2px 2px 1px #DDD;
 }
@@ -26,7 +83,7 @@ h4 {
   text-transform: uppercase;
   font-weight: 800;
   margin: 6px 0;
-  letter-spacing: .1em;
+  /*letter-spacing: .1em;*/
 }
 
 h5 {
@@ -55,7 +112,7 @@ Navigation */
 
 nav {
   color: #fff;
-  background-color: #37474f; /* blue-grey darken-3 */
+  background-color: #455A64; /* blue-grey darken-3 */
 }
 
 /* =============================================================================
@@ -89,9 +146,9 @@ Footer */
 }
 
 footer.page-footer {
-  background-color: #90a4ae; /* blue-grey lighten-2 */
+  background-color: #607D8B; /* blue-grey lighten-2 */
 }
 
 footer.page-footer .footer-copyright {
-  background-color: #37474f; /* blue-grey darken-3 */
+  background-color: #455A64; /* blue-grey darken-3 */
 }

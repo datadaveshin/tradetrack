@@ -46,7 +46,7 @@ router.post('/', (req, res, next) => {
 
   let user;
 
-  knex('users').where('email', authReq.email).first()
+  knex('users').where('email', authReq.email.toLowerCase()).first()
     .then((row) => {
       if (!row) {
         res.redirect('/token/login' + '?login=invalid');
