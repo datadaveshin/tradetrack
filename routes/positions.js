@@ -100,6 +100,8 @@ router.get('/open', function(req, res) {
 
           currPos.lastTradePriceOnly = snapshot.lastTradePriceOnly;
 
+          currPos.origVal = (Number(currPos.sharePrice) * currPos.numShares);
+
           currPos.val = (currPos.numShares * Number(snapshot.lastTradePriceOnly)).toFixed(2);
           currPos.change = snapshot.change;
 
@@ -112,6 +114,8 @@ router.get('/open', function(req, res) {
           console.log("type currPos.numShares", typeof currPos.numShares);
 
           currPos.glInPercent = (Number(currPos.glDollar)/(Number(snapshot.lastTradePriceOnly * currPos.numShares)) * 100).toFixed(2);
+
+          currPos.glInPercent = (Number(currPos.glDollar)/(Number(currPos.sharePrice * currPos.numShares)) * 100).toFixed(2);
 
           currPos.dividendYield = snapshot.dividendYield;
 
