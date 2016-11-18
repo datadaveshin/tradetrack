@@ -61,18 +61,20 @@ var Position = function(userName, ticker, sharePrice, tradeDate, numShares) {
 // show all open positions for current user
 router.get('/open', function(req, res) {
   openPositions = [];
+  symbols = [];
   if (!req.cookies['/token']) {
-    res.redirect('login');
+    res.redirect('../token/login');
   }
   let userId = Number(req.cookies['/token'].split('.')[0]);
 
-  knex.select('transactions.id', 'users.id','user_name', 'ticker', 'share_price', 'trade_date', 'num_shares')
+  knex.select('transactions.id as trx_id', 'users.id','user_name', 'ticker', 'share_price', 'trade_date', 'num_shares')
   .from('transactions')
   .join('users', 'transactions.user_id', 'users.id')
   .join('stocks', 'transactions.stock_id', 'stocks.id')
   .where('closed_flag', false)
   .where('users.id', userId)
   .then((rows) => {
+
     if (req.cookies['/token']) {
     //   console.log("Robs Rows", rows);
       // Build symbol (to get quotes) and open position arrays
@@ -102,6 +104,12 @@ router.get('/open', function(req, res) {
         console.log("openPositions: ", openPositions)
         res.render('showall', {openPositions: openPositions})
       });
+
+
+    // console.log(rows.id);
+    // if (req.cookies['/token']) {
+    //   res.send(rows);
+
     } else {
       res.status(401);
       res.set('Content-Type', 'text/plain');
@@ -119,12 +127,12 @@ router.get('/closed', function(req, res) {
 
 
   if (!req.cookies['/token']) {
-    res.redirect('login');
+    res.redirect('../token/login');
   }
 
   let userId = Number(req.cookies['/token'].split('.')[0]);
 
-  knex.select('transactions.id', 'users.id','user_name', 'ticker', 'share_price', 'trade_date', 'num_shares')
+  knex.select('transactions.id as trx_id', 'users.id','user_name', 'ticker', 'share_price', 'trade_date', 'num_shares')
   .from('transactions')
   .join('users', 'transactions.user_id', 'users.id')
   .join('stocks', 'transactions.stock_id', 'stocks.id')
@@ -132,11 +140,11 @@ router.get('/closed', function(req, res) {
   .where('users.id', userId)
   .orderBy('trade_date') // Added to sort by ticker
   .then((rows) => {
-
+    console.log(rows.id);
     var closedTrx = [];
 
     for (var i = 0; i < rows.length; i++) {
-      var newTrx = new Trx(rows[i].id, rows[i].user_name, rows[i].ticker,
+      var newTrx = new Trx(rows[i].trx_id, rows[i].id, rows[i].user_name, rows[i].ticker,
         rows[i].share_price, rows[i].trade_date, rows[i].num_shares);
 
         closedTrx.push(newTrx);
@@ -253,12 +261,13 @@ router.get('/closed', function(req, res) {
 // show specified open position for current user
 router.get('/:id', function(req, res) {
   var trxId = Number(req.params.id);
+  console.log('trxId:', trxId);
   if (!req.cookies['/token']) {
-    res.redirect('login');
+    res.redirect('../token/login');
   }
 
   let userId = Number(req.cookies['/token'].split('.')[0]);
-
+    console.log('userId:', userId);
 
   knex.select('users.id','user_name', 'ticker', 'share_price', 'trade_date', 'num_shares')
   .from('transactions')

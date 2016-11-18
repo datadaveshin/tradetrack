@@ -38,13 +38,13 @@ router.post('/', (req, res, next) => {
   const authReq = decamelizeKeys(req.body);
   const { email, password } = req.body;
 
-  if (!email || !email.trim()) {
-    return next(boom.create(400, 'Email must not be blank'));
-  }
-
-  if (!password || password.length < 8) {
-    return next(boom.create(400, 'Password must not be blank'));
-  }
+  // if (!email || !email.trim()) {
+  //   return next(boom.create(400, 'Email must not be blank'));
+  // }
+  //
+  // if (!password || password.length < 8) {
+  //   return next(boom.create(400, 'Password must not be blank'));
+  // }
 
   let user;
 
@@ -66,7 +66,7 @@ router.post('/', (req, res, next) => {
       res.render('index', { userName: user.userName });
     })
     .catch(bcrypt.MISMATCH_ERROR, () => {
-      throw boom.create(400, 'Bad email or password');
+      res.redirect("/token/login")
     })
     .catch(err => {
       next(err);

@@ -5,10 +5,11 @@
 
 // =============================================================================
 // trx class definition
-var Trx = function(userId, userName, ticker, sharePrice, tradeDate, numShares) {
+var Trx = function(trxId, userId, userName, ticker, sharePrice, tradeDate, numShares) {
 
   numShares = Number(numShares);
 
+  this.trxId = trxId;
   this.userId = userId;
   this.userName = userName;
   this.ticker = ticker;

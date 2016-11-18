@@ -9,31 +9,9 @@
   <title>Enter Trade</title>
 </head>
 <body>
-  <div class='row'>
-    <nav class='nav-extended'>
-      <div class='nav-wrapper'>
-        <a href='/' class='brand-logo'>TradeTrack</a>
-        <a href='#' data-activates='mobile-demo' class='button-collapse'><i class='material-icons'>menu</i></a>
-        <ul id='nav-mobile' class='right hide-on-med-and-down'>
-          <li><a href='/users/new'>Sign Up</a></li>
-          <li><a href='/token/login'>Log In</a></li>
-          <li><a href=''>Log Out</a></li>
-        </ul>
-        <ul class='side-nav' id='mobile-demo'>
-          <li><a href='/users/new'>Sign Up</a></li>
-          <li><a href='/token/login'>Log In</a></li>
-          <li><a href='#'>Log Out</a></li>
-        </ul>
 
-        <ul class='tabs tabs-transparent'>
-          <li class='tab'><a href='/'>Home</a></li>
-          <li class='tab'><a class='active' href='/transactions/new'>Trade</a></li>
-          <li class='tab'><a href='/positions/open'>Open Positions</a></li>
-          <li class='tab'><a href='/positions/closed'>Closed Positions</a></li>
-        </ul>
-      </div>
-    </nav>
-  </div>
+    <%- include("../partials/nav", {home: false, trade: true}) %>
+
   <main class='container'>
     <div class='row'>
       <div class='col s12 m12'>
@@ -41,51 +19,55 @@
 
         <form action='/transactions' method='POST'>
           <div class='row'>
-            <div class='input-field'>
+            <div class='input-field col s12 l6'>
               <label for='ticker'>Ticker: </label>
-              <input type='text' autofocus="true" required name='ticker' id='ticker'>
+              <input type='text' autofocus='true' required name='ticker' id='ticker'>
             </div>
           </div>
 
           <div class='row'>
-            <div class='input-field'>
+            <div class='input-field col s12 l6'>
               <label for='tradeDate'> </label>
               <input type='date' required name='tradeDate' id='tradeDate'>
             </div>
           </div>
 
           <div class='row'>
-            <div class='input-field'>
+            <div class='input-field col s12 l6'>
               <label for='numShares'># Shares: </label>
               <input type='number' required name='numShares' id='numShares'>
             </div>
           </div>
 
           <div class='row'>
-            <div class='input-field'>
+            <div class='input-field col s12 l6'>
               <label for='sharePrice'>$ per Share: </label>
               <input type='number' required min='0' step='0.0001' name='sharePrice' id='sharePrice'>
             </div>
           </div>
 
           <div class='row'>
-            <div class='input-field'>
+            <div class='input-field col s12 l6'>
               <label for='commission'>Commission: </label>
               <input type='number' required min='0' step='0.01' name='commission' id='commission'>
             </div>
           </div>
 
           <div class='row'>
-            <div class='input-field'>
+            <div class='input-field col s12 l6'>
               <label for='fees'>Fees: </label>
-              <input type='number' required min='0' step='0.01' name='fees' id='fees'>
+              <input type='number' min='0' step='0.01' name='fees' id='fees'>
             </div>
           </div>
 
           <div class='row'>
-            <div class='input-field'>
-              <label for='direction'>Long or Short: </label>
-              <input type='text' required name='direction' id='direction'>
+            <div class='input-field col s12 l6'>
+              <select name='direction' id='direction'>
+                <option value='' disabled selected>Choose your option</option>
+                <option value='LONG'>Long</option>
+                <option value='SHORT'>Short</option>
+              </select>
+              <label>Long / Short</label>
             </div>
           </div>
 
@@ -99,31 +81,8 @@
     </div>
   </main>
 
-  <footer class='page-footer'>
-    <div class='container'>
-      <div class='row'>
-        <div class='col l6 s12'>
-          <!-- <h5 class='white-text'>Footer Content</h5> -->
-          <p class='grey-text text-lighten-4'>You can use rows and columns here to organize your footer content.</p>
-        </div>
-        <div class='col l4 offset-l2 s12'>
-          <!-- <h5 class='white-text'>Links</h5> -->
-          <ul>
-            <li><a class='grey-text text-lighten-3' href='/site/contact'>Contact</a></li>
-            <li><a class='grey-text text-lighten-3' href='/site/about'>About</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class='footer-copyright'>
-      <div class='container'>
-      © 2016 RD Devs. All Rights Reserved
-      <a class='grey-text text-lighten-4 right' href='#!'>More Links</a>
-      </div>
-    </div>
-  </footer>
-
-  <script type='text/javascript' src='https://code.jquery.com/jquery-3.1.1.min.js'></script>
-  <script type='text/javascript' src='../js/materialize.js'></script>
+    <%- include("../partials/footer") %>
+    
+  <script type='text/javascript' src='../js/scripts.js'></script>
 </body>
 </html>
