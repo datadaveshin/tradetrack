@@ -115,6 +115,10 @@ nav {
   background-color: #455A64; /* blue-grey darken-3 */
 }
 
+ul#mobile-demo li a {
+  color: #FFC107;
+}
+
 /* =============================================================================
 CSS for TC2000 charts for resizing*/
 .TC2000-container {
