@@ -130,7 +130,7 @@ router.get('/closed', function(req, res) {
   .join('stocks', 'transactions.stock_id', 'stocks.id')
   .where('closed_flag', true)
   .where('users.id', userId)
-  .orderBy('ticker') // Added to sort by ticker
+  .orderBy('trade_date') // Added to sort by ticker
   .then((rows) => {
 
     var closedTrx = [];
