@@ -25,13 +25,41 @@ h5 {
   color: #607d8b; /* blue-grey */
 }
 
+/* =============================================================================
+Images */
+
+img:first-of-type {
+  margin-top: 40px;
+}
+
+img.logo {
+  max-height: 125px;
+  max-width: 250px;
+  margin-bottom: 20px;
+}
 
 /* =============================================================================
-Navigation, footer */
+Navigation */
 
 nav {
   color: #fff;
   background-color: #37474f; /* blue-grey darken-3 */
+}
+
+/* =============================================================================
+Footer */
+
+#github {
+  text-decoration: underline;
+}
+
+#footer {
+  margin: 0;
+  padding: 0;
+}
+
+.footer-row {
+  margin: 0;
 }
 
 footer.page-footer {

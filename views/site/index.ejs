@@ -10,31 +10,9 @@
     <title>TradeTrack</title>
   </head>
   <body>
-    <div class='row'>
-      <nav class='nav-extended'>
-        <div class='nav-wrapper'>
-          <a href='/' class='brand-logo'>TradeTrack</a>
-          <a href='#' data-activates='mobile-demo' class='button-collapse'><i class='material-icons'>menu</i></a>
-          <ul id='nav-mobile' class='right hide-on-med-and-down'>
-            <li><a href='/users/new'>Sign Up</a></li>
-            <li><a href='/token/login'>Log In</a></li>
-            <li><a href=''>Log Out</a></li>
-          </ul>
-          <ul class='side-nav' id='mobile-demo'>
-            <li><a href='/users/new'>Sign Up</a></li>
-            <li><a href='/token/login'>Log In</a></li>
-            <li><a href='#'>Log Out</a></li>
-          </ul>
 
-          <ul class='tabs tabs-transparent'>
-            <li class='tab'><a class='active' href='/'>Home</a></li>
-            <li class='tab'><a href='/transactions/new'>Trade</a></li>
-            <li class='tab'><a href='/positions/open'>Open Positions</a></li>
-            <li class='tab'><a href='/positions/closed'>Closed Positions</a></li>
-          </ul>
-        </div>
-      </nav>
-    </div>
+    <%- include("../partials/nav", {home: true, trade: false}) %>
+
     <main class='container'>
       <div class='row'>
         <div class='col s12 m12'>
@@ -76,31 +54,7 @@
       </div> <!-- end second row -->
     </main>
 
-    <footer class='page-footer'>
-      <div class='container'>
-        <div class='row'>
-          <div class='col l6 s12'>
-            <!-- <h5 class='white-text'>Footer Content</h5> -->
-            <p class='grey-text text-lighten-4'>Software is never finished.</p>
-          </div>
-          <div class='col l4 offset-l2 s12'>
-            <!-- <h5 class='white-text'>Links</h5> -->
-            <ul>
-              <li><a class='grey-text text-lighten-3' href='/site/contact'>Contact</a></li>
-              <li><a class='grey-text text-lighten-3' href='/site/about'>About</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class='footer-copyright'>
-        <div class='container'>
-        © 2016 RD Devs. All Rights Reserved
-        <a class='grey-text text-lighten-4 right' href='https://github.com/bigrobsf/tradetrack' target='_blank'>on github</a>
-        </div>
-      </div>
-    </footer>
+    <%- include("../partials/footer") %>
 
-    <script type='text/javascript' src='https://code.jquery.com/jquery-3.1.1.min.js'></script>
-    <script type='text/javascript' src='../js/materialize.js'></script>
   </body>
 </html>
