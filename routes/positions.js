@@ -232,7 +232,7 @@ router.get('/closed', function(req, res) {
     //   res.send(buyVsSellObj);
     //   res.send(calcObj);
     //   res.send(calcArr);
-      res.render('closedall', {calcArr: calcArr})
+      res.render('closedall', {calcArr: calcArr, origFolioAmount: origFolioAmount})
     } else {
       res.status(401);
       res.set('Content-Type', 'text/plain');
