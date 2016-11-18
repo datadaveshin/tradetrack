@@ -5,36 +5,12 @@
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="../css/materialize.css"  media="screen,projection"/>
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/closedall.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>All</title>
   </head>
   <body>
-    <div class="row">
-      <nav class='nav-extended'>
-        <div class='nav-wrapper'>
-          <a href='/' class='brand-logo'>TradeTrack</a>
-          <a href='#' data-activates='mobile-demo' class='button-collapse'><i class='material-icons'>menu</i></a>
-          <ul id='nav-mobile' class='right hide-on-med-and-down'>
-            <li><a href='/users/new'>Sign Up</a></li>
-            <li><a href='/token/login'>Log In</a></li>
-            <li><a href=''>Log Out</a></li>
-          </ul>
-          <ul class='side-nav' id='mobile-demo'>
-            <li><a href='/users/new'>Sign Up</a></li>
-            <li><a href='/token/login'>Log In</a></li>
-            <li><a href='#'>Log Out</a></li>
-          </ul>
 
-          <ul class='tabs tabs-transparent'>
-            <li class='tab'><a href='/'>Home</a></li>
-            <li class='tab'><a href='/transactions/new'>Trade</a></li>
-            <li class='tab'><a href='/positions/open'>Open Positions</a></li>
-            <li class='tab'><a href='/positions/closed'>Closed Positions</a></li>
-          </ul>
-        </div>
-      </nav>
-    </div>
+    <%- include("../partials/nav", {home: false, trade: false, open: false, closed: true}) %>
 
     <main>
 
@@ -64,14 +40,14 @@
       </script>
       <!-- TradingView Widget END -->
 
-      <div class="container">
+      <div class="container stock-table" >
         <h3>Trading Performance</h3>
         <h3></h3>
         <h5>Original Account Balance:  $<%=origFolioAmount%></h5>
       </div>
 
       <!-- Open Position Table BEGIN -->
-      <div class="container">
+      <div class="container stock-table">
         <table>
           <thead>
             <tr>
@@ -110,33 +86,8 @@
 
     </main>
 
-    <footer class='page-footer'>
-      <div class='container'>
-        <div class='row'>
-          <div class='col l6 s12'>
-          <!-- <h5 class='white-text'>Footer Content</h5> -->
-            <p class='grey-text text-lighten-4'>You can use rows and columns here to organize your footer content.</p>
-          </div>
-          <div class='col l4 offset-l2 s12'>
-          <!-- <h5 class='white-text'>Links</h5> -->
-            <ul>
-              <li><a class='grey-text text-lighten-3' href='/site/contact'>Contact</a></li>
-              <li><a class='grey-text text-lighten-3' href='/site/about'>About</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class='footer-copyright'>
-        <div class='container'>
-      © 2016 RD Devs. All Rights Reserved
-        <a class='grey-text text-lighten-4 right' href='#!'>More Links</a>
-        </div>
-      </div>
-    </footer>
+    <%- include("../partials/footer") %>
 
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-    <script type="text/javascript" src="../js/materialize.js"></script>
     <script type="text/javascript" src="../js/closedall.js"></script>
-    <script type="text/javascript" src="/js/showall.js"></script>
     </body>
 </html>

@@ -350,6 +350,14 @@ var stocks = [{
   last_close_price: 0,
   created_at: new Date('2016-11-16 12:26:16 UTC'),
   updated_at: new Date('2016-11-16 12:26:16 UTC')
+}, {
+  id: 45,
+  ticker: 'WFC',
+  company_name: 'Wells Fargo Bank',
+  cusip: '',
+  last_close_price: 0,
+  created_at: new Date('2016-11-16 12:26:16 UTC'),
+  updated_at: new Date('2016-11-16 12:26:16 UTC')
 }];
 
 exports.seed = function(knex, Promise) {

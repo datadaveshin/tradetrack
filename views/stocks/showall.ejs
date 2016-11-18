@@ -5,36 +5,11 @@
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="../css/materialize.css"  media="screen,projection"/>
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/showall.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>All</title>
   </head>
-  <body>
-    <div class="row">
-      <nav class='nav-extended'>
-        <div class='nav-wrapper'>
-          <a href='/' class='brand-logo'>TradeTrack</a>
-          <a href='#' data-activates='mobile-demo' class='button-collapse'><i class='material-icons'>menu</i></a>
-          <ul id='nav-mobile' class='right hide-on-med-and-down'>
-            <li><a href='/users/new'>Sign Up</a></li>
-            <li><a href='/token/login'>Log In</a></li>
-            <li><a href=''>Log Out</a></li>
-          </ul>
-          <ul class='side-nav' id='mobile-demo'>
-            <li><a href='/users/new'>Sign Up</a></li>
-            <li><a href='/token/login'>Log In</a></li>
-            <li><a href='#'>Log Out</a></li>
-          </ul>
 
-          <ul class='tabs tabs-transparent'>
-            <li class='tab'><a href='/'>Home</a></li>
-            <li class='tab'><a href='/transactions/new'>Trade</a></li>
-            <li class='tab'><a href='/positions/open'>Open Positions</a></li>
-            <li class='tab'><a href='/positions/closed'>Closed Positions</a></li>
-          </ul>
-        </div>
-      </nav>
-    </div>
+    <%- include("../partials/nav", {home: false, trade: false, open: true, closed: false}) %>
 
     <main>
       <!-- TC2000 Chart BEGIN -->
@@ -58,7 +33,7 @@
       <!-- TC2000 Chart END -->
 
       <!-- Open Position Table BEGIN -->
-      <div class="container">
+      <div class="container stock-table">
         <table>
           <thead>
             <tr>
@@ -69,7 +44,7 @@
               <th data-field="changeInPercent">%Change</th>
               <th data-field="totalChange">$G/L</th>
               <th data-field="totalChangeInPercent">%G/L</th>
-              <th data-field="dividendYield">Div Yeild</th>
+              <th data-field="dividendYield">Div Yield</th>
               <th data-field="peRatio">P/E Ratio</th>
             </tr>
           </thead>
@@ -96,7 +71,7 @@
     </main>
 
     <%- include("../partials/footer") %>
-    
+
     <script type="text/javascript" src="../js/showall.js"></script>
 
   </body>

@@ -17,8 +17,8 @@
       <ul class='tabs tabs-transparent'>
         <li class='tab'><a class='<%= home ? "active" : ""%>' href='/'>Home</a></li>
         <li class='tab'><a class='<%= trade ? "active" : ""%>' href='/transactions/new'>Trade</a></li>
-        <li class='tab'><a href='/positions/open'>Open Positions</a></li>
-        <li class='tab'><a href='/positions/closed'>Closed Positions</a></li>
+        <li class='tab'><a class='<%= open ? "active" : ""%>' href='/positions/open'>Open Positions</a></li>
+        <li class='tab'><a class='<%= closed ? "active" : ""%>' href='/positions/closed'>Closed Positions</a></li>
       </ul>
     </div>
   </nav>

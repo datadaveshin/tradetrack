@@ -10,12 +10,12 @@
 </head>
 <body>
 
-    <%- include("../partials/nav", {home: true, trade: false}) %>
+    <%- include("../partials/nav", {home: true, trade: false, open: false, closed: false}) %>
 
   <main class='container'>
     <div class='row'>
       <div class='col s12 m12'>
-        <h3>Log in</h3>
+        <h4>Log in</h4>
 
           <form action='/token' method='POST'>
             <div class='row'>
@@ -44,6 +44,6 @@
   </main>
 
     <%- include("../partials/footer") %>
-    
+
 </body>
 </html>
