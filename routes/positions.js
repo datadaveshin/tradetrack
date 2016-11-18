@@ -175,6 +175,8 @@ router.get('/closed', function(req, res) {
       // Calculate balances
     //   let calcObj = {};
       let calcArr = [];
+      let hypoFolioAmount = 10000;
+      let origHypoFolioAmount = 10000;
       _.each(buyVsSellObj, function(item, key) {
         //   console.log("each item", item);
           console.log("each item.buys", item.buys);
@@ -186,7 +188,7 @@ router.get('/closed', function(req, res) {
               return a + b.buyAmount}, 0).toFixed(2)
           calcObj.sellAmount = item.sells.reduce(function(a, b){
                   return a + b.sellAmount}, 0).toFixed(2)
-          calcObj.glAmount = (Number(calcObj.sellAmount) + Number(calcObj.buyAmount)).toFixed(2);
+          calcObj.glAmount = ((Number(calcObj.sellAmount) + Number(calcObj.buyAmount)) * -1).toFixed(2);
           calcObj.glInPercent = (calcObj.glAmount / calcObj.buyAmount * 100).toFixed(2);
           if (item.buys.length > 1) {
               calcObj.buyDate = 'various'
@@ -198,6 +200,11 @@ router.get('/closed', function(req, res) {
           } else {
               calcObj.sellDate = item.sells[0].sellSimpleDate;
           }
+
+          hypoFolioAmount += Number(calcObj.glAmount)
+          calcObj.hypoFolioAmount = hypoFolioAmount
+          calcObj.hypoFolioAmountPercent = (((hypoFolioAmount - origHypoFolioAmount) / origHypoFolioAmount)*100).toFixed(2);
+
           calcArr.push(calcObj)
       });
       //<-- END Code to calc closed table-->
