@@ -77,7 +77,7 @@ router.get('/open', function(req, res) {
   .then((rows) => {
 
     if (req.cookies['/token']) {
-    //   console.log("Robs Rows", rows);
+
       // Build symbol (to get quotes) and open position arrays
       _.each(rows, function(stock) {
           let newPos = new Position(stock.user_name, stock.ticker, stock.share_price, stock.trade_date, stock.num_shares)
@@ -124,11 +124,6 @@ router.get('/open', function(req, res) {
         console.log("openPositions: ", openPositions)
         res.render('showall', {openPositions: openPositions})
       });
-
-
-    // console.log(rows.id);
-    // if (req.cookies['/token']) {
-    //   res.send(rows);
 
     } else {
       res.status(401);
@@ -203,7 +198,6 @@ router.get('/closed', function(req, res) {
       //   console.log("buyVsSellObj", buyVsSellObj);
 
       // Calculate balances
-    //   let calcObj = {};
       if (theUser === 1) {
           var FolioAmount = 100000;
           var origFolioAmount = 100000;
@@ -254,17 +248,45 @@ router.get('/closed', function(req, res) {
           calcObj.FolioAmountPercent = (((FolioAmount - origFolioAmount) / origFolioAmount)*100).toFixed(2);
 
           calcArr.push(calcObj)
-          console.log("CALC OBJ", calcObj);
+        //   console.log("CALC OBJ", calcObj);
 
-          // Calc some summary stats
       });
+
+      // Calc some summary stats
+      let summaryObj = {};
+      summaryObj.beginningBal = origFolioAmount;
+
+      summaryObj.endingBal = calcArr[calcArr.length - 1].FolioAmount;
+
+      summaryObj.totalGL = summaryObj.endingBal - origFolioAmount;
+
+      summaryObj.numTrades = calcArr.length;
+
+      summaryObj.numWinningTrades = _.filter(calcArr, function(item) {return Number(item.glAmount) > 0}).length;
+
+      summaryObj.numLosingTrades = _.filter(calcArr, function(item) {return Number(item.glAmount) < 0}).length;
+
+      summaryObj.numEvenTrades = calcArr.length - (summaryObj.numWinningTrades + summaryObj.numLosingTrades);
+
+      summaryObj.perCentWins = (summaryObj.numWinningTrades/summaryObj.numTrades * 100).toFixed(1) + "%"
+
+    //   summaryObj.percentWinsArr = _.filter(calcArr, function(item) {return Number(item.glInPercent) > 0});
+
+    //   summaryObj.percentWinsArr = _.filter(calcArr, function(item) {return Number(item.glInPercent) > 0}).map(function(winners){return Number(winners.glInPercent});
+      summaryObj.percentWinsArr = calcArr.filter(function(item) {return Number(item.glInPercent) > 0}).map(function(winners){return Number(winners.glInPercent}));
+
+    //   summaryObj.percentLossesArr = _.filter(calcArr, function(item) {return Number(item.glInPercent) < 0});
+
+
+
       //<-- END Code to calc closed table-->
 
     //   res.send(closedTrx);
     //   res.send(buyVsSellObj);
     //   res.send(calcObj);
     //   res.send(calcArr);
-      res.render('closedall', {calcArr: calcArr, origFolioAmount: origFolioAmount})
+      res.send(summaryObj)
+    //   res.render('closedall', {calcArr: calcArr, origFolioAmount: origFolioAmount})
     } else {
       res.status(401);
       res.set('Content-Type', 'text/plain');
