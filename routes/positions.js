@@ -177,26 +177,28 @@ router.get('/closed', function(req, res) {
       // Calculate balances
     //   let calcObj = {};
       if (theUser === 1) {
-          var hypoFolioAmount = 100000;
-          var origHypoFolioAmount = 100000;
+          var FolioAmount = 100000;
+          var origFolioAmount = 100000;
           var percentAcct = 0.10
       } else if (theUser === 2) {
-          var hypoFolioAmount = 10000;
-          var origHypoFolioAmount = 10000;
+          var FolioAmount = 10000;
+          var origFolioAmount = 10000;
           var percentAcct = 0.10
       } else {
-          var hypoFolioAmount = 100000;
-          var origHypoFolioAmount = 100000;
+          var FolioAmount = 100000;
+          var origFolioAmount = 100000;
           var percentAcct = 0.10
       }
       let calcArr = [];
       _.each(buyVsSellObj, function(item, key) {
         //   console.log("each item", item);
-          console.log("each item.buys", item.buys);
+        //   console.log("each item.buys", item.buys);
         //   console.log("each item.buys.buyAmount", item.buys.buyAmount);
         //   calcObj.ticker = buyVsSellObj.ticker;
           let calcObj = {};
           calcObj.ticker = key;
+          calcObj.shares = item.buys.reduce(function(a, b){
+              return a + Number(b.buyShares)}, 0)
           calcObj.buyAmount = item.buys.reduce(function(a, b){
               return a + b.buyAmount}, 0).toFixed(2)
           calcObj.sellAmount = item.sells.reduce(function(a, b){
@@ -214,22 +216,23 @@ router.get('/closed', function(req, res) {
               calcObj.sellDate = item.sells[0].sellSimpleDate;
           }
 
-        //   hypoFolioAmount = hypoFolioAmount + (Number(calcObj.glInPercent) / 100 * hypoFolioAmount * percentAcct) // Use to calc hypothetical total amount
+        //   FolioAmount = FolioAmount + (Number(calcObj.glInPercent) / 100 * FolioAmount * percentAcct) // Use to calc thetical total amount
 
-          hypoFolioAmount += Number(calcObj.glAmount) // Use for real total amount
+          FolioAmount += Number(calcObj.glAmount) // Use for real total amount
 
-          calcObj.hypoFolioAmount = hypoFolioAmount.toFixed(2)
-          calcObj.hypoFolioAmountPercent = (((hypoFolioAmount - origHypoFolioAmount) / origHypoFolioAmount)*100).toFixed(2);
+          calcObj.FolioAmount = FolioAmount.toFixed(2)
+          calcObj.FolioAmountPercent = (((FolioAmount - origFolioAmount) / origFolioAmount)*100).toFixed(2);
 
           calcArr.push(calcObj)
+          console.log("CALC OBJ", calcObj);
       });
       //<-- END Code to calc closed table-->
 
     //   res.send(closedTrx);
     //   res.send(buyVsSellObj);
     //   res.send(calcObj);
-      res.send(calcArr);
-    //   res.render('closedall')
+    //   res.send(calcArr);
+      res.render('closedall', {calcArr: calcArr})
     } else {
       res.status(401);
       res.set('Content-Type', 'text/plain');
