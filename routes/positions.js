@@ -27,13 +27,13 @@ p2: changeInPercent
 y: dividendYield
 r: peRatio
 */
-let FIELDS = ['n', 'l1', 'p', 'c1', 'p2', 'y', 'r']
+let FIELDS = ['n', 'l1', 'p', 'c1', 'p2', 'y', 'r'];
 let openPositions = [];
 let closedPositions = [];
 let symbols = [];
 let closedSymbols = [];
 let quoteGSCP = "";
-console.log('OPEN POSITIONS!!');
+// console.log('OPEN POSITIONS!!');
 
 // Datetime to simple date converter
 function simpleDate(date) {
@@ -56,7 +56,7 @@ var Position = function(userName, ticker, sharePrice, tradeDate, numShares) {
   this.sharePrice = sharePrice,
   this.tradeDate = new Date(tradeDate),
   this.numShares = numShares
-}
+};
 
 // =============================================================================
 // show all open positions for current user
@@ -80,11 +80,11 @@ router.get('/open', function(req, res) {
     //   console.log("Robs Rows", rows);
       // Build symbol (to get quotes) and open position arrays
       _.each(rows, function(stock) {
-          let newPos = new Position(stock.user_name, stock.ticker, stock.share_price, stock.trade_date, stock.num_shares)
+          let newPos = new Position(stock.user_name, stock.ticker, stock.share_price, stock.trade_date, stock.num_shares);
 
           openPositions.push(newPos);
           symbols.push(newPos.ticker);
-      })
+      });
 
       // Get realtime quotes
       yahooFinance.snapshot({
@@ -95,7 +95,7 @@ router.get('/open', function(req, res) {
           let currPos = openPositions[symbolIndex];
           currPos.name = snapshot.name;
 
-          currPos.numShares = Math.floor(currPos.numShares)
+          currPos.numShares = Math.floor(currPos.numShares);
           currPos.previousClose = snapshot.previousClose;
 
           currPos.lastTradePriceOnly = snapshot.lastTradePriceOnly;
@@ -121,8 +121,8 @@ router.get('/open', function(req, res) {
 
           currPos.peRatio = snapshot.peRatio;
         });
-        console.log("openPositions: ", openPositions)
-        res.render('showall', {openPositions: openPositions})
+        console.log("openPositions: ", openPositions);
+        res.render('showall', {openPositions: openPositions});
       });
 
 
@@ -176,7 +176,7 @@ router.get('/closed', function(req, res) {
 
       //<-- BEGIN Code to calc closed table-->
       let theUser = closedTrx[0].userId;
-      console.log('theUser', theUser)
+      console.log('theUser', theUser);
 
       // Assemble buy vs sell object
       let buyVsSellObj = {};
@@ -190,16 +190,16 @@ router.get('/closed', function(req, res) {
                                                buySimpleDate: simpleDate(record.buyDate),
                                                buyShares: Number(record.numShares),
                                                buyPrice: Number(record.buyPrice),
-                                               buyAmount: record.buyPrice * record.numShares})
+                                               buyAmount: record.buyPrice * record.numShares});
         } else if (record.numShares < 0) {
             buyVsSellObj[record.ticker].sells.push({sellDate: record.sellDate,
                                                sellSimpleDate: simpleDate(record.sellDate),
                                                sellShares: Number(record.numShares),
                                                sellPrice: Number(record.sellPrice),
-                                               sellAmount: record.sellPrice * record.numShares})
+                                               sellAmount: record.sellPrice * record.numShares});
         }
         // console.log("index = ", idx);
-      })
+      });
       //   console.log("buyVsSellObj", buyVsSellObj);
 
       // Calculate balances
@@ -207,7 +207,7 @@ router.get('/closed', function(req, res) {
       if (theUser === 1) {
           var FolioAmount = 100000;
           var origFolioAmount = 100000;
-          var percentAcct = 0.10
+          var percentAcct = 0.10;
       } else if (theUser === 2) {
           var FolioAmount = 10000;
           var origFolioAmount = 10000;
@@ -215,7 +215,7 @@ router.get('/closed', function(req, res) {
       } else {
           var FolioAmount = 100000;
           var origFolioAmount = 100000;
-          var percentAcct = 0.10
+          var percentAcct = 0.10;
       }
       let statNumWinners = 0;
       let statNumLosers = 0;
@@ -236,24 +236,24 @@ router.get('/closed', function(req, res) {
           calcObj.glAmount = ((Number(calcObj.sellAmount) + Number(calcObj.buyAmount)) * -1).toFixed(2);
           calcObj.glInPercent = (calcObj.glAmount / calcObj.buyAmount * 100).toFixed(2);
           if (item.buys.length > 1) {
-              calcObj.buyDate = 'various'
+              calcObj.buyDate = 'various';
           } else {
               calcObj.buyDate = item.buys[0].buySimpleDate;
           }
           if (item.sells.length > 1) {
-              calcObj.sellDate = 'various'
+              calcObj.sellDate = 'various';
           } else {
               calcObj.sellDate = item.sells[0].sellSimpleDate;
           }
 
         //   FolioAmount = FolioAmount + (Number(calcObj.glInPercent) / 100 * FolioAmount * percentAcct) // Use to calc thetical total amount
 
-          FolioAmount += Number(calcObj.glAmount) // Use for real total amount
+          FolioAmount += Number(calcObj.glAmount); // Use for real total amount
 
-          calcObj.FolioAmount = FolioAmount.toFixed(2)
+          calcObj.FolioAmount = FolioAmount.toFixed(2);
           calcObj.FolioAmountPercent = (((FolioAmount - origFolioAmount) / origFolioAmount)*100).toFixed(2);
 
-          calcArr.push(calcObj)
+          calcArr.push(calcObj);
           console.log("CALC OBJ", calcObj);
 
           // Calc some summary stats
@@ -264,7 +264,7 @@ router.get('/closed', function(req, res) {
     //   res.send(buyVsSellObj);
     //   res.send(calcObj);
     //   res.send(calcArr);
-      res.render('closedall', {calcArr: calcArr, origFolioAmount: origFolioAmount})
+      res.render('closedall', {calcArr: calcArr, origFolioAmount: origFolioAmount});
     } else {
       res.status(401);
       res.set('Content-Type', 'text/plain');

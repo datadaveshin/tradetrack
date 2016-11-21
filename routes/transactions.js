@@ -14,6 +14,29 @@ const router = express.Router();
 const yahooFinance = require('yahoo-finance');
 
 // =============================================================================
+// used in POST route
+function insertTrade(newTrade, res, ticker, snapshot) {
+  delete newTrade.ticker;
+
+  knex('transactions')
+  .insert(decamelizeKeys(newTrade),
+    ['id', 'user_id', 'stock_id', 'trade_date', 'num_shares', 'share_price',
+    'commission', 'fees', 'direction', 'action'])
+    .returning('*')
+    .then((row) => {
+      const trade = camelizeKeys(row[0]);
+      console.log('NEW TRADE EXISTING STOCK: ', trade);
+      res.render('trade-added', {ticker: ticker,
+                                company: snapshot.name,
+                                numShares: trade.numShares,
+                                sharePrice: trade.sharePrice,
+                                commission: trade.commission,
+                                direction: trade.direction,
+                                action: trade.action});
+  });
+}
+
+// =============================================================================
 // show input form for new transaction
 router.get('/new', function(req, res) {
   console.log('COOKIE: ', req.cookies);
@@ -61,67 +84,35 @@ router.post('/', (req, res, next) => {
                             last_close_price: snapshot.previousClose})
       .returning('*')
       .then((stock) => {
+
         newTrade.stockId = stock[0].id;
-        delete newTrade.ticker;
-        console.log('TRX TO INSERT: ', newTrade);
+
       }).then(() => {
 
-        return knex('transactions')
-        .insert(decamelizeKeys(newTrade),
-        ['id', 'user_id', 'stock_id', 'trade_date', 'num_shares', 'share_price',
-        'commission', 'fees', 'direction', 'action']);
-
-      }).then((row) => {
-        const trade = camelizeKeys(row[0]);
-        console.log('NEW TRADE: ', trade);
-        res.render('trade-added', {ticker: ticker,
-                                  company: snapshot.name,
-                                  numShares: trade.numShares,
-                                  sharePrice: trade.sharePrice,
-                                  commission: trade.commission,
-                                  direction: trade.direction,
-                                  action: trade.action});
-    });
+      insertTrade(newTrade, res, ticker, snapshot);
 
     }).catch(err => {
       console.log('POST ERROR: ', err);
       res.status(400).send(err);
     });
-
+  });
   } else {
     yahooFinance.snapshot ({
       symbol: ticker,
       fields: ['n']
     }).then((snapshot) => {
 
-    newTrade.stockId = checkStock.id;
-    delete newTrade.ticker;
+      newTrade.stockId = checkStock.id;
+      insertTrade(newTrade, res, ticker, snapshot);
 
-    knex('transactions')
-    .insert(decamelizeKeys(newTrade),
-      ['id', 'user_id', 'stock_id', 'trade_date', 'num_shares', 'share_price',
-      'commission', 'fees', 'direction', 'action'])
-      .returning('*')
-      .then((row) => {
-        const trade = camelizeKeys(row[0]);
-        console.log('NEW TRADE EXISTING STOCK: ', trade);
-        res.render('trade-added', {ticker: ticker,
-                                  company: snapshot.name,
-                                  numShares: trade.numShares,
-                                  sharePrice: trade.sharePrice,
-                                  commission: trade.commission,
-                                  direction: trade.direction,
-                                  action: trade.action});
-    });
     }).catch(err => {
       console.log('POST ERROR: ', err);
       res.status(400).send(err);
     });
   } // end if else
 
+  });
 });
-});
-
 
 
 module.exports = router;
