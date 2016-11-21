@@ -129,6 +129,10 @@ a.disabled {
   cursor: default;
 }
 
+.main-nav {
+  margin-bottom: 20px;
+}
+
 /* =============================================================================
 CSS for TC2000 charts for resizing*/
 
@@ -166,4 +170,14 @@ footer.page-footer {
 
 footer.page-footer .footer-copyright {
   background-color: #455A64; /* blue-grey darken-3 */
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
 }
