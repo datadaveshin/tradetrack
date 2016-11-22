@@ -48,7 +48,7 @@ router.post('/', (req, res) => {
                             lastName: user.lastName,
                             userName: user.userName,
                                email: user.email,
-                            password: true,
+                            pwStatus: 'Saved',
                               status: 'Added'
                           });
     }).catch(err => {
@@ -86,7 +86,7 @@ router.get('/update', (req, res) => {
 
 
 // =============================================================================
-// update user record
+// PUT - update user record
 router.put('/', (req, res, next) => {
   let userId = Number(req.cookies['/token'].split('.')[0]);
   let passwordUpdated = false;
@@ -131,8 +131,51 @@ router.put('/', (req, res, next) => {
                                    lastName: user.lastName || '',
                                    userName: user.userName || '',
                                       email: user.email || '',
-                                   password: passwordUpdated,
+                                   pwStatus: passwordUpdated ? 'Updated' : 'Unchanged',
                                      status: 'Updated'
+                                  });
+    })
+    .catch((err) => {
+      console.log('PUT ERROR: ', err);
+      res.status(400).send(err);
+    });
+});
+
+// =============================================================================
+// DELETE user record
+router.delete('/', (req, res, next) => {
+  let userId = Number(req.cookies['/token'].split('.')[0]);
+  let deletedUser;
+
+  knex('users')
+    .where('id', userId).first()
+    .then((user) => {
+      console.log('DELETE ROUTE: ', user);
+      if (user) {
+        res.clearCookie('/token', { path: '/', httpOnly: true });
+
+        deletedUser = user;
+
+        return knex('users')
+          .del().where('id', userId);
+      } else {
+        throw new Error('User Not Found');
+      }
+    })
+    .then(() => {
+
+      const user = camelizeKeys(deletedUser);
+
+      delete user.createdAt;
+      delete user.updatedAt;
+      delete user.hashedPassword;
+
+      res.render('confirm-user', {firstName: user.firstName || '',
+                                   lastName: user.lastName || '',
+                                   userName: user.userName || '',
+                                      email: user.email || '',
+                                   pwStatus: 'Deleted',
+                                     status: 'Deleted'
                                   });
     })
     .catch((err) => {
