@@ -96,7 +96,7 @@ router.put('/', (req, res, next) => {
     .then((user) => {
       if(user) {
 
-        const { firstName, lastName, userName, email, password1} = req.body;
+        const { firstName, lastName, userName, email, password1 } = req.body;
         const updateUser = {};
 
         if (firstName) updateUser.firstName = firstName;

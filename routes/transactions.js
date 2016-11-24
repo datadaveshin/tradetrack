@@ -26,7 +26,7 @@ function insertTrade(newTrade, res, ticker, snapshot) {
     .then((row) => {
       const trade = camelizeKeys(row[0]);
       console.log('NEW TRADE EXISTING STOCK: ', trade);
-      res.render('trade-added', {ticker: ticker,
+      res.render('confirm-trade', {ticker: ticker,
                                 company: snapshot.name,
                                 numShares: trade.numShares,
                                 sharePrice: trade.sharePrice,
@@ -41,7 +41,7 @@ function insertTrade(newTrade, res, ticker, snapshot) {
 router.get('/new', function(req, res) {
   console.log('COOKIE: ', req.cookies);
   if (req.cookies['/token']) {
-    res.render('trade');
+    res.render('get-trade');
   } else {
     res.redirect('../token/login');
   }
@@ -54,7 +54,7 @@ router.post('/', (req, res, next) => {
   let userId = Number(req.cookies['/token'].split('.')[0]);
 
   let numShares = Number(req.body.numShares);
-  let ticker = req.body.ticker.toUpperCase();
+  let ticker = req.body.ticker;
 
   let newTrade = {
     userId: userId,
@@ -64,7 +64,7 @@ router.post('/', (req, res, next) => {
     sharePrice: Number(req.body.sharePrice),
     commission: Number(req.body.commission),
     fees: Number(req.body.fees),
-    direction: req.body.direction.toUpperCase(),
+    direction: req.body.direction,
     action: numShares > 0 ? 'BUY' : 'SELL'
   };
 
@@ -114,5 +114,61 @@ router.post('/', (req, res, next) => {
   });
 });
 
+// =============================================================================
+// PUT - update transaction
+router.put('/', (req, res, next) => {
+  let userId = Number(req.cookies['/token'].split('.')[0]);
+  let trxId = Number(req.query.id);
+
+  knex('transactions')
+    .where('user_id', userId)
+    .where('id', trxId).first()
+    .then((trx) => {
+      if(trx) {
+
+        const { tradeDate, direction } = req.body;
+        let numShares = Number(req.body.numShares);
+        let sharePrice = Number(req.body.sharePrice);
+        let commission = Number(req.body.commission);
+        let fees = Number(req.body.fees);
+
+        const updateTrx = {};
+
+        if (tradeDate) updateTrx.tradeDate = tradeDate;
+        if (direction) updateTrx.direction = direction;
+        if (numShares) updateTrx.numShares = numShares;
+        if (sharePrice) updateTrx.sharePrice = sharePrice;
+        if (commission) updateTrx.commission = commission;
+        if (fees) updateTrx.fees = fees;
+
+
+        return knex('transactions')
+          .update(decamelizeKeys(updateTrx), '*')
+          .where('id', trxId);
+
+      } else {
+        throw new Error('Transaction Not Found');
+      }
+    })
+    .then((row) => {
+
+      const trx = camelizeKeys(row[0]);
+
+      delete trx.createdAt;
+      delete trx.updatedAt;
+
+      res.render('confirm-trx', {tradeDate: trx.tradeDate || '',
+                                 direction: trx.direction || '',
+                                 numShares: trx.numShares || '',
+                                sharePrice: trx.sharePrice || '',
+                                commission: trx.commission || '',
+                                      fees: trx.fees || ''
+                                  });
+    })
+    .catch((err) => {
+      console.log('PUT ERROR: ', err);
+      res.status(400).send(err);
+    });
+});
 
 module.exports = router;

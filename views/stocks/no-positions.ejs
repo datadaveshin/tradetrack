@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <link href='http://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet'>
+  <link type='text/css' rel='stylesheet' href='../css/materialize.css'  media='screen,projection'/>
+  <link rel='stylesheet' href='../css/style.css'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
+  <title>No Positions</title>
+</head>
+<body>
+
+  <%- include("../partials/nav", {home: true, trade: false, open: false, closed: false}) %>
+
+  <main class='container'>
+    <div class='row'>
+      <div class='col s12 m12'>
+        <h4>No Positions</h4>
+        <h5>You have no <%= status%> positions.</h5>
+      </div>
+    </div>
+  </main>
+
+    <%- include("../partials/footer") %>
+
+</body>
+</html>
