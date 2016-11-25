@@ -39,17 +39,17 @@
             <tr>
               <th data-field="ticker">Symbol</th>
               <th data-field="name">Company</th>
-              <th data-field="numShares">Shares</th>
-              <th data-field="sharePrice">Orig</th>
-              <th data-field="previousClose">Prev</th>
-              <th data-field="lastTradePriceOnly">Last</th>
-              <th data-field="val">Value</th>
-              <th data-field="change">$Change</th>
-              <th data-field="changeInPercent">%Change</th>
-              <th data-field="totalChange">$G/L</th>
-              <th data-field="totalChangeInPercent">%G/L</th>
-              <th data-field="peRatio">P/E</th>
-              <th data-field="dividendYield">Div Yield</th>
+              <th data-field="numShares" class='number'>Shares</th>
+              <th data-field="sharePrice" class='number'>Orig</th>
+              <th data-field="previousClose" class='number'>Prev</th>
+              <th data-field="lastTradePriceOnly" class='number'>Last</th>
+              <th data-field="val" class='number'>Value</th>
+              <th data-field="change" class='number'>$Change</th>
+              <th data-field="changeInPercent" class='number'>%Change</th>
+              <th data-field="totalChange" class='number'>$G/L</th>
+              <th data-field="totalChangeInPercent" class='number'>%G/L</th>
+              <th data-field="peRatio" class='number'>P/E</th>
+              <th data-field="dividendYield" class='number'>Div Yield</th>
             </tr>
           </thead>
 
@@ -64,7 +64,7 @@
                 <td class="class_lastTradePriceOnly number"><%=pos.lastTradePriceOnly%></td>
                 <td class="class_val"><%=pos.val%></td>
                 <td class="class_change number"><%=pos.change%></td>
-                <td class="class_changeInPercent number"><%=pos.changeInPercent + '%'%></td>
+                <td class="class_changeInPercent number"><%=pos.changeInPercent%></td>
                 <td class="class_glDollar number"><%=pos.glDollar%></td>
                 <td class="class_glInPercent number"><%=pos.glInPercent%></td>
                 <td class="class_peRatio number"><%=pos.peRatio%></td>

@@ -54,13 +54,13 @@
               <th data-field="buyDate">Buy Date</th>
               <th data-field="sellDate">Sell Date</th>
               <th data-field="ticker">Symbol</th>
-              <th data-field="shares">Shares</th>
-              <th data-field="buyAmount">Buy Amount</th>
-              <th data-field="sellAmount">Sell Amount</th>
-              <th data-field="glAmount">$Trade G/L</th>
-              <th data-field="glInPercent">%Trade G/L</th>
-              <th data-field="FolioAmount">$Account G/L</th>
-              <th data-field="FolioAmountPercent">%Account G/L</th>
+              <th data-field="shares" class='number'>Shares</th>
+              <th data-field="buyAmount" class='number'>Buy Amount</th>
+              <th data-field="sellAmount" class='number'>Sell Amount</th>
+              <th data-field="glAmount" class='number'>$Trade G/L</th>
+              <th data-field="glInPercent" class='number'>%Trade G/L</th>
+              <th data-field="FolioAmount" class='number'>$Account G/L</th>
+              <th data-field="FolioAmountPercent" class='number'>%Account G/L</th>
             </tr>
           </thead>
 
@@ -75,8 +75,8 @@
                 <td class="class_sellAmount number"><%=trade.sellAmount%></td>
                 <td class="class_glAmount number"><%=trade.glAmount%></td>
                 <td class="class_glInPercent number"><%=trade.glInPercent%></td>
-                <td class="class_FolioAmount number"><%=trade.FolioAmount%></td>
-                <td class="class_FolioAmountPercent number"><%=trade.FolioAmountPercent%></td>
+                <td class="class_FolioAmount number"><%=trade.folioAmount%></td>
+                <td class="class_FolioAmountPercent number"><%=trade.folioAmountPercent%></td>
               </tr>
             <% }) %>
           </tbody>
