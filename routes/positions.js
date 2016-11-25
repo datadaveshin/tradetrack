@@ -49,6 +49,14 @@ function simpleDate(date) {
 }
 
 // =============================================================================
+// display formats
+let sharePriceFmt = new Intl.NumberFormat("en-US",
+                        { style: "currency", currency: "USD",
+                          minimumFractionDigits: 4 });
+
+
+
+// =============================================================================
 // Define Position class
 var Position = function(userName, ticker, sharePrice, tradeDate, numShares) {
   this.userName = userName,
@@ -213,14 +221,15 @@ router.get('/closed', function(req, res) {
       //   console.log("buyVsSellObj", buyVsSellObj);
 
       // Calculate balances
-    //   let calcObj = {};
-      let folioAmount = 100000;
-      let origFolioAmount = 100000;
-      let percentAcct = 0.10;
+      //   let calcObj = {};
 
-      let statNumWinners = 0;
-      let statNumLosers = 0;
-      let calcArr = [];
+      var folioAmount = 10000;
+      var origFolioAmount = 10000;
+      var percentAcct = 0.10;
+
+      var statNumWinners = 0;
+      var statNumLosers = 0;
+      var calcArr = [];
       _.each(buyVsSellObj, function(item, key) {
 
           let calcObj = {};
