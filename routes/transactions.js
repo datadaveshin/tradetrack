@@ -160,7 +160,6 @@ router.put('/', (req, res, next) => {
   let companyName = '';
   let action = '';
 
-  console.log(trxId);
   knex.select('*')
     .from('transactions')
     .join('stocks', 'stocks.id', 'stock_id')
@@ -217,6 +216,52 @@ router.put('/', (req, res, next) => {
     })
     .catch((err) => {
       console.log('PUT ERROR: ', err);
+      res.status(400).send(err);
+    });
+});
+
+// =============================================================================
+// DELETE open transaction record
+router.delete('/', (req, res, next) => {
+  let userId = Number(req.cookies['/token'].split('.')[0]);
+  let trxId = Number(req.body.trxId);
+  let deletedTrx;
+
+  knex.select('*')
+    .from('transactions')
+    .join('stocks', 'stocks.id', 'stock_id')
+    .where('user_id', userId)
+    .where('transactions.id', trxId).first()
+    .then((trx) => {
+      if(trx) {
+
+        deletedTrx = trx;
+
+        return knex('transactions')
+          .del().where('id', trxId);
+      } else {
+        throw new Error('Transaction Not Found');
+      }
+    })
+    .then(() => {
+
+      const trx = camelizeKeys(deletedTrx);
+
+      delete trx.createdAt;
+      delete trx.updatedAt;
+
+      res.render('confirm-trade', {ticker: trx.ticker || '',
+                                  company: trx.companyName || '',
+                                numShares: trx.numShares || '',
+                               sharePrice: trx.sharePrice || '',
+                               commission: trx.commission || '',
+                                direction: trx.type || '',
+                                   action: trx.action || '',
+                                   status: 'Deleted'
+                                  });
+    })
+    .catch((err) => {
+      console.log('DELETE ERROR: ', err);
       res.status(400).send(err);
     });
 });
