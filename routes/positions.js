@@ -84,7 +84,7 @@ router.get('/open', function(req, res) {
     .where('closed_flag', false)
     .where('users.id', userId)
     .then((rows) => {
-      console.log('OPEN POSITIONS: ', rows);
+      // console.log('OPEN POSITIONS: ', rows);
 
       if (rows.length < 1) {
         res.render('no-positions', {status: 'open'});
@@ -262,7 +262,7 @@ router.get('/closed', function(req, res) {
           calcObj.folioAmountPercent = (((folioAmount - origFolioAmount) / origFolioAmount)*100).toFixed(2);
 
           calcArr.push(calcObj);
-          console.log("CALC OBJ", calcObj);
+          // console.log("CALC OBJ", calcObj);
 
           // Calc some summary stats
       });

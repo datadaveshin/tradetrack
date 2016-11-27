@@ -55,7 +55,7 @@ router.post('/', (req, res) => {
   let userId = Number(req.cookies['/token'].split('.')[0]);
 
   let numShares = Number(req.body.numShares);
-  let ticker = req.body.ticker;
+  let ticker = req.body.ticker.toUpperCase();
 
   let newTrade = {
     userId: userId,
