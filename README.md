@@ -1,8 +1,8 @@
 # Galvanize Group Project Proposal
 
 ## Group Members
-# Rob Conner (BigRobSF)
-#### David Shin (Dave)
+### Rob Conner (BigRobSF)
+### David Shin (Dave)
 
 ## Project Description
 TradeTrack - A stock market portfolio dashboard/manager with performance analytics:
@@ -28,16 +28,25 @@ Fund Managers, Investors, Speculators, Trend and Swing Traders
 1. For closing position: Stock Ticker and/or ID, Date
 
 ## What technologies do you plan to use?
-1. Pages: Pug
+1. Pages: EJS
 1. CSS: Materialize
 1. Backend: JS, Node, express
 1. Database: Postgres
-1. Data API's: yahoo finance, quandl, and/or Wolfram
+1. Data API's: Yahoo Finance, Worden, TradingView
 1. Bonus: Chart API's: trading view, google charts
 1. Bonus: Alerts: Twilio
 
 ## Feature list
-1. Dashboard
-1. Editable Stock Entry
+1. User Authentication and Authorization
+1. Create, Update, and Delete User Accounts
+1. Enter, Update, and Delete Transactions / Trades
+1. Financial News Feed
+1. Reports: Open and Closed Positions
 1. Analytics
 1. Bonus: Alerts
+
+## To Do
+1. Show detailed information related to a single transaction
+1. Add Log Out functionality
+1. User Dashboard
+1. Bonus items listed above
