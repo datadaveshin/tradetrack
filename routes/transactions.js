@@ -32,7 +32,8 @@ function insertTrade(newTrade, res, ticker, snapshot) {
                                 sharePrice: trade.sharePrice,
                                 commission: trade.commission,
                                 direction: trade.direction,
-                                action: trade.action});
+                                action: trade.action,
+                                status: 'Added'});
   });
 }
 
@@ -50,7 +51,7 @@ router.get('/new', function(req, res) {
 
 // =============================================================================
 // POST new transaction
-router.post('/', (req, res, next) => {
+router.post('/', (req, res) => {
   let userId = Number(req.cookies['/token'].split('.')[0]);
 
   let numShares = Number(req.body.numShares);
@@ -115,16 +116,61 @@ router.post('/', (req, res, next) => {
 });
 
 // =============================================================================
+// show transaction update page for selected transaction
+router.get('/update/:id', (req, res) => {
+
+  if (req.cookies['/token']) {
+    let userId = Number(req.cookies['/token'].split('.')[0]);
+
+    let trxId = Number(req.params.id);
+
+    knex.select('transactions.id', 'company_name', 'ticker', 'trade_date', 'num_shares', 'share_price', 'commission', 'fees', 'direction', 'action')
+    .from('transactions')
+    .join('stocks', 'transactions.stock_id', 'stocks.id')
+    .where('transactions.id', trxId)
+    .then((trx) => {
+      trx = camelizeKeys(trx[0]);
+
+      if (trx) {
+        res.render('edit-trade', {  company: trx.companyName,
+                                  tradeDate: trx.tradeDate,
+                                  numShares: trx.numShares,
+                                 sharePrice: trx.sharePrice,
+                                 commission: trx.commission,
+                                  direction: trx.direction,
+                                     action: trx.action,
+                                      trxId: trx.id
+                                });
+      }
+    });
+
+  } else {
+
+    res.redirect('../token/login');
+  }
+});
+
+
+// =============================================================================
 // PUT - update transaction
 router.put('/', (req, res, next) => {
   let userId = Number(req.cookies['/token'].split('.')[0]);
-  let trxId = Number(req.query.id);
+  let trxId = Number(req.body.trxId);
+  let ticker = '';
+  let companyName = '';
+  let action = '';
 
-  knex('transactions')
+  console.log(trxId);
+  knex.select('*')
+    .from('transactions')
+    .join('stocks', 'stocks.id', 'stock_id')
     .where('user_id', userId)
-    .where('id', trxId).first()
+    .where('transactions.id', trxId).first()
     .then((trx) => {
       if(trx) {
+        ticker = trx.ticker;
+        companyName = trx.company_name;
+        action = trx.action;
 
         const { tradeDate, direction } = req.body;
         let numShares = Number(req.body.numShares);
@@ -157,13 +203,17 @@ router.put('/', (req, res, next) => {
       delete trx.createdAt;
       delete trx.updatedAt;
 
-      res.render('confirm-trx', {tradeDate: trx.tradeDate || '',
-                                 direction: trx.direction || '',
-                                 numShares: trx.numShares || '',
-                                sharePrice: trx.sharePrice || '',
-                                commission: trx.commission || '',
-                                      fees: trx.fees || ''
-                                  });
+      res.render('confirm-trade', {tradeDate: trx.tradeDate || '',
+                                   direction: trx.direction || '',
+                                   numShares: trx.numShares || '',
+                                  sharePrice: trx.sharePrice || '',
+                                  commission: trx.commission || '',
+                                        fees: trx.fees || '',
+                                      ticker: ticker,
+                                     company: companyName,
+                                      action: action,
+                                      status: 'Updated'
+                                    });
     })
     .catch((err) => {
       console.log('PUT ERROR: ', err);

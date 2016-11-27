@@ -37,6 +37,7 @@
         <table>
           <thead>
             <tr>
+              <th data-field="trxId">Edit</th>
               <th data-field="ticker">Symbol</th>
               <th data-field="name">Company</th>
               <th data-field="numShares" class='number'>Shares</th>
@@ -56,6 +57,7 @@
           <tbody>
             <% openPositions.forEach(function(pos){ %>
               <tr>
+                <td class="class_link"><a class='signin' href='/transactions/update/<%=pos.trxId%>'>Edit</a></td>
                 <td class="class_ticker"><%=pos.ticker%></td>
                 <td class="class_name"><%=pos.name%></td>
                 <td class="class_numShares number"><%=pos.numShares%></td>

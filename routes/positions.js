@@ -58,7 +58,8 @@ let sharePriceFmt = new Intl.NumberFormat("en-US",
 
 // =============================================================================
 // Define Position class
-var Position = function(userName, ticker, sharePrice, tradeDate, numShares) {
+var Position = function(trxId, userName, ticker, sharePrice, tradeDate, numShares) {
+  this.trxId = trxId,
   this.userName = userName,
   this.ticker = ticker,
   this.sharePrice = sharePrice,
@@ -92,7 +93,7 @@ router.get('/open', function(req, res) {
       if (req.cookies['/token']) {
         // Build symbol (to get quotes) and open position arrays
         _.each(rows, function(stock) {
-            let newPos = new Position(stock.user_name, stock.ticker, stock.share_price, stock.trade_date, stock.num_shares);
+            let newPos = new Position(stock.trx_id, stock.user_name, stock.ticker, stock.share_price, stock.trade_date, stock.num_shares);
 
             openPositions.push(newPos);
             symbols.push(newPos.ticker);
