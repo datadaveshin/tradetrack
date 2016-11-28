@@ -5,6 +5,9 @@
   "main": "app.js",
   "scripts": {
     "knex": "knex",
+    "nf": "nf start",
+    "heroku-postbuild": "knex migrate:latest --env production",
+    "start": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -12,7 +15,7 @@
     "url": "git+https://github.com/bigrobsf/tradetrack.git"
   },
   "author": "Rob Conner and David Shin",
-  "license": "ISC",
+  "license": "All Rights Reserved",
   "dependencies": {
     "bcrypt-as-promised": "^1.1.0",
     "body-parser": "^1.15.2",
@@ -33,6 +36,10 @@
   },
   "homepage": "https://github.com/bigrobsf/tradetrack#readme",
   "devDependencies": {
+    "foreman": "^2.0.0",
     "mocha": "^3.1.2"
+  },
+  "engines": {
+    "node": "6.8.1"
   }
 }
