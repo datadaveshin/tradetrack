@@ -47,6 +47,7 @@ Fund Managers, Investors, Speculators, Trend and Swing Traders
 
 ## To Do
 1. Show detailed information related to a single transaction
+1. Add comprehensive validation of user input
 1. Add Log Out functionality
 1. User Dashboard
 1. Bonus items listed above
