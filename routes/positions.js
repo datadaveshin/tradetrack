@@ -253,40 +253,57 @@ router.get('/closed', function(req, res) {
       });
 
       // Calc some summary stats
-      let summaryObj = {};
-      summaryObj.beginningBal = origFolioAmount;
+      let statsObj = {};
+      statsObj.beginningBal = origFolioAmount;
 
-      summaryObj.endingBal = calcArr[calcArr.length - 1].FolioAmount;
+      statsObj.endingBal = calcArr[calcArr.length - 1].FolioAmount;
 
-      summaryObj.totalGL = summaryObj.endingBal - origFolioAmount;
+      statsObj.totalGL = (statsObj.endingBal - origFolioAmount).toFixed(2);
 
-      summaryObj.numTrades = calcArr.length;
+      statsObj.maxPortfolioGain = Math.max(...calcArr.map(function(item) {return Number(item.FolioAmount)}));
 
-      summaryObj.numWinningTrades = _.filter(calcArr, function(item) {return Number(item.glAmount) > 0}).length;
+      statsObj.maxDrawDown = Math.min(...calcArr.map(function(item) {return Number(item.FolioAmount)}));
 
-      summaryObj.numLosingTrades = _.filter(calcArr, function(item) {return Number(item.glAmount) < 0}).length;
+      statsObj.numTrades = calcArr.length;
 
-      summaryObj.numEvenTrades = calcArr.length - (summaryObj.numWinningTrades + summaryObj.numLosingTrades);
+      statsObj.numWinningTrades = _.filter(calcArr, function(item) {return Number(item.glAmount) > 0}).length;
 
-      summaryObj.perCentWins = (summaryObj.numWinningTrades/summaryObj.numTrades * 100).toFixed(1) + "%"
+      statsObj.numLosingTrades = _.filter(calcArr, function(item) {return Number(item.glAmount) < 0}).length;
 
-    //   summaryObj.percentWinsArr = _.filter(calcArr, function(item) {return Number(item.glInPercent) > 0});
+      statsObj.numEvenTrades = calcArr.length - (statsObj.numWinningTrades + statsObj.numLosingTrades);
 
-    //   summaryObj.percentWinsArr = _.filter(calcArr, function(item) {return Number(item.glInPercent) > 0}).map(function(winners){return Number(winners.glInPercent});
-      summaryObj.percentWinsArr = calcArr.filter(function(item) {return Number(item.glInPercent) > 0}).map(function(winners){return Number(winners.glInPercent}));
+      statsObj.percentWinningTrades = (statsObj.numWinningTrades/statsObj.numTrades * 100).toFixed(1)
 
-    //   summaryObj.percentLossesArr = _.filter(calcArr, function(item) {return Number(item.glInPercent) < 0});
+      statsObj.percentLosingTrades = (statsObj.numLosingTrades/statsObj.numTrades * 100).toFixed(1)
 
 
+      statsObj.percentWinnersArr = calcArr.filter(function(item) {return (Number(item.glInPercent) > 0)}).map(function(item2){return Number(item2.glInPercent)}).sort(function(a, b){return a - b});
+      console.log(statsObj.percentWinnersArr);
+
+      statsObj.percentLosersArr = calcArr.filter(function(item) {return (Number(item.glInPercent) < 0)}).map(function(item2){return Number(item2.glInPercent)}).sort(function(a, b){return a - b}).reverse();
+    //   console.log(statsObj.percentLosersArr);
+
+      statsObj.percentEvensArr = calcArr.filter(function(item) {return (Number(item.glInPercent) === 0)}).map(function(item2){return Number(item2.glInPercent)});
+    //   console.log(statsObj.percentEvensArr);
+
+      statsObj.maxWinnersPercent = Math.max(...statsObj.percentWinnersArr);
+      statsObj.minLosersPercent = Math.min(...statsObj.percentLosersArr);
+      console.log("maxWinningPercent", statsObj.maxWinningPercent);
+      console.log("maxLosersPercent", statsObj.maxLosersPercent);
+
+      statsObj.aveWinnersPercent = (statsObj.percentWinnersArr.reduce(function(a, b) {return a + b}) / statsObj.percentWinnersArr.length).toFixed(2);
+      console.log("statsObj.aveWinnersPercent", statsObj.aveWinnersPercent);
+
+      statsObj.aveLosersPercent = (statsObj.percentLosersArr.reduce(function(a, b) {return a + b}) / statsObj.percentLosersArr.length).toFixed(2);
+      console.log("statsObj.aveLosersPercent", statsObj.aveLosersPercent);
 
       //<-- END Code to calc closed table-->
-
     //   res.send(closedTrx);
     //   res.send(buyVsSellObj);
     //   res.send(calcObj);
     //   res.send(calcArr);
-      res.send(summaryObj)
-    //   res.render('closedall', {calcArr: calcArr, origFolioAmount: origFolioAmount})
+    //   res.send(statsObj)
+      res.render('closedall', {calcArr: calcArr, origFolioAmount: origFolioAmount})
     } else {
       res.status(401);
       res.set('Content-Type', 'text/plain');
