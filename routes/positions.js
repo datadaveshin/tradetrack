@@ -27,13 +27,13 @@ p2: changeInPercent
 y: dividendYield
 r: peRatio
 */
-let FIELDS = ['n', 'l1', 'p', 'c1', 'p2', 'y', 'r']
+let FIELDS = ['n', 'l1', 'p', 'c1', 'p2', 'y', 'r'];
 let openPositions = [];
 let closedPositions = [];
 let symbols = [];
 let closedSymbols = [];
 let quoteGSCP = "";
-console.log('OPEN POSITIONS!!');
+// console.log('OPEN POSITIONS!!');
 
 // Datetime to simple date converter
 function simpleDate(date) {
@@ -49,14 +49,23 @@ function simpleDate(date) {
 }
 
 // =============================================================================
+// display formats
+let sharePriceFmt = new Intl.NumberFormat("en-US",
+                        { style: "currency", currency: "USD",
+                          minimumFractionDigits: 4 });
+
+
+
+// =============================================================================
 // Define Position class
-var Position = function(userName, ticker, sharePrice, tradeDate, numShares) {
+var Position = function(trxId, userName, ticker, sharePrice, tradeDate, numShares) {
+  this.trxId = trxId,
   this.userName = userName,
   this.ticker = ticker,
   this.sharePrice = sharePrice,
   this.tradeDate = new Date(tradeDate),
   this.numShares = numShares
-}
+};
 
 // =============================================================================
 // show all open positions for current user
@@ -65,75 +74,83 @@ router.get('/open', function(req, res) {
   symbols = [];
   if (!req.cookies['/token']) {
     res.redirect('../token/login');
-  }
-  let userId = Number(req.cookies['/token'].split('.')[0]);
+  } else {
+    let userId = Number(req.cookies['/token'].split('.')[0]);
 
-  knex.select('transactions.id as trx_id', 'users.id','user_name', 'ticker', 'share_price', 'trade_date', 'num_shares')
-  .from('transactions')
-  .join('users', 'transactions.user_id', 'users.id')
-  .join('stocks', 'transactions.stock_id', 'stocks.id')
-  .where('closed_flag', false)
-  .where('users.id', userId)
-  .then((rows) => {
+    knex.select('transactions.id as trx_id', 'users.id','user_name', 'ticker', 'share_price', 'trade_date', 'num_shares')
+    .from('transactions')
+    .join('users', 'transactions.user_id', 'users.id')
+    .join('stocks', 'transactions.stock_id', 'stocks.id')
+    .where('closed_flag', false)
+    .where('users.id', userId)
+    .then((rows) => {
+      // console.log('OPEN POSITIONS: ', rows);
 
-    if (req.cookies['/token']) {
+      if (rows.length < 1) {
+        res.render('no-positions', {status: 'open'});
+      }
 
-      // Build symbol (to get quotes) and open position arrays
-      _.each(rows, function(stock) {
-          let newPos = new Position(stock.user_name, stock.ticker, stock.share_price, stock.trade_date, stock.num_shares)
-
-          openPositions.push(newPos);
-          symbols.push(newPos.ticker);
-      })
-
-      // Get realtime quotes
-      yahooFinance.snapshot({
-        fields: FIELDS,
-        symbols: symbols
-      }).then(function (result) {
-        _.each(result, function (snapshot, symbolIndex) {
-          let currPos = openPositions[symbolIndex];
-          currPos.name = snapshot.name;
-
-          currPos.numShares = Math.floor(currPos.numShares)
-          currPos.previousClose = snapshot.previousClose;
-
-          currPos.lastTradePriceOnly = snapshot.lastTradePriceOnly;
-
-          currPos.origVal = (Number(currPos.sharePrice) * currPos.numShares);
-
-          currPos.val = (currPos.numShares * Number(snapshot.lastTradePriceOnly)).toFixed(2);
-          currPos.change = snapshot.change;
-
-          currPos.changeInPercent = (snapshot.changeInPercent * 100).toFixed(2);
-
-          currPos.glDollar = (Number(snapshot.lastTradePriceOnly * currPos.numShares) - Number(currPos.sharePrice * currPos.numShares)).toFixed(2);
-          console.log("type lastTrade", typeof snapshot.lastTradePriceOnly);
-          console.log("type currPos.sharePrice", typeof currPos.sharePrice);
-          console.log("type currPos.glDollar", typeof currPos.glDollar);
-          console.log("type currPos.numShares", typeof currPos.numShares);
-
-          currPos.glInPercent = (Number(currPos.glDollar)/(Number(snapshot.lastTradePriceOnly * currPos.numShares)) * 100).toFixed(2);
-
-          currPos.glInPercent = (Number(currPos.glDollar)/(Number(currPos.sharePrice * currPos.numShares)) * 100).toFixed(2);
-
-          currPos.dividendYield = snapshot.dividendYield;
-
-          currPos.peRatio = snapshot.peRatio;
+      if (req.cookies['/token']) {
+        // Build symbol (to get quotes) and open position arrays
+        _.each(rows, function(stock) {
+            let newPos = new Position(stock.trx_id, stock.user_name, stock.ticker, stock.share_price, stock.trade_date, stock.num_shares);
+            openPositions.push(newPos);
+            symbols.push(newPos.ticker);
         });
-        console.log("openPositions: ", openPositions)
-        res.render('showall', {openPositions: openPositions})
-      });
 
-    } else {
-      res.status(401);
-      res.set('Content-Type', 'text/plain');
-      res.send('Unauthorized');
-    }
-  }).catch((err) => {
-    res.status(401).send(err);
-  });
+        // Get realtime quotes
+        yahooFinance.snapshot({
+          fields: FIELDS,
+          symbols: symbols
+        }).then(function (result) {
+
+          _.each(result, function (snapshot, symbolIndex) {
+            let currPos = openPositions[symbolIndex];
+            currPos.name = snapshot.name;
+
+            currPos.numShares = Math.floor(currPos.numShares);
+            currPos.previousClose = snapshot.previousClose;
+
+            currPos.lastTradePriceOnly = snapshot.lastTradePriceOnly;
+
+            currPos.origVal = (Number(currPos.sharePrice) * currPos.numShares);
+
+            currPos.val = (currPos.numShares * Number(snapshot.lastTradePriceOnly)).toFixed(2);
+            currPos.change = snapshot.change;
+
+            currPos.changeInPercent = (snapshot.changeInPercent * 100).toFixed(2);
+
+            currPos.glDollar = (Number(snapshot.lastTradePriceOnly * currPos.numShares) - Number(currPos.sharePrice * currPos.numShares)).toFixed(2);
+            // console.log("type lastTrade", typeof snapshot.lastTradePriceOnly);
+            // console.log("type currPos.sharePrice", typeof currPos.sharePrice);
+            // console.log("type currPos.glDollar", typeof currPos.glDollar);
+            // console.log("type currPos.numShares", typeof currPos.numShares);
+
+            currPos.glInPercent = (Number(currPos.glDollar)/(Number(snapshot.lastTradePriceOnly * currPos.numShares)) * 100).toFixed(2);
+
+            currPos.glInPercent = (Number(currPos.glDollar)/(Number(currPos.sharePrice * currPos.numShares)) * 100).toFixed(2);
+
+            currPos.dividendYield = snapshot.dividendYield;
+
+            currPos.peRatio = snapshot.peRatio;
+          });
+
+          res.render('showall', {openPositions: openPositions});
+        });
+
+
+
+      } else {
+        res.status(401);
+        res.set('Content-Type', 'text/plain');
+        res.send('Unauthorized');
+      }
+    }).catch((err) => {
+      console.log(err);
+    });
+  }
 });
+
 
 // =============================================================================
 // show all closed positions for current user
@@ -155,8 +172,12 @@ router.get('/closed', function(req, res) {
   .where('users.id', userId)
   .orderBy('trade_date') // Added to sort by ticker
   .then((rows) => {
-    console.log(rows.id);
+
     var closedTrx = [];
+
+    if (rows.length < 1) {
+      res.render('no-positions', {status: 'closed'});
+    }
 
     for (var i = 0; i < rows.length; i++) {
       var newTrx = new Trx(rows[i].trx_id, rows[i].id, rows[i].user_name, rows[i].ticker,
@@ -171,7 +192,6 @@ router.get('/closed', function(req, res) {
 
       //<-- BEGIN Code to calc closed table-->
       let theUser = closedTrx[0].userId;
-      console.log('theUser', theUser)
 
       // Assemble buy vs sell object
       let buyVsSellObj = {};
@@ -185,71 +205,61 @@ router.get('/closed', function(req, res) {
                                                buySimpleDate: simpleDate(record.buyDate),
                                                buyShares: Number(record.numShares),
                                                buyPrice: Number(record.buyPrice),
-                                               buyAmount: record.buyPrice * record.numShares})
+                                               buyAmount: record.buyPrice * record.numShares});
         } else if (record.numShares < 0) {
             buyVsSellObj[record.ticker].sells.push({sellDate: record.sellDate,
                                                sellSimpleDate: simpleDate(record.sellDate),
                                                sellShares: Number(record.numShares),
                                                sellPrice: Number(record.sellPrice),
-                                               sellAmount: record.sellPrice * record.numShares})
+                                               sellAmount: record.sellPrice * record.numShares});
         }
         // console.log("index = ", idx);
-      })
+      });
       //   console.log("buyVsSellObj", buyVsSellObj);
 
       // Calculate balances
-      if (theUser === 1) {
-          var FolioAmount = 100000;
-          var origFolioAmount = 100000;
-          var percentAcct = 0.10
-      } else if (theUser === 2) {
-          var FolioAmount = 10000;
-          var origFolioAmount = 10000;
-          var percentAcct = 0.10
-      } else {
-          var FolioAmount = 100000;
-          var origFolioAmount = 100000;
-          var percentAcct = 0.10
-      }
-      let statNumWinners = 0;
-      let statNumLosers = 0;
-      let calcArr = [];
+
+
+      var folioAmount = 10000;
+      var origFolioAmount = 10000;
+      var percentAcct = 0.10;
+
+      var statNumWinners = 0;
+      var statNumLosers = 0;
+      var calcArr = [];
+
       _.each(buyVsSellObj, function(item, key) {
-        //   console.log("each item", item);
-        //   console.log("each item.buys", item.buys);
-        //   console.log("each item.buys.buyAmount", item.buys.buyAmount);
-        //   calcObj.ticker = buyVsSellObj.ticker;
+
           let calcObj = {};
           calcObj.ticker = key;
           calcObj.shares = item.buys.reduce(function(a, b){
-              return a + Number(b.buyShares)}, 0)
+              return a + Number(b.buyShares);}, 0);
           calcObj.buyAmount = item.buys.reduce(function(a, b){
-              return a + b.buyAmount}, 0).toFixed(2)
+              return a + b.buyAmount;}, 0).toFixed(2);
           calcObj.sellAmount = item.sells.reduce(function(a, b){
-                  return a + b.sellAmount}, 0).toFixed(2)
+                  return a + b.sellAmount;}, 0).toFixed(2);
           calcObj.glAmount = ((Number(calcObj.sellAmount) + Number(calcObj.buyAmount)) * -1).toFixed(2);
           calcObj.glInPercent = (calcObj.glAmount / calcObj.buyAmount * 100).toFixed(2);
           if (item.buys.length > 1) {
-              calcObj.buyDate = 'various'
+              calcObj.buyDate = 'various';
           } else {
               calcObj.buyDate = item.buys[0].buySimpleDate;
           }
           if (item.sells.length > 1) {
-              calcObj.sellDate = 'various'
+              calcObj.sellDate = 'various';
           } else {
               calcObj.sellDate = item.sells[0].sellSimpleDate;
           }
 
-        //   FolioAmount = FolioAmount + (Number(calcObj.glInPercent) / 100 * FolioAmount * percentAcct) // Use to calc thetical total amount
+        //   folioAmount = folioAmount + (Number(calcObj.glInPercent) / 100 * folioAmount * percentAcct) // Use to calc thetical total amount
 
-          FolioAmount += Number(calcObj.glAmount) // Use for real total amount
+          folioAmount += Number(calcObj.glAmount); // Use for real total amount
 
-          calcObj.FolioAmount = FolioAmount.toFixed(2)
-          calcObj.FolioAmountPercent = (((FolioAmount - origFolioAmount) / origFolioAmount)*100).toFixed(2);
+          calcObj.folioAmount = folioAmount.toFixed(2);
+          calcObj.folioAmountPercent = (((folioAmount - origFolioAmount) / origFolioAmount)*100).toFixed(2);
 
-          calcArr.push(calcObj)
-        //   console.log("CALC OBJ", calcObj);
-
+          calcArr.push(calcObj);
+          // console.log("CALC OBJ", calcObj);
       });
 
       // Calc some summary stats
@@ -304,6 +314,7 @@ router.get('/closed', function(req, res) {
     //   res.send(calcArr);
     //   res.send(statsObj)
       res.render('closedall', {calcArr: calcArr, origFolioAmount: origFolioAmount})
+
     } else {
       res.status(401);
       res.set('Content-Type', 'text/plain');
@@ -312,7 +323,7 @@ router.get('/closed', function(req, res) {
 
   }).catch((err) => {
 
-    res.status(401).send(err);
+    console.log(err);
   });
 });
 

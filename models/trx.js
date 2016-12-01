@@ -4,7 +4,7 @@
 /* jshint node: true */
 
 // =============================================================================
-// trx class definition
+// trx class definition - this is used in showing closed positions
 var Trx = function(trxId, userId, userName, ticker, sharePrice, tradeDate, numShares) {
 
   numShares = Number(numShares);

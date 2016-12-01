@@ -2,9 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link type="text/css" rel="stylesheet" href="../css/materialize.css"  media="screen,projection"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <link type="text/css" rel="stylesheet" href="../css/materialize.min.css"  media="screen,projection"/>
     <link rel="stylesheet" href="../css/style.css">
+    <link rel='shortcut icon' type='image/x-icon' href='../images/favicon.ico'>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>All</title>
   </head>
@@ -66,13 +67,13 @@
               <th data-field="buyDate">Buy Date</th>
               <th data-field="sellDate">Sell Date</th>
               <th data-field="ticker">Symbol</th>
-              <th data-field="shares">Shares</th>
-              <th data-field="buyAmount">Buy Amount</th>
-              <th data-field="sellAmount">Sell Amount</th>
-              <th data-field="glAmount">$Trade G/L</th>
-              <th data-field="glInPercent">%Trade G/L</th>
-              <th data-field="FolioAmount">$Account G/L</th>
-              <th data-field="FolioAmountPercent">%Account G/L</th>
+              <th data-field="shares" class='number'>Shares</th>
+              <th data-field="buyAmount" class='number'>Buy Amount</th>
+              <th data-field="sellAmount" class='number'>Sell Amount</th>
+              <th data-field="glAmount" class='number'>$Trade G/L</th>
+              <th data-field="glInPercent" class='number'>%Trade G/L</th>
+              <th data-field="FolioAmount" class='number'>$Account G/L</th>
+              <th data-field="FolioAmountPercent" class='number'>%Account G/L</th>
             </tr>
           </thead>
 
@@ -82,13 +83,13 @@
                 <td class="class_buyDate"><%=trade.buyDate%></td>
                 <td class="class_sellDate"><%=trade.sellDate%></td>
                 <td class="class_ticker"><%=trade.ticker%></td>
-                <td class="class_shares"><%=trade.shares%></td>
-                <td class="class_buyAmount"><%=trade.buyAmount%></td>
-                <td class="class_sellAmount"><%=trade.sellAmount%></td>
-                <td class="class_glAmount"><%=trade.glAmount%></td>
-                <td class="class_glInPercent"><%=trade.glInPercent%></td>
-                <td class="class_FolioAmount"><%=trade.FolioAmount%></td>
-                <td class="class_FolioAmountPercent"><%=trade.FolioAmountPercent%></td>
+                <td class="class_shares number"><%=trade.shares%></td>
+                <td class="class_buyAmount number"><%=trade.buyAmount%></td>
+                <td class="class_sellAmount number"><%=trade.sellAmount%></td>
+                <td class="class_glAmount number"><%=trade.glAmount%></td>
+                <td class="class_glInPercent number"><%=trade.glInPercent%></td>
+                <td class="class_FolioAmount number"><%=trade.folioAmount%></td>
+                <td class="class_FolioAmountPercent number"><%=trade.folioAmountPercent%></td>
               </tr>
             <% }) %>
           </tbody>

@@ -13,6 +13,10 @@ CSS for Open Position Table */
   width: 95%
 }
 
+.number {
+  text-align: right;
+}
+
 /* =============================================================================
 Input form colors */
 
@@ -94,6 +98,10 @@ h5 {
   color: #e57373;
 }
 
+.bold {
+  font-weight: bold;
+}
+
 /* =============================================================================
 Images */
 
@@ -119,8 +127,19 @@ ul#mobile-demo li a {
   color: #FFC107;
 }
 
+a.disabled {
+  color: #aaa;
+  pointer-events: none;
+  cursor: default;
+}
+
+.main-nav {
+  margin-bottom: 20px;
+}
+
 /* =============================================================================
 CSS for TC2000 charts for resizing*/
+
 .TC2000-container {
   width: 100%;
   height: 310px;
@@ -155,4 +174,14 @@ footer.page-footer {
 
 footer.page-footer .footer-copyright {
   background-color: #455A64; /* blue-grey darken-3 */
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
 }

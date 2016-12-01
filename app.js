@@ -13,6 +13,7 @@ const PORT = process.env.PORT || 3009;
 app.disable('x-powered-by');
 
 const bodyParser = require('body-parser');
+const methodOverride = require('method-override');
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 
@@ -23,6 +24,7 @@ const transactions = require('./routes/transactions.js');
 const positions = require('./routes/positions.js');
 
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(methodOverride('_method'));
 app.use(cookieParser());
 
 app.use(express.static(__dirname + '/public'));

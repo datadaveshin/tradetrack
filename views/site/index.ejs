@@ -2,10 +2,10 @@
 <html lang='en'>
   <head>
     <meta charset='UTF-8'>
-    <link href='http://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet'>
-    <link type='text/css' rel='stylesheet' href='../css/materialize.css'  media='screen,projection'/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <link type='text/css' rel='stylesheet' href='../css/materialize.min.css'  media='screen,projection'/>
     <link rel='stylesheet' href='../css/style.css'>
-    <link rel='shortcut icon' type='image/x-icon' href='file://localhost/Users/rob/Downloads/favicon.ico'>
+    <link rel='shortcut icon' type='image/x-icon' href='../images/favicon.ico'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
     <title>TradeTrack</title>
   </head>
@@ -15,23 +15,30 @@
 
     <main class='container'>
       <div class='row'>
-        <div class='col s12 m12'>
+        <div class='col s12 m12'> <!-- holds page rows -->
           <h5>Welcome <%= typeof userName!= 'undefined' ? userName : 'guest' %>!</h5>
         </div>
       </div>
       <div class='row'>
-        <div class='col s12 m6'> <!-- holds page rows -->
+        <div class='col s12 m6'> <!-- left column -->
 
           <p>
             <!-- Start TC2000 widget -->
-            <iframe width="320" noresize="noresize" scrolling="no" height="300" frameborder="0" src="https://widgets.tc2000.com/WidgetServer.ashx?id=30007"></iframe>
+            <iframe width="400" noresize="noresize" scrolling="no" height="300" frameborder="0" src="https://widgets.tc2000.com/WidgetServer.ashx?id=30007"></iframe>
             <!-- END TC2000 Widget -->
           </p>
-          <p><script type="text/javascript" src="http://output81.rssinclude.com/output?type=js&amp;id=1108300&amp;hash=492bef8c8c084b02d68f11dfec3386af"></script></p>
+          <p>
+            <!-- Reuters, Financial Times feed -->
+            <script type="text/javascript" src="https://output1s.rssinclude.com/output?type=js&amp;id=1108300&amp;hash=492bef8c8c084b02d68f11dfec3386af"></script>
+          </p>
         </div>
 
-        <div class='col s12 m6 center'>
-          <p><script type="text/javascript" src="http://output30.rssinclude.com/output?type=js&amp;id=1108309&amp;hash=1ce0515b917128fde0d64f24cb27d03c"></script></p>
+        <div class='col s12 m6 center'> <!-- right column -->
+          <p>
+            <!-- MarketWatch feed -->
+            <script type="text/javascript" src="https://output1s.rssinclude.com/output?type=js&amp;id=1108309&amp;hash=1ce0515b917128fde0d64f24cb27d03c"></script>
+
+          </p>
         </div> <!-- end first row -->
 
       <div class='row'>
