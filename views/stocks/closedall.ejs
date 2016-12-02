@@ -41,27 +41,99 @@
       </script>
       <!-- TradingView Widget END -->
 
-      <div class="container stock-table" >
-        <h3>Trading Performance</h3>
-        <h3></h3>
-        <h5>Original Account Balance:  $<%=origFolioAmount%></h5>
-      </div>
+      <!-- <div class="container stock-table" > -->
+        <!-- <h3></h3> -->
+        <!-- <h3>Overall Performance</h3> -->
+        <!-- <h3></h3> -->
+        <!-- <h5>Original Account Balance:  $<%=origFolioAmount%></h5> -->
+      <!-- </div> -->
 
       <!-- Summary Stats Table BEGIN -->
-      <div class="container stats-table1">
+      <!-- <div class="container stats-table1"> -->
+      <div class="container stock-table" >
+        <h3>Overall Performance</h3><br>
+        <h4>Portfolio Statistics</h4>
         <table>
-          <th>
+          <thead>
             <tr>
-              <th data-field="@@@@@">#####</th>
+              <th data-field="beginningBal" class='number'>Beginning Balance</th>
+              <th data-field="endingBal" class='number'>Ending Balance</th>
+              <th data-field="maxDrawDown" class='number'>Max Draw Down</th>
+              <th data-field="maxPortfolioGain" class='number'>Max Gain</th>
+              <th data-field="totalGl" class='number'>Total $G/L</th>
+              <th data-field="totalGlPercent" class='number'>Total %G/L</th>
             </tr>
-          </th>
+          </thead>
+          <tbody>
+            <tr>
+              <td class='number'><%=statsObj.beginningBal%></td>
+              <td class='number'><%=statsObj.endingBal%></td>
+              <td class='number'><%=statsObj.maxPortfolioGain%></td>
+              <td class='number'><%=statsObj.maxDrawDown%></td>
+              <td class='number'><%=statsObj.totalGl%></td>
+              <td class='number'><%=statsObj.totalGlPercent%></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="container stock-table" >
+        <h4>Trade Statistics</h4>
+        <table>
+          <thead>
+            <tr>
+              <th data-field="numTrades" class='number'>Total Trades</th>
+              <th data-field="numWinningTrades" class='number'>Winning Trades</th>
+              <th data-field="numLosingTrades" class='number'>Losing Trades</th>
+              <th data-field="numEvenTrades" class='number'>Even Trades</th>
+              <th data-field="percentWinningTrades" class='number'>Total %Winners</th>
+              <th data-field="percentLosingTrades" class='number'>Total %Losers</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="number"><%=statsObj.numTrades%></td>
+              <td class="number"><%=statsObj.numWinningTrades%></td>
+              <td class="number"><%=statsObj.numLosingTrades%></td>
+              <td class="number"><%=statsObj.numEvenTrades%></td>
+              <td class="number"><%=statsObj.percentWinningTrades%></td>
+              <td class="number"><%=statsObj.percentLosingTrades%></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="container stock-table" >
+        <h4>Trade Gains and Losses</h4>
+        <table>
+          <thead>
+            <tr>
+              <th data-field="maxWinningDollar" class='number'>Max $Winner</th>
+              <th data-field="maxLosersDollar" class='number'>Max $Loser</th>
+              <th data-field="maxWinnersPercent" class='number'>Max %Winner</th>
+              <th data-field="maxLosersPercent" class='number'>Max %Loser</th>
+              <th data-field="aveWinnersPercent" class='number'>Ave %Winner</th>
+              <th data-field="aveLosersPercent" class='number'>Ave %Loser</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="number"><%=statsObj.maxWinningDollar%></td>
+              <td class="number"><%=statsObj.maxLosersDollar%></td>
+              <td class="number"><%=statsObj.maxWinnersPercent%></td>
+              <td class="number"><%=statsObj.maxLosersPercent%></td>
+              <td class="number"><%=statsObj.aveWinnersPercent%></td>
+              <td class="number"><%=statsObj.aveLosersPercent%></td>
+            </tr>
+          </tbody>
         </table>
       </div>
       <!-- Summary Stats Table END -->
 
-      <!-- Open Position Table BEGIN -->
+      <!-- Closed Position Table BEGIN -->
       <div class="container stock-table">
         <table>
+          <h4>Individual Trade Performance</h4>
           <thead>
             <tr>
               <th data-field="buyDate">Buy Date</th>
@@ -95,7 +167,7 @@
           </tbody>
         </table>
       </div>
-      <!-- Open Position Table BEGIN -->
+      <!-- Closed Position Table BEGIN -->
 
     </main>
 
