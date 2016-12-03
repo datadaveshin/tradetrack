@@ -272,9 +272,9 @@ router.get('/closed', function(req, res) {
 
       statsObj.totalGlPercent = ((statsObj.endingBal - origFolioAmount) / origFolioAmount * 100).toFixed(2);
 
-      statsObj.maxPortfolioGain = Math.max(...calcArr.map(function(item) {return Number(item.folioAmount)}));
+      statsObj.maxPortfolioGain = (Math.max(...calcArr.map(function(item) {return Number(item.folioAmount)})) - origFolioAmount).toFixed(2);
 
-      statsObj.maxDrawDown = Math.min(...calcArr.map(function(item) {return Number(item.folioAmount)}));
+      statsObj.maxDrawDown = (Math.min(...calcArr.map(function(item) {return Number(item.folioAmount)})) - origFolioAmount).toFixed(2);
 
       statsObj.numTrades = calcArr.length;
 

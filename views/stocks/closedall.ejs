@@ -53,25 +53,25 @@
       <div class="container stock-table" >
         <h3>Overall Performance</h3><br>
         <h4>Portfolio Statistics</h4>
-        <table>
+        <table class="centered">
           <thead>
             <tr>
               <th data-field="beginningBal" class='number'>Beginning Balance</th>
               <th data-field="endingBal" class='number'>Ending Balance</th>
-              <th data-field="maxDrawDown" class='number'>Max Draw Down</th>
-              <th data-field="maxPortfolioGain" class='number'>Max Gain</th>
-              <th data-field="totalGl" class='number'>Total $G/L</th>
-              <th data-field="totalGlPercent" class='number'>Total %G/L</th>
+              <th data-field="maxDrawDown" class='number maxDrawDown'>Max Draw Down</th>
+              <th data-field="maxPortfolioGain" class='number maxPortfolioGain'>Max Gain</th>
+              <th data-field="totalGl" class='number totalGl'>Total $Gain/Loss</th>
+              <th data-field="totalGlPercent" class='number totalGlPercent'>Total %Gain/Loss</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td class='number'><%=statsObj.beginningBal%></td>
-              <td class='number'><%=statsObj.endingBal%></td>
-              <td class='number'><%=statsObj.maxPortfolioGain%></td>
-              <td class='number'><%=statsObj.maxDrawDown%></td>
-              <td class='number'><%=statsObj.totalGl%></td>
-              <td class='number'><%=statsObj.totalGlPercent%></td>
+              <td class='number'>$<%=statsObj.beginningBal%></td>
+              <td class='number'>$<%=statsObj.endingBal%></td>
+              <td class='number'>$<%=statsObj.maxDrawDown%></td>
+              <td class='number'>$<%=statsObj.maxPortfolioGain%></td>
+              <td class='number'>$<%=statsObj.totalGl%></td>
+              <td class='number'><%=statsObj.totalGlPercent%>%</td>
             </tr>
           </tbody>
         </table>
@@ -79,7 +79,7 @@
 
       <div class="container stock-table" >
         <h4>Trade Statistics</h4>
-        <table>
+        <table class="centered">
           <thead>
             <tr>
               <th data-field="numTrades" class='number'>Total Trades</th>
@@ -96,8 +96,8 @@
               <td class="number"><%=statsObj.numWinningTrades%></td>
               <td class="number"><%=statsObj.numLosingTrades%></td>
               <td class="number"><%=statsObj.numEvenTrades%></td>
-              <td class="number"><%=statsObj.percentWinningTrades%></td>
-              <td class="number"><%=statsObj.percentLosingTrades%></td>
+              <td class="number"><%=statsObj.percentWinningTrades%>%</td>
+              <td class="number"><%=statsObj.percentLosingTrades%>%</td>
             </tr>
           </tbody>
         </table>
@@ -105,7 +105,7 @@
 
       <div class="container stock-table" >
         <h4>Trade Gains and Losses</h4>
-        <table>
+        <table class="centered">
           <thead>
             <tr>
               <th data-field="maxWinningDollar" class='number'>Max $Winner</th>
@@ -118,12 +118,13 @@
           </thead>
           <tbody>
             <tr>
-              <td class="number"><%=statsObj.maxWinningDollar%></td>
-              <td class="number"><%=statsObj.maxLosersDollar%></td>
-              <td class="number"><%=statsObj.maxWinnersPercent%></td>
-              <td class="number"><%=statsObj.maxLosersPercent%></td>
-              <td class="number"><%=statsObj.aveWinnersPercent%></td>
-              <td class="number"><%=statsObj.aveLosersPercent%></td>
+              <td class="number">$<%=statsObj.maxWinningDollar%></td>
+              <td class="number">$<%=statsObj.maxLosersDollar%></td>
+              <td class="number"><%=statsObj.maxWinnersPercent%>%</td>
+              <td class="number"><%=statsObj.maxLosersPercent%>
+              %</td>
+              <td class="number"><%=statsObj.aveWinnersPercent%>%</td>
+              <td class="number"><%=statsObj.aveLosersPercent%>%</td>
             </tr>
           </tbody>
         </table>
