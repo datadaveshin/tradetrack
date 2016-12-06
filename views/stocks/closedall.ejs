@@ -58,20 +58,20 @@
             <tr>
               <th data-field="beginningBal" class='number'>Beginning Balance</th>
               <th data-field="endingBal" class='number'>Ending Balance</th>
-              <th data-field="maxDrawDown" class='number maxDrawDown'>Max Draw Down</th>
-              <th data-field="maxPortfolioGain" class='number maxPortfolioGain'>Max Gain</th>
-              <th data-field="totalGl" class='number totalGl'>Total $Gain/Loss</th>
-              <th data-field="totalGlPercent" class='number totalGlPercent'>Total %Gain/Loss</th>
+              <th data-field="maxDrawDown" class='number'>Max Draw Down</th>
+              <th data-field="maxPortfolioGain" class='number'>Max Gain</th>
+              <th data-field="totalGl" class='number'>Total $Gain/Loss</th>
+              <th data-field="totalGlPercent" class='number'>Total %Gain/Loss</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td class='number'>$<%=statsObj.beginningBal%></td>
               <td class='number'>$<%=statsObj.endingBal%></td>
-              <td class='number'>$<%=statsObj.maxDrawDown%></td>
-              <td class='number'>$<%=statsObj.maxPortfolioGain%></td>
-              <td class='number'>$<%=statsObj.totalGl%></td>
-              <td class='number'><%=statsObj.totalGlPercent%>%</td>
+              <td class='number maxDrawDown'><%=statsObj.maxDrawDown%></td>
+              <td class='number maxPortfolioGain'><%=statsObj.maxPortfolioGain%></td>
+              <td class='number totalGl'><%=statsObj.totalGl%></td>
+              <td class='number totalGlPercent'><%=statsObj.totalGlPercent%></td>
             </tr>
           </tbody>
         </table>
