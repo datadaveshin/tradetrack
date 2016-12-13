@@ -286,35 +286,24 @@ router.get('/closed', function(req, res) {
 
 
       statsObj.dollarWinnersArr = calcArr.filter(function(item) {return (Number(item.glAmount) > 0)}).map(function(item2){return Number(item2.glAmount)}).sort(function(a, b){return a - b});
-      console.log(statsObj.percentWinnersArr);
 
       statsObj.dollarLosersArr = calcArr.filter(function(item) {return (Number(item.glAmount) < 0)}).map(function(item2){return Number(item2.glAmount)}).sort(function(a, b){return a - b}).reverse();
-    //   console.log(statsObj.percentLosersArr);
 
       statsObj.percentWinnersArr = calcArr.filter(function(item) {return (Number(item.glInPercent) > 0)}).map(function(item2){return Number(item2.glInPercent)}).sort(function(a, b){return a - b});
-      console.log(statsObj.percentWinnersArr);
 
       statsObj.percentLosersArr = calcArr.filter(function(item) {return (Number(item.glInPercent) < 0)}).map(function(item2){return Number(item2.glInPercent)}).sort(function(a, b){return a - b}).reverse();
-    //   console.log(statsObj.percentLosersArr);
 
       statsObj.percentEvensArr = calcArr.filter(function(item) {return (Number(item.glInPercent) === 0)}).map(function(item2){return Number(item2.glInPercent)});
-    //   console.log(statsObj.percentEvensArr);
 
       statsObj.maxWinningDollar = Math.max(...statsObj.dollarWinnersArr).toFixed(2);
       statsObj.maxLosersDollar = Math.min(...statsObj.dollarLosersArr).toFixed(2);
-      console.log("maxWinningDollar", statsObj.maxWinningDollar);
-      console.log("maxLosersDollar", statsObj.maxLosersDollar);
 
       statsObj.maxWinnersPercent = Math.max(...statsObj.percentWinnersArr).toFixed(1);;
       statsObj.maxLosersPercent = Math.min(...statsObj.percentLosersArr).toFixed(1);;
-      console.log("maxWinningPercent", statsObj.maxWinningPercent);
-      console.log("maxLosersPercent", statsObj.maxLosersPercent);
 
       statsObj.aveWinnersPercent = (statsObj.percentWinnersArr.reduce(function(a, b) {return a + b}) / statsObj.percentWinnersArr.length).toFixed(1);
-      console.log("statsObj.aveWinnersPercent", statsObj.aveWinnersPercent);
 
       statsObj.aveLosersPercent = (statsObj.percentLosersArr.reduce(function(a, b) {return a + b}) / statsObj.percentLosersArr.length).toFixed(1);
-      console.log("statsObj.aveLosersPercent", statsObj.aveLosersPercent);
 
       //<-- END Code to calc closed table-->
 
