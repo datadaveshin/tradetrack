@@ -121,10 +121,6 @@ router.get('/open', function(req, res) {
             currPos.changeInPercent = (snapshot.changeInPercent * 100).toFixed(2);
 
             currPos.glDollar = (Number(snapshot.lastTradePriceOnly * currPos.numShares) - Number(currPos.sharePrice * currPos.numShares)).toFixed(2);
-            // console.log("type lastTrade", typeof snapshot.lastTradePriceOnly);
-            // console.log("type currPos.sharePrice", typeof currPos.sharePrice);
-            // console.log("type currPos.glDollar", typeof currPos.glDollar);
-            // console.log("type currPos.numShares", typeof currPos.numShares);
 
             currPos.glInPercent = (Number(currPos.glDollar)/(Number(snapshot.lastTradePriceOnly * currPos.numShares)) * 100).toFixed(2);
 
@@ -264,13 +260,13 @@ router.get('/closed', function(req, res) {
 
       // Calc some summary stats
       let statsObj = {};
-      statsObj.beginningBal = origFolioAmount;
+      statsObj.beginningBal = origFolioAmount.toFixed(2);
 
       statsObj.endingBal = calcArr[calcArr.length - 1].folioAmount;
 
       statsObj.totalGl = (statsObj.endingBal - origFolioAmount).toFixed(2);
 
-      statsObj.totalGlPercent = ((statsObj.endingBal - origFolioAmount) / origFolioAmount * 100).toFixed(2);
+      statsObj.totalGlPercent = ((statsObj.endingBal - origFolioAmount) / origFolioAmount * 100).toFixed(1);
 
       statsObj.maxPortfolioGain = (Math.max(...calcArr.map(function(item) {return Number(item.folioAmount)})) - origFolioAmount).toFixed(2);
 
@@ -304,20 +300,20 @@ router.get('/closed', function(req, res) {
       statsObj.percentEvensArr = calcArr.filter(function(item) {return (Number(item.glInPercent) === 0)}).map(function(item2){return Number(item2.glInPercent)});
     //   console.log(statsObj.percentEvensArr);
 
-      statsObj.maxWinningDollar = Math.max(...statsObj.dollarWinnersArr);
-      statsObj.maxLosersDollar = Math.min(...statsObj.dollarLosersArr);
+      statsObj.maxWinningDollar = Math.max(...statsObj.dollarWinnersArr).toFixed(2);
+      statsObj.maxLosersDollar = Math.min(...statsObj.dollarLosersArr).toFixed(2);
       console.log("maxWinningDollar", statsObj.maxWinningDollar);
       console.log("maxLosersDollar", statsObj.maxLosersDollar);
 
-      statsObj.maxWinnersPercent = Math.max(...statsObj.percentWinnersArr);
-      statsObj.maxLosersPercent = Math.min(...statsObj.percentLosersArr);
+      statsObj.maxWinnersPercent = Math.max(...statsObj.percentWinnersArr).toFixed(1);;
+      statsObj.maxLosersPercent = Math.min(...statsObj.percentLosersArr).toFixed(1);;
       console.log("maxWinningPercent", statsObj.maxWinningPercent);
       console.log("maxLosersPercent", statsObj.maxLosersPercent);
 
-      statsObj.aveWinnersPercent = (statsObj.percentWinnersArr.reduce(function(a, b) {return a + b}) / statsObj.percentWinnersArr.length).toFixed(2);
+      statsObj.aveWinnersPercent = (statsObj.percentWinnersArr.reduce(function(a, b) {return a + b}) / statsObj.percentWinnersArr.length).toFixed(1);
       console.log("statsObj.aveWinnersPercent", statsObj.aveWinnersPercent);
 
-      statsObj.aveLosersPercent = (statsObj.percentLosersArr.reduce(function(a, b) {return a + b}) / statsObj.percentLosersArr.length).toFixed(2);
+      statsObj.aveLosersPercent = (statsObj.percentLosersArr.reduce(function(a, b) {return a + b}) / statsObj.percentLosersArr.length).toFixed(1);
       console.log("statsObj.aveLosersPercent", statsObj.aveLosersPercent);
 
       //<-- END Code to calc closed table-->
