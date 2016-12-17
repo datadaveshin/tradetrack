@@ -94,7 +94,6 @@ router.get('/open', function(req, res) {
         // Build symbol (to get quotes) and open position arrays
         _.each(rows, function(stock) {
             let newPos = new Position(stock.trx_id, stock.user_name, stock.ticker, stock.share_price, stock.trade_date, stock.num_shares);
-
             openPositions.push(newPos);
             symbols.push(newPos.ticker);
         });
@@ -122,10 +121,6 @@ router.get('/open', function(req, res) {
             currPos.changeInPercent = (snapshot.changeInPercent * 100).toFixed(2);
 
             currPos.glDollar = (Number(snapshot.lastTradePriceOnly * currPos.numShares) - Number(currPos.sharePrice * currPos.numShares)).toFixed(2);
-            // console.log("type lastTrade", typeof snapshot.lastTradePriceOnly);
-            // console.log("type currPos.sharePrice", typeof currPos.sharePrice);
-            // console.log("type currPos.glDollar", typeof currPos.glDollar);
-            // console.log("type currPos.numShares", typeof currPos.numShares);
 
             currPos.glInPercent = (Number(currPos.glDollar)/(Number(snapshot.lastTradePriceOnly * currPos.numShares)) * 100).toFixed(2);
 
@@ -140,9 +135,6 @@ router.get('/open', function(req, res) {
         });
 
 
-      // console.log(rows.id);
-      // if (req.cookies['/token']) {
-      //   res.send(rows);
 
       } else {
         res.status(401);
@@ -222,7 +214,7 @@ router.get('/closed', function(req, res) {
       //   console.log("buyVsSellObj", buyVsSellObj);
 
       // Calculate balances
-      //   let calcObj = {};
+
 
       var folioAmount = 10000;
       var origFolioAmount = 10000;
@@ -231,6 +223,7 @@ router.get('/closed', function(req, res) {
       var statNumWinners = 0;
       var statNumLosers = 0;
       var calcArr = [];
+
       _.each(buyVsSellObj, function(item, key) {
 
           let calcObj = {};
@@ -263,12 +256,65 @@ router.get('/closed', function(req, res) {
 
           calcArr.push(calcObj);
           // console.log("CALC OBJ", calcObj);
-
-          // Calc some summary stats
       });
+
+      // Calc some summary stats
+      let statsObj = {};
+      statsObj.beginningBal = origFolioAmount.toFixed(2);
+
+      statsObj.endingBal = calcArr[calcArr.length - 1].folioAmount;
+
+      statsObj.totalGl = (statsObj.endingBal - origFolioAmount).toFixed(2);
+
+      statsObj.totalGlPercent = ((statsObj.endingBal - origFolioAmount) / origFolioAmount * 100).toFixed(1);
+
+      statsObj.maxPortfolioGain = (Math.max(...calcArr.map(function(item) {return Number(item.folioAmount)})) - origFolioAmount).toFixed(2);
+
+      statsObj.maxDrawDown = (Math.min(...calcArr.map(function(item) {return Number(item.folioAmount)})) - origFolioAmount).toFixed(2);
+
+      statsObj.numTrades = calcArr.length;
+
+      statsObj.numWinningTrades = _.filter(calcArr, function(item) {return Number(item.glAmount) > 0}).length;
+
+      statsObj.numLosingTrades = _.filter(calcArr, function(item) {return Number(item.glAmount) < 0}).length;
+
+      statsObj.numEvenTrades = calcArr.length - (statsObj.numWinningTrades + statsObj.numLosingTrades);
+
+      statsObj.percentWinningTrades = (statsObj.numWinningTrades/statsObj.numTrades * 100).toFixed(1)
+
+      statsObj.percentLosingTrades = (statsObj.numLosingTrades/statsObj.numTrades * 100).toFixed(1)
+
+
+      statsObj.dollarWinnersArr = calcArr.filter(function(item) {return (Number(item.glAmount) > 0)}).map(function(item2){return Number(item2.glAmount)}).sort(function(a, b){return a - b});
+
+      statsObj.dollarLosersArr = calcArr.filter(function(item) {return (Number(item.glAmount) < 0)}).map(function(item2){return Number(item2.glAmount)}).sort(function(a, b){return a - b}).reverse();
+
+      statsObj.percentWinnersArr = calcArr.filter(function(item) {return (Number(item.glInPercent) > 0)}).map(function(item2){return Number(item2.glInPercent)}).sort(function(a, b){return a - b});
+
+      statsObj.percentLosersArr = calcArr.filter(function(item) {return (Number(item.glInPercent) < 0)}).map(function(item2){return Number(item2.glInPercent)}).sort(function(a, b){return a - b}).reverse();
+
+      statsObj.percentEvensArr = calcArr.filter(function(item) {return (Number(item.glInPercent) === 0)}).map(function(item2){return Number(item2.glInPercent)});
+
+      statsObj.maxWinningDollar = Math.max(...statsObj.dollarWinnersArr).toFixed(2);
+      statsObj.maxLosersDollar = Math.min(...statsObj.dollarLosersArr).toFixed(2);
+
+      statsObj.maxWinnersPercent = Math.max(...statsObj.percentWinnersArr).toFixed(1);;
+      statsObj.maxLosersPercent = Math.min(...statsObj.percentLosersArr).toFixed(1);;
+
+      statsObj.aveWinnersPercent = (statsObj.percentWinnersArr.reduce(function(a, b) {return a + b}) / statsObj.percentWinnersArr.length).toFixed(1);
+
+      statsObj.aveLosersPercent = (statsObj.percentLosersArr.reduce(function(a, b) {return a + b}) / statsObj.percentLosersArr.length).toFixed(1);
+
       //<-- END Code to calc closed table-->
 
-      res.render('closedall', {calcArr: calcArr, origFolioAmount: origFolioAmount});
+      //<-- BEGIN Comment in and out for testing
+    //   res.send(closedTrx);
+    //   res.send(buyVsSellObj);
+    //   res.send(calcArr);
+    //   res.send(statsObj)
+      res.render('closedall', {calcArr: calcArr, origFolioAmount: origFolioAmount, statsObj: statsObj})
+      //<-- END Comment in and out for testing
+
     } else {
       res.status(401);
       res.set('Content-Type', 'text/plain');
