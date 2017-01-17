@@ -1,0 +1,26 @@
+Columns for stats:
+statsObj.beginningBal
+statsObj.endingBal
+statsObj.maxPortfolioGain
+statsObj.maxDrawDown
+statsObj.totalGl
+statsObj.totalGlPercent
+
+
+statsObj.numTrades
+statsObj.numWinningTrades
+statsObj.numLosingTrades
+statsObj.numEvenTrades
+statsObj.percentWinningTrades
+statsObj.percentLosingTrades
+
+statsObj.percentWinnersArr
+statsObj.percentLosersArr
+statsObj.percentEvensArr
+
+statsObj.maxWinningDollar
+statsObj.maxLosersDollar
+statsObj.maxWinnersPercent
+statsObj.maxLosersPercent
+statsObj.aveWinnersPercent
+statsObj.aveLosersPercent

@@ -1,0 +1,9 @@
+merge-dev2 : Last merge before presentation
+    stat-table2 : Code for summary stats for closed positions
+        merge-dev3 : pulled from upstream dev and merged with stat-table2
+        merge-dev3 : got the stat calcs done and ejs views
+        merge-dev3 : got some colors working for stats, but it's difficult to display either colors or symbols($, %), so will make a branch for each. Current status is that I have colored some of the stats, but put in symbols for others.        
+            stat-table-symbols: This version has black text for the stats on the top, not color coded, but with individual '$' and '%' symbols. Pushing to rob.
+
+TODO: perhaps start another branch off of merge-dev3 to do the colored ones
+TODO: correctly identify how to do the ins - outs of the trades for closed trades
