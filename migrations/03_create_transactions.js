@@ -5,6 +5,7 @@ exports.up = function(knex, Promise) {
     table.integer('user_id').notNullable().references('id').inTable('users').onDelete('CASCADE');
     table.integer('stock_id').notNullable().references('id').inTable('stocks').onDelete('CASCADE');
     table.boolean('closed_flag').defaultTo(false);
+    table.dateTime('trade_date');
     table.decimal('share_price').notNullable();
     table.decimal('num_shares').notNullable();
     table.string('action').defaultTo('').notNullable();

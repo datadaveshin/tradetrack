@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <link type="text/css" rel="stylesheet" href="../css/materialize.min.css"  media="screen,projection"/>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel='shortcut icon' type='image/x-icon' href='../images/favicon.ico'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>All</title>
+  </head>
+
+    <%- include("../partials/nav", {home: false, trade: false, open: true, closed: false}) %>
+
+    <main>
+      <!-- TC2000 Chart BEGIN -->
+      <div class="TC2000-container">
+        <div class="row">
+
+          <div class="col s12 m4 l4">
+            <iframe class="iframe-class" scrolling="no" frameborder="0" src="https://widgets.tc2000.com/WidgetServer.ashx?id=29641"></iframe>
+          </div>
+
+          <div class="col s12 m4 l4">
+            <iframe class="iframe-class" scrolling="no" frameborder="0" src="https://widgets.tc2000.com/WidgetServer.ashx?id=29646"></iframe>
+          </div>
+
+          <div class="col s12 m4 l4">
+            <iframe class="iframe-class" scrolling="no" frameborder="0" src="https://widgets.tc2000.com/WidgetServer.ashx?id=29737"></iframe>
+          </div>
+
+        </div>
+      </div>
+      <!-- TC2000 Chart END -->
+
+      <!-- Open Position Table BEGIN -->
+      <div class="container stock-table">
+        <table>
+          <thead>
+            <tr>
+              <th data-field="trxId">Edit</th>
+              <th data-field="ticker">Symbol</th>
+              <th data-field="name">Company</th>
+              <th data-field="numShares" class='number'>Shares</th>
+              <th data-field="sharePrice" class='number'>Orig</th>
+              <th data-field="previousClose" class='number'>Prev</th>
+              <th data-field="lastTradePriceOnly" class='number'>Last</th>
+              <th data-field="val" class='number'>Value</th>
+              <th data-field="change" class='number'>$Change</th>
+              <th data-field="changeInPercent" class='number'>%Change</th>
+              <th data-field="totalChange" class='number'>$G/L</th>
+              <th data-field="totalChangeInPercent" class='number'>%G/L</th>
+              <th data-field="peRatio" class='number'>P/E</th>
+              <th data-field="dividendYield" class='number'>Div Yield</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% openPositions.forEach(function(pos){ %>
+              <tr>
+                <td class="class_link"><a class='signin' href='/transactions/update/<%=pos.trxId%>'>Edit</a></td>
+                <td class="class_ticker"><%=pos.ticker%></td>
+                <td class="class_name"><%=pos.name%></td>
+                <td class="class_numShares number"><%=pos.numShares%></td>
+                <td class="class_sharePrice number"><%=pos.sharePrice%></td>
+                <td class="class_previousClose number"><%=pos.previousClose%></td>
+                <td class="class_lastTradePriceOnly number"><%=pos.lastTradePriceOnly%></td>
+                <td class="class_val"><%=pos.val%></td>
+                <td class="class_change number"><%=pos.change%></td>
+                <td class="class_changeInPercent number"><%=pos.changeInPercent%></td>
+                <td class="class_glDollar number"><%=pos.glDollar%></td>
+                <td class="class_glInPercent number"><%=pos.glInPercent%></td>
+                <td class="class_peRatio number"><%=pos.peRatio%></td>
+                <td class="class_dividendYield number"><%=pos.dividendYield%></td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+      <!-- Open Position Table BEGIN -->
+
+    </main>
+
+    <%- include("../partials/footer") %>
+
+    <script type="text/javascript" src="../js/showall.js"></script>
+
+  </body>
+</html>

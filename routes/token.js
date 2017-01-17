@@ -15,40 +15,41 @@ const router = express.Router();
 // =============================================================================
 // show sign in form for existing user
 router.get('/login', function(req, res) {
-  res.render('login');
+  var errorMsg = '';
+
+  if (req.query.login === 'invalid') {
+    errorMsg = 'Invalid attempt. Please check your credentials and try again.';
+  }
+
+  res.render('login', {msg: errorMsg});
 });
 
 // =============================================================================
 // GET with or without token
 router.get('/', (req, res, next) => {
-  if (req.cookies['/token'] === 'cookie.monster.rawr') {
-    res.status(200).json(true);
+  if (req.cookies['/token']) {
+    if (req.cookies['/token'].length > 1) {
+      res.status(200).json(true);
+    } else {
+      res.status(200).json(false);
+    }
   } else {
-    res.status(200).json(false);
+    return next(boom.create(400, 'req.cookies is undefined'));
   }
 });
 
 // =============================================================================
 // POST token and check for bad email and bad password
 router.post('/', (req, res, next) => {
-  console.log('REQ BODY: ', req.body);
   const authReq = decamelizeKeys(req.body);
   const { email, password } = req.body;
 
-  if (!email || !email.trim()) {
-    return next(boom.create(400, 'Email must not be blank'));
-  }
-
-  if (!password || password.length < 8) {
-    return next(boom.create(400, 'Password must not be blank'));
-  }
-
   let user;
 
-  knex('users').where('email', authReq.email).first()
+  knex('users').where('email', authReq.email.toLowerCase()).first()
     .then((row) => {
       if (!row) {
-        return next(boom.create(400, 'Bad email or password'));
+        res.redirect('/token/login' + '?login=invalid');
       }
 
       user = camelizeKeys(row);
@@ -59,12 +60,11 @@ router.post('/', (req, res, next) => {
       delete user.createdAt;
       delete user.updatedAt;
 
-      res.cookie('/token', 'cookie.monster.rawr', { path: '/', httpOnly: true });
-
-      res.json(user);
+      res.cookie('/token', user.id + '.cookie.monster.rawr', { path: '/', httpOnly: true });
+      res.render('index', { userName: user.userName });
     })
     .catch(bcrypt.MISMATCH_ERROR, () => {
-      throw boom.create(400, 'Bad email or password');
+      res.redirect('/token/login' + '?login=invalid');
     })
     .catch(err => {
       next(err);

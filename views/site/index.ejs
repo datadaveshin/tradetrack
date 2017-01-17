@@ -1,71 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
   <head>
-    <meta charset="UTF-8">
-    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link type="text/css" rel="stylesheet" href="../css/materialize.css"  media="screen,projection"/>
-    <link rel="stylesheet" href="../css/style.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Home</title>
+    <meta charset='UTF-8'>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <link type='text/css' rel='stylesheet' href='../css/materialize.min.css'  media='screen,projection'/>
+    <link rel='stylesheet' href='../css/style.css'>
+    <link rel='shortcut icon' type='image/x-icon' href='../images/favicon.ico'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
+    <title>TradeTrack</title>
   </head>
   <body>
-    <div class="row">
-      <div id="sitename" class="center col m4 s12">
-        <h4>TRADETRACK</h4>
-      </div>
-      <div class="nav col m8 s12">
-        <a href="/">Home</a>
-        <a href="/transactions/new">Trade</a>
-        <a href="/">List All</a>
-        <a href="/site/contact">Contact</a>
-        <a href="/site/about">About</a>
-        <a href="/users/new">Sign Up</a>
-        <a href="/token/login">Log In</a>
-      </div>
-    </div>
-    <main class="container">
-      <div class="row">
-        <div class="col s12 m6"> <!-- holds page rows -->
-          <h3>Home</h3>
-          <p>TradeTrack succulents hammock kale chips. Letterpress fixie
-            health goth, heirloom craft beer mixtape gluten-free sriracha kogi
-            franzen scenester etsy vinyl. Meggings iPhone bitters, cardigan
-            tattooed 90's retro food truck neutra synth umami.
-          </p>
-          <p>Paleo Williamsburg
-            intelligentsia leggings heirloom flannel, schlitz retro shabby chic
-            sustainable trust fund kale chips. Fap food truck plaid gochujang
-            PBR&amp;B mlkshk vexillologist.
-          </p>
-          <p>Gentrify tote bag man braid, biodiesel
-            taxidermy craft beer iceland trust fund venmo shoreditch raw denim.
-            Readymade irony squid, blue bottle actually tofu succulents XOXO
-            migas drinking vinegar beard.</p>
-         </div>
 
-         <div class="col s12 m6 center">
-             <img class="photo z-depth-2" src="../images/driver-pup.jpg" alt="DJI chart here">
+    <%- include("../partials/nav", {home: true, trade: false, open: false, closed: false}) %>
+
+    <main class='container'>
+      <div class='row'>
+        <div class='col s12 m12'> <!-- holds page rows -->
+          <h5>Welcome <%= typeof userName!= 'undefined' ? userName : 'guest' %>!</h5>
         </div>
-      </div> <!-- end first row -->
+      </div>
+      <div class='row'>
+        <div class='col s12 m6'> <!-- left column -->
 
-      <div class="row">
-        <div class="col s12 m6 center">
-           <img class="photo z-depth-2" src="../images/aqua-pup.jpg" alt="NASDAQ chart here">
-       </div>
+          <p>
+            <!-- Start TC2000 widget -->
+            <iframe width="400" noresize="noresize" scrolling="no" height="300" frameborder="0" src="https://widgets.tc2000.com/WidgetServer.ashx?id=30007"></iframe>
+            <!-- END TC2000 Widget -->
+          </p>
+          <p>
+            <!-- Reuters, Financial Times feed -->
+            <script type="text/javascript" src="https://output1s.rssinclude.com/output?type=js&amp;id=1108300&amp;hash=492bef8c8c084b02d68f11dfec3386af"></script>
+          </p>
+        </div>
 
-       <div class="col s12 m6 center">
-           <img class="photo z-depth-2" src="../images/coder-pup.jpg" alt="S&amp;P 500 chart here">
+        <div class='col s12 m6 center'> <!-- right column -->
+          <p>
+            <!-- MarketWatch feed -->
+            <script type="text/javascript" src="https://output1s.rssinclude.com/output?type=js&amp;id=1108309&amp;hash=1ce0515b917128fde0d64f24cb27d03c"></script>
+
+          </p>
+        </div> <!-- end first row -->
+
+      <div class='row'>
+        <div class='col s12 m6 center'>
+
+        </div>
+
+        <div class='col s12 m6 center'>
+
         </div>
       </div> <!-- end second row -->
     </main>
 
-    <footer class='page-footer green'>
-      <div class='footer-copyright'>
-        <small>© 2016 RD Devs. All Rights Reserved</small>
-      </div>
-    </footer>
+    <%- include("../partials/footer") %>
 
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-    <script type="text/javascript" src="../js/materialize.js"></script>
   </body>
 </html>
