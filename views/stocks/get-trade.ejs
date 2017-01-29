@@ -1,80 +1,80 @@
 <!DOCTYPE html>
-<html lang='en'>
+<html lang="en">
 <head>
-  <meta charset='UTF-8'>
+  <meta charset="UTF-8">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-  <link type='text/css' rel='stylesheet' href='../css/materialize.min.css'  media='screen,projection'/>
-  <link rel='stylesheet' href='../css/style.css'>
-  <link rel='shortcut icon' type='image/x-icon' href='../images/favicon.ico'>
-  <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
+  <link type="text/css" rel="stylesheet" href="../css/materialize.min.css"  media="screen,projection"/>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="shortcut icon" type="image/x-icon" href="../images/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Enter Trade</title>
 </head>
 <body>
 
     <%- include("../partials/nav", {home: false, trade: true, open: false, closed: false}) %>
 
-  <main class='container'>
-    <div class='row'>
-      <div class='col s12 m12'>
+  <main class="container">
+    <div class="row">
+      <div class="col s12 m12">
         <h4>Enter new trade</h4>
 
-        <form action='/transactions' method='POST'>
-          <div class='row'>
-            <div class='input-field col s12 l6'>
-              <label for='ticker'>Ticker: </label>
-              <input type='text' autofocus='true' required name='ticker' id='ticker'>
+        <form action="/transactions" method="POST">
+          <div class="row">
+            <div class="input-field col s12 l6">
+              <label for="ticker">Ticker: </label>
+              <input type="text" autofocus="true" required name="ticker" id="ticker">
             </div>
           </div>
 
-          <div class='row'>
-            <div class='input-field col s12 l6'>
-              <!-- <label for='tradeDate'>Trade Date: </label> -->
-              <input type='date' required name='tradeDate' id='tradeDate'>
+          <div class="row">
+            <div class="input-field col s12 l6">
+              <!-- <label for="tradeDate">Trade Date: </label> -->
+              <input type="date" required name="tradeDate" id="tradeDate">
             </div>
           </div>
 
-          <div class='row'>
-            <div class='input-field col s12 l6'>
-              <label for='numShares'># Shares: </label>
-              <input type='number' required name='numShares' id='numShares'>
+          <div class="row">
+            <div class="input-field col s12 l6">
+              <label for="numShares"># Shares: </label>
+              <input type="number" required name="numShares" id="numShares">
             </div>
           </div>
 
-          <div class='row'>
-            <div class='input-field col s12 l6'>
-              <label for='sharePrice'>$ per Share: </label>
-              <input type='number' required min='0' step='0.0001' name='sharePrice' id='sharePrice'>
+          <div class="row">
+            <div class="input-field col s12 l6">
+              <label for="sharePrice">$ per Share: </label>
+              <input type="number" required min="0" step="0.0001" name="sharePrice" id="sharePrice">
             </div>
           </div>
 
-          <div class='row'>
-            <div class='input-field col s12 l6'>
-              <label for='commission'>Commission: </label>
-              <input type='number' required min='0' step='0.01' name='commission' id='commission'>
+          <div class="row">
+            <div class="input-field col s12 l6">
+              <label for="commission">Commission: </label>
+              <input type="number" required min="0" step="0.01" name="commission" id="commission">
             </div>
           </div>
 
-          <div class='row'>
-            <div class='input-field col s12 l6'>
-              <label for='fees'>Fees: </label>
-              <input type='number' min='0' step='0.01' name='fees' id='fees'>
+          <div class="row">
+            <div class="input-field col s12 l6">
+              <label for="fees">Fees: </label>
+              <input type="number" min="0" step="0.01" name="fees" id="fees">
             </div>
           </div>
 
-          <div class='row'>
-            <div class='input-field col s12 l6'>
-              <select name='direction' id='direction'>
-                <option value='' disabled selected>Choose your option</option>
-                <option value='LONG'>Long</option>
-                <option value='SHORT'>Short</option>
+          <div class="row">
+            <div class="input-field col s12 l6">
+              <select name="direction" id="direction">
+                <option value="" disabled selected>Choose your option</option>
+                <option value="LONG">Long</option>
+                <option value="SHORT">Short</option>
               </select>
               <label>Long / Short</label>
             </div>
           </div>
 
-          <div class='row center'>
-            <button class='submit btn waves-effect waves-light' type='submit' name='action'>Submit
-              <i class='material-icons right'>send</i>
+          <div class="row center">
+            <button class="submit btn waves-effect waves-light" type="submit" name="action">Submit
+              <i class="material-icons right">send</i>
             </button>
           </div>
         </form>

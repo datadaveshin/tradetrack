@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
     <link type="text/css" rel="stylesheet" href="../css/materialize.min.css"  media="screen,projection"/>
     <link rel="stylesheet" href="../css/style.css">
-    <link rel='shortcut icon' type='image/x-icon' href='../images/favicon.ico'>
+    <link rel="shortcut icon" type="image/x-icon" href="../images/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>All</title>
   </head>
@@ -41,24 +41,24 @@
               <th data-field="trxId">Edit</th>
               <th data-field="ticker">Symbol</th>
               <th data-field="name">Company</th>
-              <th data-field="numShares" class='number'>Shares</th>
-              <th data-field="sharePrice" class='number'>Orig</th>
-              <th data-field="previousClose" class='number'>Prev</th>
-              <th data-field="lastTradePriceOnly" class='number'>Last</th>
-              <th data-field="val" class='number'>Value</th>
-              <th data-field="change" class='number'>$Change</th>
-              <th data-field="changeInPercent" class='number'>%Change</th>
-              <th data-field="totalChange" class='number'>$G/L</th>
-              <th data-field="totalChangeInPercent" class='number'>%G/L</th>
-              <th data-field="peRatio" class='number'>P/E</th>
-              <th data-field="dividendYield" class='number'>Div Yield</th>
+              <th data-field="numShares" class="number">Shares</th>
+              <th data-field="sharePrice" class="number">Orig</th>
+              <th data-field="previousClose" class="number">Prev</th>
+              <th data-field="lastTradePriceOnly" class="number">Last</th>
+              <th data-field="val" class="number">Value</th>
+              <th data-field="change" class="number">$Change</th>
+              <th data-field="changeInPercent" class="number">%Change</th>
+              <th data-field="totalChange" class="number">$G/L</th>
+              <th data-field="totalChangeInPercent" class="number">%G/L</th>
+              <th data-field="peRatio" class="number">P/E</th>
+              <th data-field="dividendYield" class="number">Div Yield</th>
             </tr>
           </thead>
 
           <tbody>
             <% openPositions.forEach(function(pos){ %>
               <tr>
-                <td class="class_link"><a class='signin' href='/transactions/update/<%=pos.trxId%>'>Edit</a></td>
+                <td class="class_link"><a class="signin" href="/transactions/update/<%=pos.trxId%>">Edit</a></td>
                 <td class="class_ticker"><%=pos.ticker%></td>
                 <td class="class_name"><%=pos.name%></td>
                 <td class="class_numShares number"><%=pos.numShares%></td>
