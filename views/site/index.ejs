@@ -1,26 +1,26 @@
 <!DOCTYPE html>
-<html lang='en'>
+<html lang="en">
   <head>
-    <meta charset='UTF-8'>
+    <meta charset="UTF-8">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-    <link type='text/css' rel='stylesheet' href='../css/materialize.min.css'  media='screen,projection'/>
-    <link rel='stylesheet' href='../css/style.css'>
-    <link rel='shortcut icon' type='image/x-icon' href='../images/favicon.ico'>
-    <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
+    <link type="text/css" rel="stylesheet" href="../css/materialize.min.css"  media="screen,projection"/>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="shortcut icon" type="image/x-icon" href="../images/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>TradeTrack</title>
   </head>
   <body>
 
     <%- include("../partials/nav", {home: true, trade: false, open: false, closed: false}) %>
 
-    <main class='container'>
-      <div class='row'>
-        <div class='col s12 m12'> <!-- holds page rows -->
-          <h5>Welcome <%= typeof userName!= 'undefined' ? userName : 'guest' %>!</h5>
+    <main class="container">
+      <div class="row">
+        <div class="col s12 m12"> <!-- holds page rows -->
+          <h5>Welcome <%= typeof userName!= "undefined" ? userName : "guest" %>!</h5>
         </div>
       </div>
-      <div class='row'>
-        <div class='col s12 m6'> <!-- left column -->
+      <div class="row">
+        <div class="col s12 m6"> <!-- left column -->
 
           <p>
             <!-- Start TC2000 widget -->
@@ -33,7 +33,7 @@
           </p>
         </div>
 
-        <div class='col s12 m6 center'> <!-- right column -->
+        <div class="col s12 m6 center"> <!-- right column -->
           <p>
             <!-- MarketWatch feed -->
             <script type="text/javascript" src="https://output1s.rssinclude.com/output?type=js&amp;id=1108309&amp;hash=1ce0515b917128fde0d64f24cb27d03c"></script>
@@ -41,12 +41,12 @@
           </p>
         </div> <!-- end first row -->
 
-      <div class='row'>
-        <div class='col s12 m6 center'>
+      <div class="row">
+        <div class="col s12 m6 center">
 
         </div>
 
-        <div class='col s12 m6 center'>
+        <div class="col s12 m6 center">
 
         </div>
       </div> <!-- end second row -->

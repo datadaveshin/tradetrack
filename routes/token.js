@@ -73,9 +73,9 @@ router.post('/', (req, res, next) => {
 
 // =============================================================================
 // DELETE token
-router.delete('/', (req, res) => {
+router.get('/delete', (req, res) => {
   res.clearCookie('/token', { path: '/', httpOnly: true });
-  res.status(200).json(true);
+  res.redirect('../token/login');
 });
 
 module.exports = router;

@@ -1,70 +1,70 @@
 <!DOCTYPE html>
-<html lang='en'>
+<html lang="en">
 <head>
-  <meta charset='UTF-8'>
+  <meta charset="UTF-8">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-  <link type='text/css' rel='stylesheet' href='../css/materialize.min.css'  media='screen,projection'/>
-  <link rel='stylesheet' href='../css/style.css'>
-  <link rel='shortcut icon' type='image/x-icon' href='../images/favicon.ico'>
-  <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
+  <link type="text/css" rel="stylesheet" href="../css/materialize.min.css"  media="screen,projection"/>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="shortcut icon" type="image/x-icon" href="../images/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>TradeTrack Signup</title>
 </head>
 <body>
 
     <%- include("../partials/nav", {home: true, trade: false, open: false, closed: false}) %>
 
-  <main class='container'>
-    <div class='row'>
-      <div class='col s12 m12'>
+  <main class="container">
+    <div class="row">
+      <div class="col s12 m12">
         <h4>Register</h4>
 
-        <form action='/users' method='POST'
-          oninput='password2.setCustomValidity(password2.value != password1.value ? 'Passwords do not match.' : '')'>
-          <div class='row'>
-            <div class='input-field col l6 s12'>
-              <label for='firstName'>First Name: </label>
-              <input type='text' autofocus='true' required name='firstName' id='firstName' class='validate'>
+        <form action="/users" method="POST"
+          oninput="password2.setCustomValidity(password2.value != password1.value ? "Passwords do not match." : "")">
+          <div class="row">
+            <div class="input-field col l6 s12">
+              <label for="firstName">First Name: </label>
+              <input type="text" autofocus="true" required name="firstName" id="firstName" class="validate">
             </div>
           </div>
 
-          <div class='row'>
-            <div class='input-field col l6 s12'>
-              <label for='lastName'>Last Name: </label>
-              <input type='text' required name='lastName' id='lastName' class='validate'>
+          <div class="row">
+            <div class="input-field col l6 s12">
+              <label for="lastName">Last Name: </label>
+              <input type="text" required name="lastName" id="lastName" class="validate">
             </div>
           </div>
 
-          <div class='row'>
-            <div class='input-field col l6 s12'>
-              <label for='userName'>User Name: </label>
-              <input type='text' required name='userName' id='userName' class='validate'>
+          <div class="row">
+            <div class="input-field col l6 s12">
+              <label for="userName">User Name: </label>
+              <input type="text" required name="userName" id="userName" class="validate">
             </div>
           </div>
 
-          <div class='row'>
-            <div class='input-field col l6 s12'>
-              <label for='email'>Email: </label>
-              <input type='email' required name='email' id='email' class='validate'>
+          <div class="row">
+            <div class="input-field col l6 s12">
+              <label for="email">Email: </label>
+              <input type="email" required name="email" id="email" class="validate">
             </div>
           </div>
 
-          <div class='row'>
-            <div class='input-field  col l6 s12'>
-              <label for='password1'>Password: </label>
-              <input type='password' required name='password1' id='password1' class='validate'>
+          <div class="row">
+            <div class="input-field  col l6 s12">
+              <label for="password1">Password: </label>
+              <input type="password" required name="password1" id="password1" class="validate">
             </div>
           </div>
 
-          <div class='row'>
-            <div class='input-field c col l6 s12'>
-              <label for='password2'>Password Confirm: </label>
-              <input type='password' required name='password2' id='password2' class='validate'>
+          <div class="row">
+            <div class="input-field c col l6 s12">
+              <label for="password2">Password Confirm: </label>
+              <input type="password" required name="password2" id="password2" class="validate">
             </div>
           </div>
 
-          <div class='row center'>
-            <button class='submit btn waves-effect waves-light' type='submit' name='action'>Submit
-              <i class='material-icons right'>send</i>
+          <div class="row center">
+            <button class="submit btn waves-effect waves-light" type="submit" name="action">Submit
+              <i class="material-icons right">send</i>
             </button>
           </div>
         </form>
